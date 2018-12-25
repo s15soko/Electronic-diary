@@ -1,0 +1,48 @@
+
+#nav_bar
+{
+    width: 100%;
+    height: 80px;
+    background-image: linear-gradient(
+        #404040,
+        #474747
+    );
+    display: flex;
+    justify-content: center;
+    color: rgb(240, 240, 240);
+}
+#nav_bar > #nav_bar-content
+{
+    width: 1000px;
+    height: 100%;   
+
+    display: flex;
+    justify-content: space-between;
+}
+#nav_bar-content > .box
+{
+    width: 30%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+    flex-direction: column;
+    font-size: 18px;
+}
+#nav_bar .box span
+{
+    width: 100%;
+    padding: 0 20px;
+}
+#nav_bar .box img
+{
+    height: 80%;
+    max-width: 400px;
+    object-fit: contain;
+}
+#nav_bar .box a
+{
+    color: rgb(121, 150, 248);
+}

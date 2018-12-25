@@ -1,0 +1,61 @@
+table
+{
+    width: 100%;
+    
+}
+table thead
+{
+    color: white;
+    background-color: #55608f;
+    padding: 0;
+}
+table thead tr th
+{
+    padding: 10px 25px;
+    font-size: 19px;
+    background-color: #485179;
+}
+table tbody tr td
+{
+    padding: 6px 14px;
+    background-color: #929ac010;
+}
+table tbody tr .form_input-options
+{
+    padding: 5px;
+}
+
+
+
+
+
+
+#table_options
+{
+    width: 100%;
+    height: 40px;
+    padding: 2px;
+}
+#table_options button
+{
+    border: none;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+    background-color: #55608f;
+    color: white;
+    font-size: 15px;
+}
+
+.form_input-options button
+{
+    width: 72px;
+    cursor: pointer;
+}
+table .btn-link
+{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+

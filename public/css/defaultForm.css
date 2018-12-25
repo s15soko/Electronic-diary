@@ -1,0 +1,35 @@
+form
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+form div
+{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+form h2
+{
+    color: white;
+    background-color: #55608f;
+    padding: 5px 15px;
+}
+
+form input[type="text"], input[type="date"]
+{
+    font-size: 19px;
+    padding: 5px 15px;
+    width: 100%;
+}
+
+form input[type="submit"]
+{
+    background-color: #55608f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+}
