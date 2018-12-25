@@ -11,7 +11,7 @@
                 
             ?>
             </h3>
-            <small style="font-size: 16px;">dziennikElektryczny.pl</small>
+            <small style="font-size: 16px;">dziennikElektroniczny.pl</small>
         </div>
         <div class="box">
             <img src='assets/logo.png'/>
