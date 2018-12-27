@@ -33,3 +33,10 @@ form input[type="submit"]
     font-size: 18px;
     padding: 5px 10px;
 }
+
+form select
+{
+    width: 100%;
+    font-size: 19px;
+    padding: 5px 15px;
+}

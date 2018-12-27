@@ -23,6 +23,14 @@ if(!$session->checkIfIsAdmin())
 }
 
 
+// include src/Controller/schoolYearController
+require_once("src/Controller/schoolYearController.php");
+$schoolYearController = new schoolYearController();
+// get all school years for select options
+$schoolYears = $schoolYearController->returnAllschoolYears();
+
+
+
 // include src/Controller/termsController
 require_once("src/Controller/termsController.php");
 // create object for class termsController 
@@ -53,9 +61,9 @@ $form_builder->setHeaderText(
 $form_builder->setInputs(
     array(
         0 => array(
-            "type" => "text",
-            "placeholder" => "Rok szkolny",
+            "type" => "select",
             "name" => "rok_szkolny",
+            "options" => $schoolYears,
             "value" => $term_data['rok_szkolny']
         ),
         1 => array(

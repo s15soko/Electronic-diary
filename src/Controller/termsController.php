@@ -10,7 +10,7 @@ class termsController
     private $direction2 = "rok_szkolny";
 
 
-    // get terms from database
+    // get all terms from database and school year 
     public function getTerms()
     {
         try 
@@ -23,7 +23,9 @@ class termsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.id, r.rok_szkolny, s.semestr, s.data_od, s.data_do FROM semestr as s, rok_szkolny as r;");
+            $sql = $db->prepare("SELECT s.id, r.rok_szkolny, s.semestr, s.data_od, s.data_do 
+                            FROM $this->direction as s, $this->direction2 as r
+                            WHERE s.rok_szkolny = r.id;");
             $sql->execute();
 
             // fetch results
@@ -39,6 +41,42 @@ class termsController
             return false;
         }
     }
+
+    // get all terms by id
+    public function getTermsByID($year_id)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT s.id, r.rok_szkolny, s.semestr, s.data_od, s.data_do 
+            FROM $this->direction as s, $this->direction2 as r
+            WHERE s.rok_szkolny = :id
+            AND s.rok_szkolny = r.id ORDER BY s.data_od ASC");
+            $sql->bindValue(":id", $year_id, PDO::PARAM_INT);
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetchAll();
+            $db = null;
+
+            //return results
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+
 
     // delete 
     public function deleteRows($rows_id)
@@ -84,7 +122,10 @@ class termsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id;");
+            $sql = $db->prepare("SELECT s.*, rs.* FROM semestr AS s 
+                                INNER JOIN rok_szkolny AS rs ON 
+                                rs.id = s.rok_szkolny AND
+                                s.id = :id");
         
             $sql->bindValue(":id", $id, PDO::PARAM_STR);
             $sql->execute();

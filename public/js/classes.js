@@ -1,7 +1,5 @@
-
-
-// create form to add new learning direction
-function directionsFormBuilder()
+// create form to add new class
+function classFormBuilder()
 {
     // find form div
     var form = document.getElementById("newForm");
@@ -27,14 +25,14 @@ function directionsFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Nazwa: ";
+    h1.innerHTML = "Numer: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
     var input1 = document.createElement("input");
-    input1.setAttribute("name", "name");
-    input1.setAttribute("type", "text");
-    input1.setAttribute("placeholder", "Wprowadź nazwę kierunku");
+    input1.setAttribute("name", "number");
+    input1.setAttribute("type", "number");
+    input1.setAttribute("placeholder", "Wprowadź numer klasy");
     // append input1 to p1
     p1.appendChild(input1);
 
@@ -50,9 +48,9 @@ function directionsFormBuilder()
     p2.appendChild(h2);
     // create input 2
     var input2 = document.createElement("input");
-    input2.setAttribute("name", "short_name");
+    input2.setAttribute("name", "name");
     input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Wprowadź krótką nazwę");
+    input2.setAttribute("placeholder", "Wprowadź nazwe klasy");
     // append input2 to p2
     p2.appendChild(input2);
 
@@ -66,7 +64,7 @@ function directionsFormBuilder()
     // create input 3
     var input3 = document.createElement("input");
     input3.setAttribute("type", "submit");
-    input3.setAttribute("onclick", "addNewLearDirection()");
+    input3.setAttribute("onclick", "addNewClass()");
     input3.setAttribute("value", "Dodaj do bazy");
     // append input3 to p3
     p3.appendChild(input3);
@@ -74,18 +72,21 @@ function directionsFormBuilder()
 }
 
 
-// ajax for adding new learning direction
-function addNewLearDirection()
-{
-    var n1 = document.getElementsByName("name")[0].value;
-    var n2 = document.getElementsByName("short_name")[0].value;
 
+
+// ajax for adding new class
+function addNewClass()
+{
+    var n1 = document.getElementsByName("number")[0].value;
+    var n2 = document.getElementsByName("name")[0].value;
+
+    
     $.ajax({
         type: "post",
-        url: "public/ajax/admin/ajax_learningDirection-add.php",
+        url: "public/ajax/admin/ajax_class-add.php",
         data: ({
-            name: n1,
-            short: n2
+            number: n1,
+            name: n2
         }), 
         success: function()
         {
@@ -93,4 +94,5 @@ function addNewLearDirection()
             window.location.reload();
         }
     });
+    
 }

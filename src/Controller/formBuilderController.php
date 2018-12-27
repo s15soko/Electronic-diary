@@ -14,6 +14,9 @@ class formBuilderController
     // inputs in form
     private $inputs;
 
+    // select option
+    private $select_option;
+
 
 
     // table name in database

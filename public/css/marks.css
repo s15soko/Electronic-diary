@@ -1,0 +1,123 @@
+h1 
+{
+    width: 100%;
+    text-align: center;
+}
+
+#marks_container
+{
+    width: 100%;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    margin: 25px 0;
+}
+#marks_header
+{
+    width: 100%;
+    flex-direction: row;
+}
+.subject_box-header_short
+{
+    width: 150px;
+    background-color: #485179;
+    padding: 5px;
+    font-size: 19px;
+    color: white;
+}
+.header_text_box
+{
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#marks_body
+{
+    width: 100%;
+    flex-direction: column;
+}
+.marks_row
+{
+    width: 100%;
+    height: auto;
+    min-height: 38px;
+    display: flex;
+    flex-direction: row;
+    margin: 2px 0;
+}
+.subject_box
+{
+    width: 150px;
+    background-color: #414c7785;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.subject_box span
+{
+    width: 100%;
+    padding: 2px 3px;
+    display: block;
+    text-align: left;
+}
+.marks_box
+{
+    width: calc(100% - 190px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.last_mark_box
+{
+    width: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.mark
+{
+    width: 38px;
+    min-height: 38px;
+    border: 1px solid#414c7785;
+    cursor: pointer;
+    margin: 0 1px;
+    font-weight: 900;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+.small_win_data
+{
+    display: block;
+    position: fixed;
+    z-index: 100;
+    width: 240px;
+    height: auto;
+    border: 1px solid black;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.small_win_data p
+{
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.small_win_data p span
+{
+    width: 50%;
+
+}

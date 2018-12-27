@@ -10,7 +10,8 @@ class sessionManager
     {
         $_SESSION['active_user'] = true;
         $_SESSION['user'] = $session['login'];
-        $_SESSION['id_user'] = $session['id_uzytkownika'];
+        $_SESSION['id_user'] = $session['id'];
+        
 
         $role = new roleController();
         // set user role in session 
@@ -59,6 +60,19 @@ class sessionManager
             return false;
         }
     }
+
+    // check for moderator roles
+    public function checkIfIsModerator()
+    {
+        if(isset($_SESSION['role']) && $_SESSION['role'] === "MODERATOR")
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
     // set flash error message
     public function setFlashMessage($name)

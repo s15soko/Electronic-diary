@@ -25,14 +25,31 @@
                 }
             }
 
-            // input
-            echo "<input ";
-            foreach ($input as $key => $value) 
+
+            if($input['type'] !== 'select')
             {
-                // set input 
-                echo "$key = '$value'";      
+                // input
+                echo "<input ";
+                foreach ($input as $key => $value) 
+                {
+                    // set input 
+                    echo "$key = '$value'";      
+                }
+                echo ">";
             }
-            echo ">";
+
+            if($input['type'] === 'select')
+            {
+                echo "<select name='$input[name]'>";
+                    foreach($input['options'] as $key => $option)
+                    {
+                        echo "<option value='$option[id]'>$option[rok_szkolny]</option>";
+                    }
+                echo "</select>";
+            }
+
+
+            
             echo "</div>";
         }
         

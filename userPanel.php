@@ -87,6 +87,8 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                         echo $_SESSION['id_user'];
                         echo "<br/>";
                         echo $_SESSION['role'];
+                        echo "<pre>";
+                        print_r(scandir(session_save_path()));
                     ?>
 
 

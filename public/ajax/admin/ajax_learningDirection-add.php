@@ -5,6 +5,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
     $session = new sessionManager();
 
+    // if role !== ADMIN
     if(!$session->checkIfIsAdmin())
     {
         exit();
@@ -18,7 +19,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $name = $_POST['name'];
     $short = $_POST['short'];
 
-    // delete
-    $learningDirection->addNewDirection($name, $short);
+    // add
+    if(!$learningDirection->addNewDirection($name, $short))
+    {
+        // if something went wrong - show error message
+        $session->setFlashMessage("Wystapil blad!");
+    }
 }
 ?>

@@ -19,6 +19,7 @@ $directions = $obj->getLearningDirections();
 
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
+<link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/learningDirections.css"/>
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>

@@ -19,6 +19,7 @@ $terms = $termsController->getTerms();
 
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
+<link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/terms.css"/>
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
@@ -32,7 +33,7 @@ $terms = $termsController->getTerms();
 
     <div id="table_options">
         <button onclick="deleteRows('terms', 'ajax_terms-delete');">Usuń zaznaczone</button>
-        <button onclick="termsFormBuilder();">Dodaj nowy semestr</button>
+        <button onclick="termFormBuilder();">Dodaj nowy semestr</button>
     </div>
 
     <div id="newForm"></div>
@@ -50,6 +51,7 @@ $terms = $termsController->getTerms();
             <tr>
                 <th class="short_th">Opcje</th>
                 <th>Rok szkolny</th>
+                <th>Semestr</th>
                 <th>Data od</th>
                 <th>Data do</th>
             </tr>
@@ -67,6 +69,7 @@ $terms = $termsController->getTerms();
                                 <button><a class='btn-link' href='?ap=term&id=$term[id]'>Edytuj</a></button>
                             </td>";
                             echo "<td class='center_me'>$term[rok_szkolny]</td>";
+                            echo "<td class='center_me'>$term[semestr]</td>";
                             echo "<td class='center_me'>$term[data_od]</td>";
                             echo "<td class='center_me'>$term[data_do]</td>";
                         echo "</tr>";

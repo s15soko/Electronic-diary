@@ -14,7 +14,7 @@ require_once("../Manager/sessionManager.php");
 class loginController
 {
     // table in database
-    private $user = "dane_logowania";
+    private $user = "uzytkownik";
 
     // login 
     public function login($login, $password)
@@ -33,7 +33,7 @@ class loginController
 
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->user WHERE login = :login");
+            $sql = $db->prepare("SELECT id, login, password, role FROM $this->user WHERE login = :login");
 
             // bind value
             $sql->bindValue(":login", $login, PDO::PARAM_STR);

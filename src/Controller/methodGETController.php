@@ -11,11 +11,13 @@ if($session->checkIfIsAdmin())
         "terms" => "terms.php",
         "directions" => "learningDirections.php",
         "classes" => "classes.php",
-        "users" => "",
-        "subjects" => "",
+        "users" => "users.php",
+        "subjects" => "subjects.php",
 
+        // for edit
         "direction" => "editLearningDirection.php",
-        "term" => "editTerm.php"
+        "term" => "editTerm.php",
+        "class" => "editClass.php"
         
     );
 
