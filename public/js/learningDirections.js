@@ -94,3 +94,30 @@ function addNewLearDirection()
         }
     });
 }
+
+
+// ajax for edit / update learning direction data 
+function editLearningDirection()
+{
+    // get values
+    var eleN1 = document.getElementsByName("name")[0].value;
+    var eleN2 = document.getElementsByName("short")[0].value;
+    var id_learningdirection = document.getElementsByName("id")[0].value;
+
+    // start ajax
+    $.ajax({
+        type: "POST",
+        url: "public/ajax/admin/ajax_learningDirection-update.php",
+        data: ({
+            name: eleN1,
+            short: eleN2,
+            id: id_learningdirection
+        }),
+        success: function()
+        {
+            window.location.href = "?ap=directions";
+        }
+    });
+
+
+}

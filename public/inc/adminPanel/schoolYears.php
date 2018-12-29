@@ -9,12 +9,12 @@ if(!$session->checkIfIsAdmin())
 }
 
 
-// include src/Controller/subjectController
-require_once("src/Controller/subjectController.php");
-$subjectController = new subjectController();
-$subjects = $subjectController->getSubjects();
-
+// include src/Controller/schoolYearController
+require_once("src/Controller/schoolYearController.php");
+$schoolYearController = new schoolYearController();
+$schoolYears = $schoolYearController->returnAllschoolYears();
 ?>
+
 
 
 <!-- styles -->
@@ -23,7 +23,7 @@ $subjects = $subjectController->getSubjects();
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
-<script src="public/js/subjects.js"></script>
+<script src="public/js/schoolYears.js"></script>
 
 
 
@@ -31,8 +31,8 @@ $subjects = $subjectController->getSubjects();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('subjects', 'ajax_subjects-delete')">Usuń zaznaczone</button>
-        <button onclick="subjectFormBuilder();">Dodaj nowy przedmiot</button>
+        <button onclick="deleteRows('schoolyears', 'ajax_schoolYears-delete')">Usuń zaznaczone</button>
+        <button onclick="schoolYearFormBuilder();">Dodaj nowy rok szkolny</button>
     </div>
 
     <div id="newForm"></div>
@@ -49,26 +49,26 @@ $subjects = $subjectController->getSubjects();
         <thead>
             <tr>
                 <th class="short_th">Opcje</th>
-                <th>Kolejność</th>
-                <th>Krótka nazwa</th>
-                <th>Nazwa</th>
+                <th>Rok szkolny</th>
+                <th>Data od</th>
+                <th>Data do</th>
             </tr>
         </thead>
         <tbody>
             <form id="directions_form">
                 <?php 
-                if($subjects)
+                if($schoolYears)
                 {
-                    foreach ($subjects as $key => $subject) 
+                    foreach ($schoolYears as $key => $schoolYear) 
                     {
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
-                                <input type='checkbox' name='subjects' value='$subject[id]'/> 
-                                <button><a class='btn-link' href='?ap=subject&id=$subject[id]'>Edytuj</a></button>
+                                <input type='checkbox' name='schoolyears' value='$schoolYear[id]'/> 
+                                <button><a class='btn-link' href='?ap=schoolYear&id=$schoolYear[id]'>Edytuj</a></button>
                             </td>";
-                            echo "<td class='center_me'>$subject[kolejnosc]</td>";
-                            echo "<td class='center_me'>$subject[krotka_nazwa]</td>";
-                            echo "<td class='center_me'>$subject[nazwa]</td>";
+                            echo "<td class='center_me'>$schoolYear[rok_szkolny]</td>";
+                            echo "<td class='center_me'>$schoolYear[data_od]</td>";
+                            echo "<td class='center_me'>$schoolYear[data_do]</td>";
                         echo "</tr>";
                     }
                 }
@@ -81,3 +81,5 @@ $subjects = $subjectController->getSubjects();
     </table>
 
 </div>
+
+

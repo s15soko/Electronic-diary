@@ -11,8 +11,8 @@ if(!$session->checkIfIsAdmin())
 
 // include src/Controller/learningDirectionController
 require_once("src/Controller/learningDirectionController.php");
-$obj = new learningDirectionController();
-$directions = $obj->getLearningDirections();
+$learningDirectionController = new learningDirectionController();
+$directions = $learningDirectionController->getLearningDirections();
 ?>
 
 
@@ -20,7 +20,6 @@ $directions = $obj->getLearningDirections();
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
-<link rel="stylesheet" type="text/css" href="public/css/learningDirections.css"/>
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
@@ -33,7 +32,7 @@ $directions = $obj->getLearningDirections();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('directions', 'ajax_learningDirection-delete')">Usuń zaznaczone</button>
+        <button onclick="deleteRows('directions', 'ajax_learningDirections-delete')">Usuń zaznaczone</button>
         <button onclick="directionsFormBuilder();">Dodaj nowy kierunek</button>
     </div>
 
@@ -42,7 +41,7 @@ $directions = $obj->getLearningDirections();
     <?php
     if(isset($_SESSION['flashMessage']))
     {
-        echo "<span style='color: red; padding: 5px;'>". $_SESSION['flashMessage'] . "</span>";
+        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
         unset($_SESSION['flashMessage']);
     }
     ?>

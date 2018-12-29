@@ -1,7 +1,7 @@
 // global variable for checked rows
 var gCheckedRows = new Array();
-// array for options
-var gCheckedOptions = new Array();
+// array for filename
+var gFileName = new Array();
 // create alert object
 var alert = new myAlert();
 
@@ -27,7 +27,7 @@ function deleteRows(elementsName, fileName)
     // if myRows is not empty
     if(myRows.length != 0)
     {
-        gCheckedOptions = [fileName];
+        gFileName = [fileName];
         alert.render("Chcesz usunac <b>"+myRows.length+"</b> posty?");
     }
         
@@ -45,7 +45,7 @@ function returnOption(option)
         // delete from database ...
         $.ajax({
             type: "POST",
-            url: "public/ajax/admin/"+gCheckedOptions[0]+".php",
+            url: "public/ajax/admin/"+gFileName[0]+".php",
             data: ({id: gCheckedRows}), // take rows id from global variable
             success: function()
             {

@@ -1,16 +1,24 @@
-<?php
-// need $inputs, $method, $headertext
-?>
 
-<form <?php if($method) echo "action=$method"; ?>>
+<form id='editFormBuilder'<?php 
+    if(isset($method))
+    {
+        echo "method=$method";
+        echo " ";
+    }  
+
+    if(isset($js))
+    {
+        echo "onsubmit='$js'";
+    }
+
+    ?>
+    >
 
     <?php
     // show inputs
-    if($inputs)
+    if(isset($inputs) && $inputs)
     {
-
-        
-        foreach ($inputs as $key => $input) 
+        foreach ($inputs as $m_key => $input) 
         {
             echo "<div>";
             // header text
@@ -18,13 +26,12 @@
             {
                 foreach ($headertext as $header_key => $header_text) 
                 {
-                    if($header_key === $key)
+                    if($header_key === $m_key)
                     {
                         echo "<h2>$header_text</h2>";
                     }
                 }
             }
-
 
             if($input['type'] !== 'select')
             {
@@ -38,24 +45,28 @@
                 echo ">";
             }
 
+            // input for select
             if($input['type'] === 'select')
             {
                 echo "<select name='$input[name]'>";
+                
                     foreach($input['options'] as $key => $option)
                     {
-                        echo "<option value='$option[id]'>$option[rok_szkolny]</option>";
+                        echo "<option value='$option[id]'>";
+                            foreach ($name_options as $key => $opt_name) 
+                            {
+                                if($m_key === $key)
+                                {
+                                    echo $option[$opt_name];
+                                }
+                            }
+                        echo "</option>"; 
                     }
+
                 echo "</select>";
             }
-
-
-            
             echo "</div>";
         }
-        
-
     }
-
     ?>
-
 </form>

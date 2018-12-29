@@ -13,18 +13,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
 
-    // include src/Controller/learningDirectionController
-    include_once(dirname(__FILE__)."/../../../src/Controller/learningDirectionController.php");
-    $learningDirectionController = new learningDirectionController();
+    // include src/Controller/termsController
+    include_once(dirname(__FILE__)."/../../../src/Controller/termsController.php");
+    $termsController = new termsController();
 
     
     // take array from ajax action
-    $name = $_POST['name'];
-    $short = $_POST['short'];
+    $year = $_POST['year'];
+    $term = $_POST['term'];
+    $df = $_POST['date_f'];
+    $dt = $_POST['date_t'];
 
 
     // add new learning direction
-    if(!$learningDirectionController->addNewDirection($name, $short))
+    if(!$termsController->addNewTerm($year, $term, $df, $dt))
     {
         // if something went wrong - show error message
         $session->setFlashMessage("Wystapil blad!");

@@ -30,7 +30,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
     <script src="public/js/jQuery.js"></script>
 
 </head>
-<body>
+<body onload='displayClock();'>
     <?php
     // show nav bar
     include_once(getcwd() ."/public/inc/userPanel/nav_bar.php");
@@ -45,23 +45,44 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                 <ul>
 
                     <a href='index.php'><li title="Strona główna">Strona główna</li></a>
-                    <?php       
-                    // show admin options 
+                    <?php    
+                    // show moderator options (+for ADMINISTRATOR)
+                    if($_SESSION['role'] === "MODERATOR" || $_SESSION['role'] === "ADMINISTRATOR")
+                    {
+                        ?>
+                        <li style='background-color: #C7C7C7; font-size: 15px;'>Opcje nauczyciela</li>
+                            <a href="?mp=marks"><li title="Wpisz ocene">Wpisz ocene</li></a>
+                            <a href="?mp=presences"><li title="Obecności">Obecności</li></a>
+                            <a href="?up=messages"><li title="Wiadomści">Wiadomości</li></a>
+                        <?php
+                    }
+                    // show ADMINISTRATOR options 
                     if($_SESSION['role'] === "ADMINISTRATOR")
                     {
                         ?>
-                            <a href="?ap=terms"><li title="Semestry">Semestry</li></a>
-                            <a href="?ap=directions"><li title="Kierunki">Kierunki</li></a>
-                            <a href="?ap=classes"><li title="Klasy">Klasy</li></a>
+                            <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Opcje administratora</li>
+                            <li>Przedmioty dla grupy</li>
+                            <li>Uczeń w grupie</li>
+                            <li>Przedmioty dla nauczyciela</li>
+                            <a href="?ap=teachers"><li>Nauczyciele</li></a>
                             <a href="?ap=users"><li title="Uzytkownicy">Uzytkownicy</li></a>
-                            <a href="?ap=subjects"><li title="Przedmioty">Przedmioty</li></a>
+
+                            <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Dodatkowe opcje administratora</li>
+                            <a href="?ap=schoolyears"><li title="Rok szkolny">Rok szkolny</li></a>
+                            <a href="?ap=terms"><li title="Semestry">Semestry</li></a>
+                            <a href="?ap=classes"><li title="Klasy">Klasy</li></a> 
+                            <a href="?ap=groups"><li title="Grupy">Grupy</li></a>         
+                            <a href="?ap=directions"><li title="Kierunki">Kierunki</li></a>
+                            <a href="?ap=subjects"><li title="Przedmioty">Przedmioty</li></a> 
+                            
                         <?php
                     }
-                    // show user options
+                    // show USER options
                     if($_SESSION['role'] === "USER")
                     {
                         ?>
                             <a href="?up=marks"><li>Oceny</li></a>
+                            <a href="?up=messages"><li title="Wiadomści">Wiadomości</li></a>
                         <?php
                     }
                     ?>
@@ -87,6 +108,8 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                         echo $_SESSION['id_user'];
                         echo "<br/>";
                         echo $_SESSION['role'];
+                        echo "<pre>";
+                        echo $_SESSION['schoolrole'];
                         echo "<pre>";
                         print_r(scandir(session_save_path()));
                     ?>

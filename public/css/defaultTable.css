@@ -1,24 +1,30 @@
 table
 {
     width: 100%;
-    
+
 }
 table thead
 {
     color: white;
     background-color: #55608f;
     padding: 0;
+
 }
 table thead tr th
 {
+    white-space: nowrap;
     padding: 10px 25px;
     font-size: 19px;
     background-color: #485179;
+    position: sticky;
+    top: 0px;
 }
+
 table tbody tr td
 {
-    padding: 6px 14px;
+    padding: 4px 8px;
     background-color: #929ac010;
+    white-space: nowrap;
 }
 table tbody tr .form_input-options
 {
@@ -51,6 +57,7 @@ table tbody tr .form_input-options
 {
     width: 72px;
     cursor: pointer;
+    border: none;
 }
 table .btn-link
 {

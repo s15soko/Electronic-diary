@@ -4,6 +4,7 @@
     height: auto;
     border-bottom: 1px solid rgb(59, 0, 61);
     margin: 10px 0;
+    background-color: #48517940;
 }
 #container #newForm div
 {
@@ -19,6 +20,8 @@
     color: white;
     font-size: 22px;
     padding: 2px 10px;
+    width: min-content;
+    white-space: nowrap;
 }
 #container #newForm input[type="text"]
 {
@@ -55,3 +58,9 @@
     font-size: 19px;
 }
 
+#container #newForm select
+{
+    width: 100%;
+    font-size: 19px;
+    padding: 5px 10px;
+}

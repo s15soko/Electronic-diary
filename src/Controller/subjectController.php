@@ -54,7 +54,168 @@ class subjectController
         }
     }
 
+    // add new subject to database
+    public function addNewSubject($order, $short, $name)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
 
+            // sql
+            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :kolejnosc, :short, :sub_name);");
+            
+            $sql->bindValue(":kolejnosc", $order, PDO::PARAM_INT);
+            $sql->bindValue(":short", $short, PDO::PARAM_STR);
+            $sql->bindValue(":sub_name", $name, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            //return
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+    // get all subjects from database
+    public function getSubjects()
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY kolejnosc ASC;");
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetchAll();
+            $db = null;
+
+            //return results
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+    // get subject by id
+    public function getSubjectByID($subject_id)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id");
+            $sql->bindValue(":id", $subject_id, PDO::PARAM_INT);
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetch();
+            $db = null;
+
+            //return results
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+
+    // update subject
+    public function updateSubject($id, $order, $short, $name)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("UPDATE $this->direction SET kolejnosc = :order, krotka_nazwa = :short, nazwa = :subjectname WHERE id = :idsubject");
+            $sql->bindValue(":idsubject", $id, PDO::PARAM_INT);
+            $sql->bindValue(":order", $order, PDO::PARAM_INT);
+            $sql->bindValue(":short", $short, PDO::PARAM_STR);
+            $sql->bindValue(":subjectname", $name, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+
+    // delete subject row/rows
+    public function deleteRows($rows_id)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // foreach sql
+            foreach ($rows_id as $key => $value) 
+            {
+                $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
+         
+                $sql->bindValue(":id", $value, PDO::PARAM_INT);
+                $sql->execute();
+            }
+            // close connection
+            $db = null;
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+    // return table name
+    public function returnTableName()
+    {
+        return $this->direction;
+    }
 }
 
 ?>

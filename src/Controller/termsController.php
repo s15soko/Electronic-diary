@@ -42,6 +42,37 @@ class termsController
         }
     }
 
+    // add new term
+    public function addNewTerm($year, $term, $datef, $datet)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :yearid, :termstr, :datef, :datet);");
+            $sql->bindValue(":yearid", $year, PDO::PARAM_INT);
+            $sql->bindValue(":termstr", $term, PDO::PARAM_STR);
+            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
+            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
     // get all terms by id
     public function getTermsByID($year_id)
     {
@@ -95,7 +126,7 @@ class termsController
             {
                 $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
          
-                $sql->bindValue(":id", $value, PDO::PARAM_STR);
+                $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
             // close connection
@@ -122,12 +153,9 @@ class termsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.*, rs.* FROM semestr AS s 
-                                INNER JOIN rok_szkolny AS rs ON 
-                                rs.id = s.rok_szkolny AND
-                                s.id = :id");
+            $sql = $db->prepare("SELECT s.*, rs.id, rs.rok_szkolny FROM semestr AS s INNER JOIN rok_szkolny AS rs ON rs.id = s.rok_szkolny AND s.id = :id");
         
-            $sql->bindValue(":id", $id, PDO::PARAM_STR);
+            $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
             // close connection
             $db = null;
@@ -144,6 +172,39 @@ class termsController
             return false;
         }
     }
+
+    // update term
+    public function updateTerm($id, $year, $term, $datef, $datet)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("UPDATE $this->direction SET rok_szkolny = :yearid, semestr = :termstr, data_od = :datef, data_do = :datet WHERE id = :idterm");
+            $sql->bindValue(":idterm", $id, PDO::PARAM_INT);
+            $sql->bindValue(":yearid", $year, PDO::PARAM_INT);
+            $sql->bindValue(":termstr", $term, PDO::PARAM_STR);
+            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
+            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
 
     // return table name
     public function returnTableName()

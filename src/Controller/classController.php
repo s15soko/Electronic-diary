@@ -70,6 +70,39 @@ class classController
         }
     }
 
+    // return values via id
+    public function returnRow($id)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id");
+        
+            $sql->bindValue(":id", $id, PDO::PARAM_INT);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            // fetch result
+            $result = $sql->fetch();
+
+            //return result
+            return $result;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
     // delete class row/rows
     public function deleteRows($rows_id)
     {
@@ -87,7 +120,7 @@ class classController
             {
                 $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
          
-                $sql->bindValue(":id", $value, PDO::PARAM_STR);
+                $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
             // close connection
@@ -99,6 +132,42 @@ class classController
             //return $er->getMessage();
             return false;
         }
+    }
+
+    // update class
+    public function updateClass($id, $number, $name)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("UPDATE $this->direction SET numer = :numberclass, nazwa = :nameclass WHERE id = :idclass");
+            $sql->bindValue(":idclass", $id, PDO::PARAM_INT);
+            $sql->bindValue(":numberclass", $number, PDO::PARAM_INT);
+            $sql->bindValue(":nameclass", $name, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+    // return table name
+    public function returnTableName()
+    {
+        return $this->direction;
     }
 }
 

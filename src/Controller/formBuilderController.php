@@ -17,6 +17,11 @@ class formBuilderController
     // select option
     private $select_option;
 
+    // column name in options
+    private $name_options;
+
+    // js form option 
+    private $js_form;
 
 
     // table name in database
@@ -49,6 +54,21 @@ class formBuilderController
         $this->inputs = $inputs;
     }
 
+    // set name options
+    public function setNameOptions($name_options)
+    {
+        // convert $options to array
+        if(!is_array($name_options)) $name_options = array($name_options);
+        $this->name_options = $name_options;
+    }
+
+    // js form on click
+    public function setJsOnClick($js)
+    {
+        $this->js_form = $js;
+    }
+
+
 
 
     // gets
@@ -63,6 +83,14 @@ class formBuilderController
     public function getInputs()
     {
         return $this->inputs;
+    }
+    public function getNameOptions()
+    {
+        return $this->name_options;
+    }
+    public function getJs()
+    {
+        return $this->js_form;
     }
 
 }

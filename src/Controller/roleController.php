@@ -9,6 +9,14 @@ class roleController
         2 => "ADMINISTRATOR"
     );
 
+    private $schoolAvailableRoles = array(
+        0 => "UCZEN",
+        1 => "NAUCZYCIEL",
+        2 => "DYREKTOR"
+    );
+
+
+
     // found and return role for user
     public function setUserRole($role)
     {
@@ -28,7 +36,12 @@ class roleController
         return $this->availableRoles;
     }
 
-    
+    // return all school roles
+    public function returnSchoolRoles()
+    {
+        return $this->schoolAvailableRoles;
+    }
+
 
 }
 

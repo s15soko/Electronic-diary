@@ -20,7 +20,6 @@ $classes = $classController->getClasses();
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
-<link rel="stylesheet" type="text/css" href="public/css/class.css"/>
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
@@ -41,7 +40,7 @@ $classes = $classController->getClasses();
     <?php
     if(isset($_SESSION['flashMessage']))
     {
-        echo "<span style='color: red; padding: 5px;'>". $_SESSION['flashMessage'] . "</span>";
+        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
         unset($_SESSION['flashMessage']);
     }
     ?>

@@ -4,7 +4,7 @@ function termFormBuilder()
     // find form div
     var form = document.getElementById("newForm");
 
-
+    // if form is active turn it off
     var checkForm = form.querySelector(".activeNewForm");
     if(checkForm)
     {
@@ -29,14 +29,13 @@ function termFormBuilder()
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
-    var input1 = document.createElement("input");
+    var input1 = document.createElement("select");
+    input1.setAttribute("id", "termSelect");
     input1.setAttribute("name", "school_year");
-    input1.setAttribute("type", "text");
-    input1.setAttribute("placeholder", "Wprowadź rok szkolny");
     // append input1 to p1
     p1.appendChild(input1);
-
-
+    // get options 
+    getAllSchoolYears();
 
 
     // create paragraph 2
@@ -94,9 +93,6 @@ function termFormBuilder()
     // append input4 to p4
     p4.appendChild(input4);
 
- 
-
-
 
 
     // submit
@@ -112,6 +108,37 @@ function termFormBuilder()
     // append input5 to p5
     p5.appendChild(input5);
 
+    
+}
+
+
+// get by ajax data from database
+function getAllSchoolYears()
+{
+    // start ajax
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "public/ajax/admin/get/ajax_schoolYears-get.php",
+        success: function(data)
+        {
+            // find by id
+            var termSelect = document.getElementById("termSelect");
+            
+            // add options
+            data.forEach(element => 
+            {
+                // create element
+                var opt = document.createElement("option");
+                opt.setAttribute("value", element['id']);
+                opt.innerHTML = element['rok_szkolny'];
+                termSelect.appendChild(opt);
+
+
+            });
+        }
+    });
+    
 }
 
 
@@ -120,16 +147,22 @@ function termFormBuilder()
 // ajax for adding new term
 function addNewTerm()
 {
-    //var n1 = document.getElementsByName("name")[0].value;
-    //var n2 = document.getElementsByName("short_name")[0].value;
+    // get values
+    var n1 = document.getElementsByName("school_year")[0].value;
+    var n2 = document.getElementsByName("term")[0].value;
+    var n3 = document.getElementsByName("date_f")[0].value;
+    var n4 = document.getElementsByName("date_t")[0].value;
 
-    /*
+
+    // start ajax
     $.ajax({
         type: "post",
-        url: "public/ajax/admin/ajax_learningDirection-add.php",
+        url: "public/ajax/admin/ajax_term-add.php",
         data: ({
-            name: n1,
-            short: n2
+            year: n1,
+            term: n2,
+            date_f: n3,
+            date_t: n4
         }), 
         success: function()
         {
@@ -137,5 +170,37 @@ function addNewTerm()
             window.location.reload();
         }
     });
-    */
+    
+}
+
+
+
+// ajax for edit / update term data 
+function editTerm()
+{
+    // get values
+    var eleN1 = document.getElementsByName("rok_szkolny")[0].value;
+    var eleN2 = document.getElementsByName("semestr")[0].value;
+    var eleN3 = document.getElementsByName("data_f")[0].value;
+    var eleN4 = document.getElementsByName("data_t")[0].value;
+    var id_term = document.getElementsByName("id")[0].value;
+
+
+    // start ajax
+    $.ajax({
+        type: "POST",
+        url: "public/ajax/admin/ajax_term-update.php",
+        data: ({
+            year: eleN1,
+            term: eleN2,
+            df: eleN3,
+            dt: eleN4,
+            id: id_term
+        }),
+        success: function()
+        {
+            window.location.href = "?ap=terms";
+        }
+    });
+
 }

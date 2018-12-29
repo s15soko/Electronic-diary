@@ -11,20 +11,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         exit();
     }
 
+
     // include src/Controller/classController
     include_once(dirname(__FILE__)."/../../../src/Controller/classController.php");
     $classController = new classController();
 
 
-
     // take array from ajax action
     $rows_id = $_POST['id'];
 
-    // delete
+
+    // delete 
     if(!$classController->deleteRows($rows_id))
     {
         // if something went wrong - show error message
         $session->setFlashMessage("Wystapil blad!");
+    }
+    else 
+    {
+        $session->setFlashMessage("Usunieto z bazy!");
     }
 }
 ?>

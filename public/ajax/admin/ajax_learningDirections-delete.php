@@ -17,21 +17,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../src/Controller/learningDirectionController.php");
     $learningDirectionController = new learningDirectionController();
 
-    
+
     // take array from ajax action
-    $name = $_POST['name'];
-    $short = $_POST['short'];
+    $rows_id = $_POST['id'];
 
 
-    // add new learning direction
-    if(!$learningDirectionController->addNewDirection($name, $short))
+    // delete
+    if(!$learningDirectionController->deleteRows($rows_id))
     {
         // if something went wrong - show error message
         $session->setFlashMessage("Wystapil blad!");
     }
     else 
     {
-        $session->setFlashMessage("Dodano do bazy!");
+        $session->setFlashMessage("Usunieto z bazy!");
     }
 }
 ?>

@@ -1,3 +1,4 @@
+// function for term change
 function changeTerm(data)
 {
     opt = data.options[data.selectedIndex];
@@ -17,6 +18,7 @@ function changeTerm(data)
 
 function showMarkInformation(mark_data)
 {
+    /*
     var win = window;
 
     var mouse_x = win.event.screenX;
@@ -51,7 +53,7 @@ function showMarkInformation(mark_data)
         TNode[count] = document.createTextNode(apMe[count]);
         p[count].appendChild(TNode[count]);
     }
-
+*/
     
 }
 

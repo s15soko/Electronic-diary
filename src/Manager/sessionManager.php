@@ -11,6 +11,7 @@ class sessionManager
         $_SESSION['active_user'] = true;
         $_SESSION['user'] = $session['login'];
         $_SESSION['id_user'] = $session['id'];
+        $_SESSION['schoolrole'] = $session['rola_uzytkownika'];
         
 
         $role = new roleController();

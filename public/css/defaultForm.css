@@ -17,7 +17,7 @@ form h2
     padding: 5px 15px;
 }
 
-form input[type="text"], input[type="date"]
+form input[type="text"], input[type="date"], input[type="number"]
 {
     font-size: 19px;
     padding: 5px 15px;

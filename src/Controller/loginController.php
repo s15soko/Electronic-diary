@@ -33,7 +33,7 @@ class loginController
 
 
             // sql
-            $sql = $db->prepare("SELECT id, login, password, role FROM $this->user WHERE login = :login");
+            $sql = $db->prepare("SELECT id, login, password, rola_uzytkownika, role FROM $this->user WHERE login = :login");
 
             // bind value
             $sql->bindValue(":login", $login, PDO::PARAM_STR);

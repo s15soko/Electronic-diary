@@ -14,7 +14,7 @@ else
 
 
 // include src/Manager/sessionManager
-include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
+include_once(dirname(__FILE__)."/../../../../src/Manager/sessionManager.php");
 $session = new sessionManager();
 if(!$session->checkIfIsAdmin())
 {
@@ -26,22 +26,27 @@ if(!$session->checkIfIsAdmin())
 // include src/Controller/learningDirectionController
 require_once("src/Controller/learningDirectionController.php");
 // create object for class learningDirectionController 
-$obj = new learningDirectionController();
+$learningDirectionController = new learningDirectionController();
 // return post/row from database
-$direction_data = $obj->returnRow($id);
+$direction_data = $learningDirectionController->returnRow($id);
+
+
 // take table name
-$tablename = $obj->returnTableName();
+$tablename = $learningDirectionController->returnTableName();
 
 
 
 // include src/Controller/formBuilderController
-include_once(dirname(__FILE__)."/../../../src/Controller/formBuilderController.php");
+include_once(dirname(__FILE__)."/../../../../src/Controller/formBuilderController.php");
 // create form Builder Controller
 $form_builder = new formBuilderController();
+
+
 // set table name for form to update...
 $form_builder->setTableName($tablename);
-// set method for form
+// set 
 $form_builder->setFormMethod("POST");
+$form_builder->setJsOnClick("editLearningDirection();");
 $form_builder->setHeaderText(
     array(
         0 => "Nazwa:",
@@ -63,6 +68,11 @@ $form_builder->setInputs(
             "value" => $direction_data['krotka_nazwa']  
         ),
         2 => array(
+            "type" => "hidden",
+            "name" => "id",
+            "value" => $id
+        ),
+        3 => array(
             "type" => "submit",
             "name" => "submit",
             "value" => "Aktualizuj"
@@ -74,14 +84,15 @@ $form_builder->setInputs(
 $method = $form_builder->getMethod();
 $headertext = $form_builder->getHeaderText();
 $inputs = $form_builder->getInputs();
-
+$js = $form_builder->getJs();
 ?>
 
 
 
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultForm.css"/>
-<link rel="stylesheet" type="text/css" href="public/css/learningDirections.css"/>
+<!-- scripts -->
+<script src="public/js/LearningDirections.js"></script>
 
 
 
@@ -90,7 +101,7 @@ $inputs = $form_builder->getInputs();
 
     <?php
         // include src/Builder/formBuilder
-        include_once(dirname(__FILE__)."/../../../src/Builder/formBuilder.php");
+        include_once(dirname(__FILE__)."/../../../../src/Builder/formBuilder.php");
     ?>
 
 

@@ -38,6 +38,8 @@ $marksController = new marksController();
 <link rel="stylesheet" type="text/css" href="public/css/marks.css"/>
 <!-- scripts -->
 <script src="public/js/marks.js"></script>
+<script src="public/js/rowsColor.js"></script>
+
 
 
 <!-- panel box -->
@@ -154,26 +156,11 @@ $marksController = new marksController();
                 echo "</div>";   
             }
             ?> 
-            <script>
-
-                var marks_row = document.querySelectorAll(".marks_row");
-                var counter = 0;
-                marks_row.forEach(element => 
-                {
-                    if(counter == 0)
-                    {
-                        element.style.backgroundColor = '#EBEBEB';
-                        counter++;
-                    }
-                    else
-                    {
-                        element.style.backgroundColor = '#F3F3F3';
-                        counter = 0;
-                    }
-                    
-                });
-                
-            </script>
+            
         </div>
     </div>
 </div>
+
+<script>
+colorMyRows("marks_row");
+</script>

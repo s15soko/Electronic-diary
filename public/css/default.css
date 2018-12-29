@@ -8,11 +8,38 @@
 
 
 
+.center_me
+{
+    text-align: center;
+}
+
+.short_th
+{
+    width: 80px;
+}
+
+.darker_th, .darker_td
+{
+    background-color: #384270;
+    color: white;
+    letter-spacing: 4px;
+    padding: 0 15px;
+    text-align: justify;
+}
 
 
 
 
 
+.flash_message
+{
+    background-color:#42000080;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    display: block;
+    padding: 12px 8px;
+    font-weight: bold;
+}
 
 
 

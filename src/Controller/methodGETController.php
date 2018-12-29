@@ -8,19 +8,25 @@ if($session->checkIfIsAdmin())
 {
     //gets array
     $GETS = array(
-        "terms" => "terms.php",
-        "directions" => "learningDirections.php",
-        "classes" => "classes.php",
+        "teachers" => "teachers.php",
         "users" => "users.php",
+        "schoolyears" => "schoolYears.php",
+        "terms" => "terms.php",
+        "classes" => "classes.php",
+        "groups" => "groups.php",
+        "directions" => "learningDirections.php",
         "subjects" => "subjects.php",
 
         // for edit
-        "direction" => "editLearningDirection.php",
-        "term" => "editTerm.php",
-        "class" => "editClass.php"
-        
-    );
+        "user" => "edit/editUser.php",
 
+        "schoolYear" => "edit/editSchoolYear.php",
+        "term" => "edit/editTerm.php",
+        "class" => "edit/editClass.php", 
+        "group" => "",
+        "direction" => "edit/editLearningDirection.php",
+        "subject" => "edit/editSubject.php"
+    );
     // GET for admin panel
     if(isset($_GET["ap"]))
     {
@@ -35,12 +41,20 @@ if($session->checkIfIsAdmin())
                 include("public/inc/adminPanel/".$GET);
                 exit();
             }
-            else {
+            else 
+            {
                 // 
             }
         }
     }
 }
+
+
+
+
+
+
+
 
 // check GET for user...
 //gets array
@@ -61,13 +75,10 @@ if(isset($_GET["up"]))
             include("public/inc/userPanel/".$GET);
             exit();
         }
-        else {
+        else 
+        {
             // 
         }
     }
 }
-
-
-
-
 ?>

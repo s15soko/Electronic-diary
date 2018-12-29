@@ -19,17 +19,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     // take array from ajax action
     $number = $_POST['number'];
     $name = $_POST['name'];
-
+    $id = $_POST['id'];
     
-    // add new class
-    if(!$classController->addNewClass($number, $name))
+    // update term
+    if(!$classController->updateClass($id, $number, $name))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad!");
+        $session->setFlashMessage("Wystapil blad podczas aktualizacji!");
     }
-    else 
+    else
     {
-        $session->setFlashMessage("Dodano do bazy!");
+        $session->setFlashMessage("Zaktualizowano pomyslnie!");
     }
 }
 ?>

@@ -11,8 +11,9 @@ if(!$session->checkIfIsAdmin())
 // include src/Controller/userDataController
 require_once("src/Controller/userDataController.php");
 $userDataController = new userDataController();
-$users = $userDataController->getAllUsers();
+$teachers = $userDataController->getAllTeachers();
 ?>
+
 
 
 <!-- styles -->
@@ -21,17 +22,15 @@ $users = $userDataController->getAllUsers();
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
-<script src="public/js/users.js"></script>
 <script src="public/js/rowsColor.js"></script>
+
 
 
 <!-- panel box -->
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('users', 'ajax_users-delete');">Usuń zaznaczone</button>
-        <button onclick="userFormBuilder();">Dodaj nowego uzytkownika</button>
-        <button>Wyszukaj</button>
+        <button onclick="deleteRows('teachers', 'ajax_teachers-update');">Ustaw jako uczeń</button>
     </div>
 
     <div id="newForm"></div>
@@ -64,28 +63,25 @@ $users = $userDataController->getAllUsers();
         <tbody>
             <form id="terms_form">
                 <?php 
-                if($users)
+                if($teachers)
                 {
-                    foreach ($users as $key => $user) 
+                    foreach ($teachers as $key => $teacher) 
                     {
                         echo "<tr class='users_row'>";
-
                             echo "<td class='form_input-options'> 
-                                <input type='checkbox' name='users' value='$user[id]'/> 
-                                <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edytuj</a></button>
+                                <input type='checkbox' name='teachers' value='$teacher[id]'/> 
+                                <button><a class='btn-link' href='?ap=user&id=$teacher[id]'>Edytuj</a></button>
                             </td>";
-
-                            echo "<td class='center_me'>$user[imie]</td>";
-                            echo "<td class='center_me'>$user[nazwisko]</td>";
-                            echo "<td class='center_me'>$user[rola_uzytkownika]</td>";
-                            echo "<td class='center_me'>$user[email]</td>";
-                            echo "<td class='center_me darker_td'>$user[PIN]</td>";
-                            echo "<td class='center_me'>$user[adres]</td>";
-                            echo "<td class='center_me'>$user[kontakt]</td>";
-                            echo "<td class='center_me'>$user[data_urodzenia]</td>";
-                            echo "<td class='center_me darker_td'>$user[login]</td>";
-                            echo "<td class='center_me darker_td'>$user[role]</td>";
-
+                            echo "<td class='center_me'>$teacher[imie]</td>";
+                            echo "<td class='center_me'>$teacher[nazwisko]</td>";
+                            echo "<td class='center_me'>$teacher[rola_uzytkownika]</td>";
+                            echo "<td class='center_me'>$teacher[email]</td>";
+                            echo "<td class='center_me darker_td'>$teacher[PIN]</td>";
+                            echo "<td class='center_me'>$teacher[adres]</td>";
+                            echo "<td class='center_me'>$teacher[kontakt]</td>";
+                            echo "<td class='center_me'>$teacher[data_urodzenia]</td>";
+                            echo "<td class='center_me darker_td'>$teacher[login]</td>";
+                            echo "<td class='center_me darker_td'>$teacher[role]</td>";
                         echo "</tr>";
                         
                     }

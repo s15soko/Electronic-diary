@@ -28,11 +28,35 @@
                 ?>
 
             </span>
-            <span>
-                <?php
-                $date = new DateTime();
-                echo $date->format('H:i:s');
-                ?>
+            <span id='myClockSPAN'>
+                <script>
+                
+                    function waitSecond()
+                    {
+                        var waitTime = 1000;
+                        time=setTimeout('displayClock()', waitTime)
+                    }
+
+                    function addZero(data)
+                    {
+                        if(data < 10)
+                        {
+                            data = "0" + data;
+                        } 
+                        return data;
+                    }
+
+                    function displayClock()
+                    {
+                        var date = new Date();
+                        h = addZero(date.getHours());
+                        m = addZero(date.getMinutes());
+                        s = addZero(date.getSeconds());
+                        document.getElementById("myClockSPAN").innerHTML = h+":"+m+":"+s;
+                        waitSecond();
+                    }
+
+                </script>
             </span>
             <span>
                 <a href="public/inc/destroySession.php">Wyloguj</a>

@@ -88,7 +88,7 @@ class learningDirectionController
             // sql
             $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id;");
          
-            $sql->bindValue(":id", $id, PDO::PARAM_STR);
+            $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
             // close connection
             $db = null;
@@ -105,6 +105,38 @@ class learningDirectionController
             return false;
         }
     }
+
+
+    // update subject
+    public function updateDirection($id, $name, $short)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("UPDATE $this->direction SET nazwa_kierunku = :directionname, krotka_nazwa = :short WHERE id = :iddirection");
+            $sql->bindValue(":iddirection", $id, PDO::PARAM_INT);
+            $sql->bindValue(":directionname", $name, PDO::PARAM_STR);
+            $sql->bindValue(":short", $short, PDO::PARAM_STR);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
 
     // delete direction row/rows
     public function deleteRows($rows_id)
@@ -123,7 +155,7 @@ class learningDirectionController
             {
                 $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
          
-                $sql->bindValue(":id", $value, PDO::PARAM_STR);
+                $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
             // close connection

@@ -72,15 +72,13 @@ function classFormBuilder()
 }
 
 
-
-
 // ajax for adding new class
 function addNewClass()
 {
     var n1 = document.getElementsByName("number")[0].value;
     var n2 = document.getElementsByName("name")[0].value;
 
-    
+    // start ajax
     $.ajax({
         type: "post",
         url: "public/ajax/admin/ajax_class-add.php",
@@ -95,4 +93,28 @@ function addNewClass()
         }
     });
     
+}
+
+
+function editClass()
+{
+    //
+    var eleN1 = document.getElementsByName("number")[0].value;
+    var eleN2 = document.getElementsByName("name")[0].value;
+    var id_class = document.getElementsByName("id")[0].value;
+    
+    // start ajax
+    $.ajax({
+        type: "POST",
+        url: "public/ajax/admin/ajax_class-update.php",
+        data: ({
+            number: eleN1,
+            name: eleN2,
+            id: id_class
+        }),
+        success: function()
+        {
+            window.location.href = "?ap=classes";
+        }
+    });
 }

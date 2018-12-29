@@ -5,31 +5,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
     $session = new sessionManager();
 
+
     // if role !== ADMIN
     if(!$session->checkIfIsAdmin())
     {
         exit();
     }
 
-    // include src/Controller/classController
-    include_once(dirname(__FILE__)."/../../../src/Controller/classController.php");
-    $classController = new classController();
+
+    // include src/Controller/schoolYearController
+    include_once(dirname(__FILE__)."/../../../src/Controller/schoolYearController.php");
+    $schoolYearController = new schoolYearController();
 
 
     // take array from ajax action
-    $number = $_POST['number'];
-    $name = $_POST['name'];
+    $rows_id = $_POST['id'];
 
     
-    // add new class
-    if(!$classController->addNewClass($number, $name))
+    // delete
+    if(!$schoolYearController->deleteRows($rows_id))
     {
         // if something went wrong - show error message
         $session->setFlashMessage("Wystapil blad!");
     }
     else 
     {
-        $session->setFlashMessage("Dodano do bazy!");
+        $session->setFlashMessage("Usunieto z bazy!");
     }
 }
 ?>
