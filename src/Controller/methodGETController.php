@@ -8,8 +8,12 @@ if($session->checkIfIsAdmin())
 {
     //gets array
     $GETS = array(
+        "groupSubjects" => "groupSubjects.php",
+        "userGroup" => "userGroup.php",
+        "teacherSubjects" => "teacherSubjects.php",
         "teachers" => "teachers.php",
         "users" => "users.php",
+
         "schoolyears" => "schoolYears.php",
         "terms" => "terms.php",
         "classes" => "classes.php",
@@ -17,13 +21,19 @@ if($session->checkIfIsAdmin())
         "directions" => "learningDirections.php",
         "subjects" => "subjects.php",
 
-        // for edit
+
+
+        // GET for edit
+        "editGroupSubjects" => "edit/editGroupSubjects.php", // add subject to some group
+        "editUserGroup" => "edit/editUserGroup.php", // add user to some group
+        // teacher subject no edit page
+        // teacher => editUser
         "user" => "edit/editUser.php",
 
         "schoolYear" => "edit/editSchoolYear.php",
         "term" => "edit/editTerm.php",
         "class" => "edit/editClass.php", 
-        "group" => "",
+        "group" => "edit/editGroup.php",
         "direction" => "edit/editLearningDirection.php",
         "subject" => "edit/editSubject.php"
     );
@@ -50,6 +60,39 @@ if($session->checkIfIsAdmin())
 }
 
 
+// check GET for moderator or admin
+if($session->checkIfIsModerator() || $session->checkIfIsAdmin())
+{
+    //gets array
+    $GETS = array(
+        "marks" => "marks.php",
+
+        // GET for edit
+        
+
+    );
+    // GET for admin panel
+    if(isset($_GET["mp"]))
+    {
+        $link = $_GET['mp'];
+
+        // foreach for ap get
+        foreach($GETS as $key => $GET)
+        {
+            if($key === $link)
+            {
+                // include file 
+                include("public/inc/modPanel/".$GET);
+                exit();
+            }
+            else 
+            {
+                // 
+            }
+        }
+    }  
+}
+
 
 
 
@@ -59,7 +102,10 @@ if($session->checkIfIsAdmin())
 // check GET for user...
 //gets array
 $user_GETS = array(
-    "marks" => "marks.php"
+    "marks" => "marks.php",
+
+
+    "messages" => "messages.php"
 );
 // GET for user panel
 if(isset($_GET["up"]))

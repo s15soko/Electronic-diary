@@ -153,7 +153,9 @@ class termsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.*, rs.id, rs.rok_szkolny FROM semestr AS s INNER JOIN rok_szkolny AS rs ON rs.id = s.rok_szkolny AND s.id = :id");
+            $sql = $db->prepare("SELECT s.*, rs.id, rs.rok_szkolny FROM semestr AS s 
+                                INNER JOIN rok_szkolny AS rs 
+                                ON rs.id = s.rok_szkolny AND s.id = :id");
         
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();

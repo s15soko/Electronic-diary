@@ -33,7 +33,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
 <body onload='displayClock();'>
     <?php
     // show nav bar
-    include_once(getcwd() ."/public/inc/userPanel/nav_bar.php");
+    include_once(getcwd() ."/public/inc/nav_bar.php");
     ?>
 
     <div id="panel_container">
@@ -61,9 +61,9 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                     {
                         ?>
                             <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Opcje administratora</li>
-                            <li>Przedmioty dla grupy</li>
-                            <li>Uczeń w grupie</li>
-                            <li>Przedmioty dla nauczyciela</li>
+                            <a href="?ap=groupSubjects"><li title="Przedmioty dla grupy">Przedmioty dla grupy</li></a>
+                            <a href="?ap=userGroup"><li title="Uczeń w grupie">Uczeń w grupie</li></a>
+                            <a href="?ap=teacherSubjects"><li title="Przedmioty dla nauczyciela">Przedmioty dla nauczyciela</li></a>
                             <a href="?ap=teachers"><li>Nauczyciele</li></a>
                             <a href="?ap=users"><li title="Uzytkownicy">Uzytkownicy</li></a>
 
@@ -81,7 +81,9 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                     if($_SESSION['role'] === "USER")
                     {
                         ?>
-                            <a href="?up=marks"><li>Oceny</li></a>
+                            <a href="?up=marks"><li title="Oceny">Oceny</li></a>
+                            <a href="?up=lessonplan"><li title="Plan lekcji">Plan lekcji</li></a>
+                            <a href="?up=ranking"><li title="Ranking">Ranking</li></a>
                             <a href="?up=messages"><li title="Wiadomści">Wiadomości</li></a>
                         <?php
                     }

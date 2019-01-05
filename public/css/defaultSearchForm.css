@@ -1,20 +1,19 @@
-#container #newForm
+#container #searchForm
 {
     width: 100%;
     height: auto;
-    border-bottom: 1px solid rgb(59, 0, 61);
     margin: 10px 0;
     background-color: #48517940;
 }
-#container #newForm div
+#container #searchForm div
 {
     padding: 5px 0;
 }
-#container #newForm p
+#container #searchForm p
 {
     margin: 10px 0;
 }
-#container #newForm h2
+#container #searchForm h2
 {
     background-color: rgb(6, 0, 61);
     color: white;
@@ -23,7 +22,7 @@
     width: min-content;
     white-space: nowrap;
 }
-#container #newForm input[type="text"]
+#container #searchForm input[type="text"]
 {
     width: 100%;
     height: auto;
@@ -31,7 +30,7 @@
     border: none;
     font-size: 19px;
 }
-#container #newForm input[type="number"]
+#container #searchForm input[type="number"]
 {
     width: 100%;
     height: auto;
@@ -39,7 +38,7 @@
     border: none;
     font-size: 19px;
 }
-#container #newForm input[type="submit"]
+#container #searchForm input[type="submit"]
 {
     background-color: rgb(3, 0, 32);
     color: white;
@@ -49,13 +48,13 @@
     padding: 5px 10px;
     transition: 0.3s;
 }
-#container #newForm input[type="submit"]:hover
+#container #searchForm input[type="submit"]:hover
 {
     color: rgb(255, 255, 255);
     background-color: rgb(39, 31, 109);
 }
 
-#container #newForm input[type="date"]
+#container #searchForm input[type="date"]
 {
     width: 100%;
     height: auto;
@@ -64,7 +63,7 @@
     font-size: 19px;
 }
 
-#container #newForm select
+#container #searchForm select
 {
     width: 100%;
     font-size: 19px;

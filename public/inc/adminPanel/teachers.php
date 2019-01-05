@@ -19,10 +19,12 @@ $teachers = $userDataController->getAllTeachers();
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
+<link rel="stylesheet" type="text/css" href="public/css/defaultSearchForm.css"/>
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
 <script src="public/js/rowsColor.js"></script>
+<script src="public/js/searchUser.js"></script>
 
 
 
@@ -31,8 +33,10 @@ $teachers = $userDataController->getAllTeachers();
 
     <div id="table_options">
         <button onclick="deleteRows('teachers', 'ajax_teachers-update');">Ustaw jako uczeń</button>
+        <button onclick="searchUser();">Wyszukaj</button>
     </div>
 
+    <div id="searchForm"></div>
     <div id="newForm"></div>
 
     <?php
@@ -61,7 +65,7 @@ $teachers = $userDataController->getAllTeachers();
             </tr>
         </thead>
         <tbody>
-            <form id="terms_form">
+            <form id="teachers_form">
                 <?php 
                 if($teachers)
                 {
@@ -73,7 +77,7 @@ $teachers = $userDataController->getAllTeachers();
                                 <button><a class='btn-link' href='?ap=user&id=$teacher[id]'>Edytuj</a></button>
                             </td>";
                             echo "<td class='center_me'>$teacher[imie]</td>";
-                            echo "<td class='center_me'>$teacher[nazwisko]</td>";
+                            echo "<td class='center_me userSurname'>$teacher[nazwisko]</td>";
                             echo "<td class='center_me'>$teacher[rola_uzytkownika]</td>";
                             echo "<td class='center_me'>$teacher[email]</td>";
                             echo "<td class='center_me darker_td'>$teacher[PIN]</td>";
@@ -87,7 +91,7 @@ $teachers = $userDataController->getAllTeachers();
                     }
                 }
                 else {
-                    echo "Brak polaczenia z baza!";
+                    echo "Brak danych!";
                 }
                 ?>
             </form>   

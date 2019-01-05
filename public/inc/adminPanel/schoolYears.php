@@ -55,7 +55,7 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
             </tr>
         </thead>
         <tbody>
-            <form id="directions_form">
+            <form id="schoolYears_form">
                 <?php 
                 if($schoolYears)
                 {
@@ -73,7 +73,7 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
                     }
                 }
                 else {
-                    echo "Brak polaczenia z baza!";
+                    echo "Brak danych!";
                 }
                 ?>
             </form>   

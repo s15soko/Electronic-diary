@@ -35,7 +35,7 @@ $marksController = new marksController();
 
 
 <!-- styles -->
-<link rel="stylesheet" type="text/css" href="public/css/marks.css"/>
+<link rel="stylesheet" type="text/css" href="public/css/umarks.css"/>
 <!-- scripts -->
 <script src="public/js/marks.js"></script>
 <script src="public/js/rowsColor.js"></script>

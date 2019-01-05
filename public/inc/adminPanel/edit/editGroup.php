@@ -4,7 +4,6 @@ if(isset($_GET['id']))
 {
     // save to id
     $id = $_GET['id'];
-    
 }
 else 
 {
@@ -23,23 +22,27 @@ if(!$session->checkIfIsAdmin())
     exit();
 }
 
+// include src/Controller/groupsController
+require_once("src/Controller/groupsController.php");
+// create object for class groupsController 
+$groupsController = new groupsController();
 
-// include src/Controller/schoolYearController
-require_once("src/Controller/schoolYearController.php");
-$schoolYearController = new schoolYearController();
+$group_data = $groupsController->returnRow($id);
+$tablename = $groupsController->returnTableName();
+
+
+// include src/Controller/classController
+require_once("src/Controller/classController.php");
+$classController = new classController();
 // get all school years for select options
-$schoolYears = $schoolYearController->returnAllschoolYears();
+$classes = $classController->getClasses();
 
 
-// include src/Controller/termsController
-require_once("src/Controller/termsController.php");
-// create object for class termsController 
-$termsController = new termsController();
-// return post/row from database
-$term_data = $termsController->returnRow($id);
-
-// take table name
-$tablename = $termsController->returnTableName();
+// include src/Controller/learningDirectionController
+require_once("src/Controller/learningDirectionController.php");
+$learningDirectionController = new learningDirectionController();
+// get all school years for select options
+$directions = $learningDirectionController->getLearningDirections();
 
 
 
@@ -50,47 +53,50 @@ include_once(dirname(__FILE__)."/../../../../src/Controller/formBuilderControlle
 $form_builder = new formBuilderController();
 
 
-// set table name for form to update...
 $form_builder->setTableName($tablename);
-// set
+//set
 $form_builder->setFormMethod("POST");
-$form_builder->setJsOnClick("editTerm();");
+$form_builder->setJsOnClick("editGroup();");
+
 $form_builder->setHeaderText(
     array(
-        0 => "Rok szkolny:",
-        1 => "Semestr:",
-        2 => "Data od:",
-        3 => "Data do:"
+        0 => "Nazwa",
+        1 => "Grupa",
+        2 => "Klasa",
+        3 => "Kierunek",
     )
 );
-$form_builder->setNameOptions(array(0 => "rok_szkolny"));
+$form_builder->setNameOptions(
+    array(
+        2 => "nazwa",
+        3 => "nazwa_kierunku"
+    )
+);
 $form_builder->setInputs(
     array(
         0 => array(
-            "type" => "select",
-            "name" => "rok_szkolny",
-            "options" => $schoolYears,
-            "value" => $term_data['rok_szkolny'],
+            "type" => "text",
+            "name" => "name",
+            "value" => $group_data['nazwa'],
             "required" => "required"   
         ),
         1 => array(
-            "type" => "text",
-            "placeholder" => "Semestr",
-            "name" => "semestr",
-            "value" => $term_data['semestr'],
-            "required" => "required"
+            "type" => "number",
+            "name" => "number",
+            "value" => $group_data['grupa'],
+            "required" => "required"   
         ),
         2 => array(
-            "type" => "date",
-            "placeholder" => "Data od",
-            "name" => "data_f",
-            "value" => $term_data['data_od']  
+            "type" => "select",
+            "name" => "classid",
+            "options" => $classes,
+            "value" => $group_data['klasa_id']
         ),
         3 => array(
-            "type" => "date",
-            "placeholder" => "Data do",
-            "name" => "data_t",
-            "value" => $term_data['data_do']  
+            "type" => "select",
+            "name" => "directionid",
+            "options" => $directions,
+            "value" => $group_data['kierunek_id']
         ),
         4 => array(
             "type" => "hidden",
@@ -104,6 +110,7 @@ $form_builder->setInputs(
         )
     )
 );
+
 // get
 $method = $form_builder->getMethod();
 $headertext = $form_builder->getHeaderText();
@@ -114,10 +121,13 @@ $js = $form_builder->getJs();
 
 
 
+
+
+
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultForm.css"/>
 <!-- scripts -->
-<script src="public/js/terms.js"></script>
+<script src="public/js/groups.js"></script>
 
 
 

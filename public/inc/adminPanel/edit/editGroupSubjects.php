@@ -1,6 +1,21 @@
 <?php
+// check if is set $_GET[id]
+if(isset($_GET['id']))
+{
+    // save to id
+    $id = $_GET['id'];
+    
+}
+else 
+{
+    // 
+    header("");
+    exit();
+}
+
+
 // include src/Manager/sessionManager
-include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
+include_once(dirname(__FILE__)."/../../../../src/Manager/sessionManager.php");
 $session = new sessionManager();
 if(!$session->checkIfIsAdmin())
 {
@@ -9,21 +24,25 @@ if(!$session->checkIfIsAdmin())
 }
 
 
-// include src/Controller/subjectController
-require_once("src/Controller/subjectController.php");
-$subjectController = new subjectController();
-$subjects = $subjectController->getSubjects();
+// include src/Controller/groupsController
+require_once("src/Controller/groupsController.php");
+$groupsController = new groupsController();
+$subjects = $groupsController->getGroupSubjects($id);
 
 ?>
+
+
+
 
 
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/defaultTable.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/defaultNewForm.css"/>
+
 <!-- scripts -->
 <script src="public/js/confirmWin.js"></script>
 <script src="public/js/deleteRows.js"></script>
-<script src="public/js/subjects.js"></script>
+<script src="public/js/groups.js"></script>
 
 
 
@@ -31,8 +50,8 @@ $subjects = $subjectController->getSubjects();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('subjects', 'ajax_subjects-delete')">Usuń zaznaczone</button>
-        <button onclick="subjectFormBuilder();">Dodaj nowy przedmiot</button>
+        <button onclick="deleteRows('groupSubjects', 'ajax_groupSubjects-delete');">Usuń przedmiot z grupy</button>
+        <button data-groupid='<?php echo $id; ?>' onclick="groupSubjectFormBuilder(this.getAttribute('data-groupid'));">Dodaj przedmiot do grupy</button>
     </div>
 
     <div id="newForm"></div>
@@ -45,31 +64,35 @@ $subjects = $subjectController->getSubjects();
     }
     ?>
 
+    
     <table>
         <thead>
             <tr>
                 <th class="short_th">Opcje</th>
                 <th>Kolejność</th>
                 <th>Krótka nazwa</th>
-                <th>Nazwa</th>
+                <th>nazwa</th>
             </tr>
         </thead>
         <tbody>
-            <form id="subjects_form">
+            <form id="groupSubjects_form">
                 <?php 
                 if($subjects)
                 {
                     foreach ($subjects as $key => $subject) 
                     {
-                        echo "<tr>";
+                        echo "<tr class='userInGroup'>";
+
                             echo "<td class='form_input-options'> 
-                                <input type='checkbox' name='subjects' value='$subject[id]'/> 
-                                <button><a class='btn-link' href='?ap=subject&id=$subject[id]'>Edytuj</a></button>
+                                <input type='checkbox' name='groupSubjects' value='$subject[id]'/> 
                             </td>";
+
                             echo "<td class='center_me'>$subject[kolejnosc]</td>";
                             echo "<td class='center_me'>$subject[krotka_nazwa]</td>";
                             echo "<td class='center_me'>$subject[nazwa]</td>";
+
                         echo "</tr>";
+                        
                     }
                 }
                 else {
@@ -79,5 +102,6 @@ $subjects = $subjectController->getSubjects();
             </form>   
         </tbody>
     </table>
+
 
 </div>

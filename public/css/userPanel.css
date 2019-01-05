@@ -27,7 +27,7 @@ body
     height: 100%;
 
     background-image: linear-gradient(
-        rgb(247, 247, 247),
+        rgb(252, 252, 252),
         rgb(255, 255, 255)
     );
     display: flex;

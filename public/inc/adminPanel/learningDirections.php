@@ -72,7 +72,7 @@ $directions = $learningDirectionController->getLearningDirections();
                     }
                 }
                 else {
-                    echo "Brak polaczenia z baza!";
+                    echo "Brak danych!";
                 }
                 ?>
             </form>   

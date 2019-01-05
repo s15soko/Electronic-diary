@@ -48,10 +48,15 @@
             // input for select
             if($input['type'] === 'select')
             {
-                echo "<select name='$input[name]'>";
+                echo "<select name='$input[name]' required>";
                 
+                    // set empty option
+                    echo "<option value='$input[value]'>Pozostaw to samo</option>";
+
+                    // set options...
                     foreach($input['options'] as $key => $option)
                     {
+                        
                         echo "<option value='$option[id]'>";
                             foreach ($name_options as $key => $opt_name) 
                             {

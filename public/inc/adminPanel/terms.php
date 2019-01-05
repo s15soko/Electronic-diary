@@ -75,7 +75,7 @@ $terms = $termsController->getTerms();
                     }
                 }
                 else {
-                    echo "Brak polaczenia z baza!";
+                    echo "Brak danych!";
                 }
                 ?>
             </form>   
