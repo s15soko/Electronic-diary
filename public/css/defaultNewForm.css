@@ -55,6 +55,16 @@
     background-color: rgb(39, 31, 109);
 }
 
+#container #newForm textarea
+{
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    width: 100%;
+    resize: vertical;
+    height: 80px;
+}
+
 #container #newForm input[type="date"]
 {
     width: 100%;

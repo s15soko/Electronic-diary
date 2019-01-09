@@ -95,17 +95,17 @@ if($session->checkIfIsModerator() || $session->checkIfIsAdmin())
 
 
 
-
-
-
-
 // check GET for user...
 //gets array
 $user_GETS = array(
     "marks" => "marks.php",
 
-
-    "messages" => "messages.php"
+    "ranking" => "ranking.php",
+    "messages" => "messages.php",
+    
+    // other
+    "sent_messages" => "sent_messages.php",
+    "my_messages" => "my_messages.php"
 );
 // GET for user panel
 if(isset($_GET["up"]))

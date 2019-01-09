@@ -50,7 +50,7 @@
             {
                 echo "<select name='$input[name]' required>";
                 
-                    // set empty option
+                    // set same value
                     echo "<option value='$input[value]'>Pozostaw to samo</option>";
 
                     // set options...

@@ -28,6 +28,8 @@ table tbody tr td
 }
 table tbody tr .form_input-options
 {
+    display: flex;
+    justify-content: center;
     padding: 2px;
 }
 

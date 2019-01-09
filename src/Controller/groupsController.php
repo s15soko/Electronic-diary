@@ -417,7 +417,7 @@ class groupsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM grupa WHERE id = :id;");
+            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id;");
         
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
@@ -436,6 +436,42 @@ class groupsController
             return false;
         }
     }
+
+    // return user group name
+    public function returnGroupName($userid)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("Brak polaczenia z baza!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT g.nazwa FROM $this->direction AS g
+                            INNER JOIN $this->direction4 AS uwg ON 
+                            g.id = uwg.grupa_id 
+                            AND uwg.uczen_id = :userid");
+        
+            $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
+            $sql->execute();
+            // close connection
+            $db = null;
+
+            // fetch result
+            $result = $sql->fetch();
+
+            //return result
+            return $result;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    } 
 
 
     // return table name

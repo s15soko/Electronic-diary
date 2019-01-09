@@ -12,8 +12,8 @@ function groupFormBuilder()
         return;
     }
     
-    // create div
-    var div = document.createElement("div");
+    // create div (form)
+    var div = document.createElement("form");
     div.setAttribute("class", "activeNewForm");
     // append div to form
     form.appendChild(div);
@@ -131,8 +131,8 @@ function userGroupFormBuilder()
          return;
      }
      
-     // create div
-     var div = document.createElement("div");
+     // create div (form)
+     var div = document.createElement("form");
      div.setAttribute("class", "activeNewForm");
      // append div to form
      form.appendChild(div);
@@ -271,7 +271,7 @@ function addNewSubjectToGroup(id)
             // reload
             window.location.reload();
         }
-    })
+    });
 }
 
 

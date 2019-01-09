@@ -13,8 +13,8 @@ function searchUser(row_name = "users_row")
         return;
     }
     
-    // create div
-    var div = document.createElement("div");
+    // create div (form)
+    var div = document.createElement("form");
     div.setAttribute("class", "activeSearchForm");
     // append div to form
     form.appendChild(div);

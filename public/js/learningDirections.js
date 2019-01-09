@@ -14,8 +14,8 @@ function directionsFormBuilder()
         return;
     }
     
-    // create div
-    var div = document.createElement("div");
+    // create div (form)
+    var div = document.createElement("form");
     div.setAttribute("class", "activeNewForm");
     // append div to form
     form.appendChild(div);
