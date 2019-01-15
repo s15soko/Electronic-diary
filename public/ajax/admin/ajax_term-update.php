@@ -27,11 +27,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$termsController->updateTerm($id, $year, $term, $df, $dt))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad podczas aktualizacji!");
+        $session->setFlashMessage("An occurred error during update!");
     }
     else
     {
-        $session->setFlashMessage("Zaktualizowano pomyslnie!");
+        $session->setFlashMessage("Update successful!");
     }
 }
 ?>

@@ -14,7 +14,7 @@ class formBuilderController
     // inputs in form
     private $inputs;
 
-    // select option
+    // select options
     private $select_option;
 
     // column name in options
@@ -42,7 +42,6 @@ class formBuilderController
     // form method
     public function setFormMethod($method)
     {
-        // convert $options to array
         $this->method = $method;
     }
     

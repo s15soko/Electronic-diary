@@ -40,8 +40,10 @@ class marksController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
+            // close connection
+            $db = null;
+            
             //return results
             return $results;
         } 
@@ -68,14 +70,11 @@ class marksController
                 "year" => $_GET['y'],
                 "term" => $_GET['t']
             ];
-
+            // return results
             return $results;
         }
         return false;
     }
 
-
 }
-
-
 ?>

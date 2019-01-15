@@ -29,10 +29,10 @@ $inbox = $messageController->showUserInbox($userid);
 <!-- panel box -->
 <div id="container">
 
-    <h1 class='center_me' style='margin-bottom: 25px;'>Twoja skrzynka odbiorcza</h1>
+    <h1 class='center_me' style='margin-bottom: 25px;'>Your inbox</h1>
 
     <div id="table_options">
-        <button onclick="deleteRows('userInbox', 'ajax_inboxMessages-delete');">Usuń zaznaczone</button>
+        <button onclick="deleteRows('userInbox', 'ajax_inboxMessages-delete');">Delete selected</button>
     </div>
 
     <?php
@@ -47,10 +47,10 @@ $inbox = $messageController->showUserInbox($userid);
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Nadawca</th>
-                <th>Temat</th>
-                <th>Data otrzymania</th>
+                <th class="short_th">Options</th>
+                <th>Sender</th>
+                <th>Title</th>
+                <th>Received date</th>
             </tr>
         </thead>
         <tbody>

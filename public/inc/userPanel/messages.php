@@ -57,27 +57,24 @@ $userid = $session->returnUserId();
 
     <div id="table_options">
 
-
-
         <?php if(!$session->checkIfIsAdmin() && !$session->checkIfIsModerator())
         {
             ?>
-                <button onclick="newMessageFormBuilderForUser();" style='padding: 10px 0;'>Wyslij nową wiadomość</button>
+                <button onclick="newMessageFormBuilderForUser();" style='padding: 10px 0;'>Send a new message</button>
             <?php
         }
         else
         {
             ?>
-                <button onclick="newMessageFormBuilderForTeacher(); style='padding: 10px 0;'">Wyslij nową wiadomość</button>
+                <button onclick="newMessageFormBuilderForTeacher(); style='padding: 10px 0;'">Send a new message</button>
             <?php
         }
         ?>
         
 
 
-        <button><a href='?up=sent_messages'>Wyslane wiadomosci</a></button>
-        <button><a href='?up=my_messages'>Skrzynka odbiorcza</a></button>
+        <button><a href='?up=sent_messages'>Sent messages</a></button>
+        <button><a href='?up=my_messages'>Inbox</a></button>
     </div>
-
 
 </div>

@@ -42,9 +42,11 @@ class rankingController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
-            //return result
+            // close connection
+            $db = null;
+           
+            //return results
             return $results;
         } 
         catch(PDOException $er) 
@@ -53,10 +55,5 @@ class rankingController
             return false;
         }  
     }
-
-
-
-
 }
-
 ?>

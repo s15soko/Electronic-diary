@@ -28,17 +28,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         if($groupsController->addNewGroup($name, $number, $classID, $directionID))
         {
-            $session->setFlashMessage("Dodano do bazy!");
+            $session->setFlashMessage("Added to the database!");
         }
         else
         {
-            $session->setFlashMessage("Wystapil blad!");
+            $session->setFlashMessage("An occurred error!");
         }
         
     }
     else 
     {
-        $session->setFlashMessage("Taka grupa juz istnieje!");
+        $session->setFlashMessage("This group is already exist!");
     }
 }
 ?>

@@ -45,10 +45,10 @@ $marksController = new marksController();
 <!-- panel box -->
 <div id="container">
 
-    <h1>Karta ucznia</h1>
+    <h1>Student card</h1>
 
 
-    <h3>Semestr</h3>
+    <h3>Term</h3>
     <select onchange='changeTerm(this);'>
         <?php    
         // variable for user marks 
@@ -114,7 +114,7 @@ $marksController = new marksController();
         <div id="marks_header">
             <div class='header_text_box'>
                 <div class='subject_box-header_short'>
-                    Przedmiot
+                    Subject
                 </div>
             </div>
         </div>

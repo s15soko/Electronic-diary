@@ -1,15 +1,14 @@
 <?php
 // include src/Entity/databaseConnent
 require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
-// include src/Manager/sessionManager
-require_once(dirname(__FILE__). "/../Manager/sessionManager.php");
-
 
 class schoolController
 {
     // table in database
     private $school = "szkola_informacje";
 
+
+    // return data 
     public function schoolInformation($param = 0)
     {
         $thing = "*";
@@ -33,8 +32,10 @@ class schoolController
 
             // fetch result
             $result = $sql->fetch();
-            $db = null;
 
+            // close connection
+            $db = null;
+            
             //return result
             return $result;
         } 

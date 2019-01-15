@@ -60,10 +60,10 @@ $form_builder->setJsOnClick("editGroup();");
 
 $form_builder->setHeaderText(
     array(
-        0 => "Nazwa",
-        1 => "Grupa",
-        2 => "Klasa",
-        3 => "Kierunek",
+        0 => "Name",
+        1 => "Group",
+        2 => "Class",
+        3 => "Direction",
     )
 );
 $form_builder->setNameOptions(
@@ -106,7 +106,7 @@ $form_builder->setInputs(
         5 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )
     )
 );

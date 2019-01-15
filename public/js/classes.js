@@ -4,8 +4,9 @@ function classFormBuilder()
     // find form div
     var form = document.getElementById("newForm");
 
-
+    // find elements
     var checkForm = form.querySelector(".activeNewForm");
+    // if element exist hide it
     if(checkForm)
     {
         form.removeChild(checkForm);
@@ -75,6 +76,7 @@ function classFormBuilder()
 // ajax for adding new class
 function addNewClass()
 {
+    // get
     var n1 = document.getElementsByName("number")[0].value;
     var n2 = document.getElementsByName("name")[0].value;
 
@@ -96,9 +98,10 @@ function addNewClass()
 }
 
 
+// ajax for update class
 function editClass()
 {
-    //
+    // get
     var eleN1 = document.getElementsByName("number")[0].value;
     var eleN2 = document.getElementsByName("name")[0].value;
     var id_class = document.getElementsByName("id")[0].value;

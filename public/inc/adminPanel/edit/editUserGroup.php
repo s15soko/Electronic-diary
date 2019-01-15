@@ -52,9 +52,9 @@ $users = $groupsController->getGroupUsers($id);
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('userGroup', 'ajax_userGroup-delete');">Usuń ucznia z grupy</button>
-        <button onclick="userGroupFormBuilder();">Dodaj ucznia do grupy</button>
-        <button onclick="searchUser('userInGroup');">Wyszukaj</button>
+        <button onclick="deleteRows('userGroup', 'ajax_userGroup-delete');">Delete student from group</button>
+        <button onclick="userGroupFormBuilder();">Add student to group</button>
+        <button onclick="searchUser('userInGroup');">Search</button>
     </div>
 
     <div id="searchForm"></div>
@@ -72,10 +72,10 @@ $users = $groupsController->getGroupUsers($id);
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Imie</th>
-                <th>Nazwisko</th>
-                <th>Rola</th>
+                <th class="short_th">Options</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>School role</th>
                 <th class='darker_th'>PIN</th>
             </tr>
         </thead>
@@ -90,7 +90,7 @@ $users = $groupsController->getGroupUsers($id);
 
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='userGroup' value='$user[id]'/> 
-                                <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edit</a></button>
                             </td>";
 
                             echo "<td class='center_me'>$user[imie]</td>";
@@ -103,7 +103,7 @@ $users = $groupsController->getGroupUsers($id);
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

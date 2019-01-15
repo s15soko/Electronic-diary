@@ -27,6 +27,8 @@ class userDataController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -52,11 +54,13 @@ class userDataController
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE rola_uzytkownika = 'NAUCZYCIEL' OR rola_uzytkownika = 'DYREKTOR' ORDER BY rola_uzytkownika");
+            $sql = $db->prepare("SELECT * FROM $this->direction WHERE rola_uzytkownika = 'TEACHER' OR rola_uzytkownika = 'DIRECTOR' ORDER BY rola_uzytkownika");
             $sql->execute();
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -86,7 +90,7 @@ class userDataController
             foreach ($rows_id as $key => $id) 
             {
                 $sql = $db->prepare("UPDATE $this->direction 
-                        SET rola_uzytkownika = 'UCZEN', 
+                        SET rola_uzytkownika = 'STUDENT', 
                         role = 'USER' 
                         WHERE id = :id");
                         
@@ -94,7 +98,7 @@ class userDataController
                 $sql->execute();
             }
             
-
+            // close connection
             $db = null;
 
             //return true
@@ -133,11 +137,12 @@ class userDataController
 
             // fetch result
             $result = $sql->fetch();
+
+            // close connection
             $db = null;
 
             //return result
             return $result;
-            
         } 
         catch(PDOException $er) 
         {
@@ -146,7 +151,8 @@ class userDataController
         }
     }
 
-    // delete direction row/rows
+
+    // delete user row/rows
     public function deleteUsers($users_id)
     {
         try 
@@ -166,8 +172,10 @@ class userDataController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+            
             return true;
         } 
         catch(PDOException $er) 

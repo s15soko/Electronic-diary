@@ -27,17 +27,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         if($subjectController->addNewTeacherSubject($teacherID, $subjectID))
         {
-            $session->setFlashMessage("Dodano do bazy!");
+            $session->setFlashMessage("Added to the database!");
         }
         else
         {
-            $session->setFlashMessage("Wystapil blad!");
+            $session->setFlashMessage("An occurred error!");
         }
         
     }
     else 
     {
-        $session->setFlashMessage("Taka kombinacja juz istnieje!");
+        $session->setFlashMessage("This combination is already exist!");
     }
 }
 ?>

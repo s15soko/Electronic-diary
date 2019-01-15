@@ -25,7 +25,7 @@ function newMessageFormBuilderForUser()
     // append it to form
     div.appendChild(p0);
     var h0 = document.createElement("h2");
-    h0.innerHTML = "Nadawcą jestes Ty";
+    h0.innerHTML = "You are the sender";
     p0.appendChild(h0);
 
 
@@ -35,7 +35,7 @@ function newMessageFormBuilderForUser()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Nauczyciel: ";
+    h1.innerHTML = "Teacher: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
@@ -54,14 +54,14 @@ function newMessageFormBuilderForUser()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Tytuł: ";
+    h2.innerHTML = "Title: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
     var input2 = document.createElement("input");
     input2.setAttribute("name", "title");
     input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Wprowadź tytuł dla wiadomości");
+    input2.setAttribute("placeholder", "Enter the title of message");
     // append input2 to p2
     p2.appendChild(input2);
 
@@ -73,14 +73,14 @@ function newMessageFormBuilderForUser()
     div.appendChild(p3);
     // create h2 text
     var h3 = document.createElement("h2");
-    h3.innerHTML = "Wiadomość";
+    h3.innerHTML = "Message";
     // append h3 to p3
     p3.appendChild(h3);
     // create input 3
     var input3 = document.createElement("textarea");
     input3.setAttribute("name", "content");
     input3.setAttribute("type", "text");
-    input3.setAttribute("placeholder", "Wiadomość...");
+    input3.setAttribute("placeholder", "Message...");
     // append input3 to p3
     p3.appendChild(input3);
 
@@ -107,7 +107,7 @@ function newMessageFormBuilderForUser()
     var input4 = document.createElement("input");
     input4.setAttribute("type", "submit");
     input4.setAttribute("onclick", "sendAMessage()");
-    input4.setAttribute("value", "Wyślij wiadomość");
+    input4.setAttribute("value", "Send a message");
     // append input4 to p4
     p4.appendChild(input4);
 }

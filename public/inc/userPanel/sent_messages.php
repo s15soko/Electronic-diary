@@ -31,10 +31,10 @@ $sentMessages = $messageController->showUserSentMessages($userid);
 <!-- panel box -->
 <div id="container">
 
-    <h1 class='center_me' style='margin-bottom: 25px;'>Twoja skrzynka nadawcza</h1>
+    <h1 class='center_me' style='margin-bottom: 25px;'>Your outbox</h1>
 
     <div id="table_options">
-        <button onclick="deleteRows('userSentMessages', 'ajax_sentMessages-delete');">Usuń zaznaczone</button>
+        <button onclick="deleteRows('userSentMessages', 'ajax_sentMessages-delete');">Delete selected</button>
     </div>
 
     <?php
@@ -49,10 +49,10 @@ $sentMessages = $messageController->showUserSentMessages($userid);
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Odbiorca</th>
-                <th>Temat</th>
-                <th>Data wysłania</th>
+                <th class="short_th">Options</th>
+                <th>Receiver</th>
+                <th>Title</th>
+                <th>Post date</th>
             </tr>
         </thead>
         <tbody>

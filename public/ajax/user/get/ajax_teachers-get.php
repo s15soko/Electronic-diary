@@ -11,15 +11,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         exit();
     }
 
-
-
     // include src/Controller/userDataController
     require_once(dirname(__FILE__)."/../../../../src/Controller/userDataController.php");
     $userDataController = new userDataController();
     // get all school years for select options
     $teachers = $userDataController->getAllTeachers();
-
-
     
     // return data
     if($teachers)

@@ -49,21 +49,21 @@ $form_builder->setFormMethod("POST");
 $form_builder->setJsOnClick("editLearningDirection();");
 $form_builder->setHeaderText(
     array(
-        0 => "Nazwa:",
-        1 => "Krótka nazwa:"
+        0 => "Name:",
+        1 => "Short name:"
     )
 );
 $form_builder->setInputs(
     array(
         0 => array(
             "type" => "text",
-            "placeholder" => "Nazwa kierunku",
+            "placeholder" => "Direction name",
             "name" => "name",
             "value" => $direction_data['nazwa_kierunku']
         ),
         1 => array(
             "type" => "text",
-            "placeholder" => "Krótka nazwa kierunku",
+            "placeholder" => "Direction short name",
             "name" => "short",
             "value" => $direction_data['krotka_nazwa']  
         ),
@@ -75,7 +75,7 @@ $form_builder->setInputs(
         3 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )
     )
 );
@@ -103,10 +103,5 @@ $js = $form_builder->getJs();
         // include src/Builder/formBuilder
         include_once(dirname(__FILE__)."/../../../../src/Builder/formBuilder.php");
     ?>
-
-
-
-
-
-
+    
 </div>

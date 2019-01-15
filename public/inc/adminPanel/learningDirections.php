@@ -32,8 +32,8 @@ $directions = $learningDirectionController->getLearningDirections();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('directions', 'ajax_learningDirections-delete')">Usuń zaznaczone</button>
-        <button onclick="directionsFormBuilder();">Dodaj nowy kierunek</button>
+        <button onclick="deleteRows('directions', 'ajax_learningDirections-delete')">Delete selected</button>
+        <button onclick="directionsFormBuilder();">Add new term</button>
     </div>
 
     <div id="newForm"></div>
@@ -49,9 +49,9 @@ $directions = $learningDirectionController->getLearningDirections();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Nazwa kierunku</th>
-                <th>Krótka nazwa</th>
+                <th class="short_th">Options</th>
+                <th>Term name</th>
+                <th>Short name</th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@ $directions = $learningDirectionController->getLearningDirections();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='directions' value='$direction[id]'/> 
-                                <button><a class='btn-link' href='?ap=direction&id=$direction[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=direction&id=$direction[id]'>Edit</a></button>
                             </td>";
                             echo "<td>$direction[nazwa_kierunku]</td>";
                             echo "<td class='center_me'>$direction[krotka_nazwa]</td>";
@@ -72,7 +72,7 @@ $directions = $learningDirectionController->getLearningDirections();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

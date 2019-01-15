@@ -2,6 +2,7 @@
 // include src/Manager/sessionManager
 include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
 $session = new sessionManager();
+
 if(!$session->checkIfIsAdmin())
 {
     header("location: index.php");
@@ -34,8 +35,8 @@ $teachers = $userDataController->getAllTeachers();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('teacherSubjects', 'ajax_teacherSubjects-delete');">Usuń prawa do przedmiotu</button>
-        <button onclick="teacherSubjectFormBuilder();">Dodaj przedmiot dla nauczyciela</button>
+        <button onclick="deleteRows('teacherSubjects', 'ajax_teacherSubjects-delete');">Delete rights to subject</button>
+        <button onclick="teacherSubjectFormBuilder();">Add subject for teacher</button>
     </div>
 
     <div id="newForm"></div>
@@ -54,7 +55,7 @@ $teachers = $userDataController->getAllTeachers();
         foreach ($teachers as $key => $teacher) 
         {
             // continue if role == administrator/admin
-            if($teacher['rola_uzytkownika'] === "DYREKTOR")
+            if($teacher['rola_uzytkownika'] === "DIRECTOR")
             {
                 continue;
             }
@@ -62,7 +63,7 @@ $teachers = $userDataController->getAllTeachers();
             <table>
                 <thead>
                     <tr>
-                        <th class="short_th">Opcje</th>
+                        <th class="short_th">Options</th>
                         <th>  
                             <?php 
                             echo $teacher['imie'];

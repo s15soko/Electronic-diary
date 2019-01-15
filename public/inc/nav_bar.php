@@ -11,14 +11,14 @@
                 
             ?>
             </h3>
-            <small style="font-size: 16px;">dziennikElektroniczny.pl</small>
+            <small style="font-size: 16px;">Electronic-diary.com</small>
         </div>
         <div class="box">
             <img src='assets/logo.png'/>
         </div>
         <div class="box">
             <span>
-                Witaj 
+                Hello 
                 <?php 
 
                     $user = new userDataController();
@@ -30,7 +30,7 @@
             </span>
             <span id='myClockSPAN'>
                 <script>
-                
+
                     function waitSecond()
                     {
                         var waitTime = 1000;
@@ -59,7 +59,7 @@
                 </script>
             </span>
             <span>
-                <a href="public/inc/destroySession.php">Wyloguj</a>
+                <a href="public/inc/destroySession.php">Log Out</a>
             </span>
         </div>
     </div>

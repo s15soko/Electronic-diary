@@ -54,6 +54,11 @@ table tbody tr .form_input-options
     color: white;
     font-size: 14px;
 }
+#table_options a
+{
+    color: white;
+}
+
 
 .form_input-options button
 {
@@ -61,6 +66,7 @@ table tbody tr .form_input-options
     cursor: pointer;
     border: none;
 }
+
 table .btn-link
 {
     text-decoration: none;

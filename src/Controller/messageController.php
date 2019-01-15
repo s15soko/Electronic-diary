@@ -33,14 +33,15 @@ class messageController
             // commit
             $db->commit();
 
-
+            // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
         {
             //return $er->getMessage();
-            //return false;
+            return false;
         }  
     }
 
@@ -58,9 +59,7 @@ class messageController
                 // return error
                 throw new PDOException("Brak polaczenia z baza!");       
             }
-            // else...
-
-
+            
             // sql
             // nadawca = user id 
             // inner join data about receiver user like name and surname
@@ -71,14 +70,14 @@ class messageController
             $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
             $sql->execute();
 
-            $db = null;
-
             // fetch results
             $results = $sql->fetchAll();
-            
 
-            return $results;
+            // close connection
+            $db = null;
             
+            // return results
+            return $results; 
         }   
         catch(PDOException $ex)
         {
@@ -101,8 +100,6 @@ class messageController
                 // return error
                 throw new PDOException("Brak polaczenia z baza!");       
             }
-            // else...
-
 
             // sql
             // odbiorca = user id 
@@ -114,12 +111,13 @@ class messageController
             $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
             $sql->execute();
 
-            $db = null;
-
             // fetch results
             $results = $sql->fetchAll();
-            
 
+            // close connection
+            $db = null;
+            
+            //return results
             return $results;
             
         }   
@@ -151,8 +149,10 @@ class messageController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
@@ -175,7 +175,7 @@ class messageController
                 throw new PDOException("Brak polaczenia z baza!");       
             }
 
-            // sql
+            // foreach sql
             foreach ($rows_id as $key => $value) 
             {
                 $sql = $db->prepare("DELETE FROM $this->direction2 WHERE id = :id");
@@ -183,8 +183,10 @@ class messageController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
@@ -193,9 +195,5 @@ class messageController
             return false;
         }
     }
-
-    
-
 }
-
 ?>

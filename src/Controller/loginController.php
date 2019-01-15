@@ -16,7 +16,7 @@ class loginController
     // table in database
     private $user = "uzytkownik";
 
-    // login 
+    // start login 
     public function login($login, $password)
     {
         try
@@ -29,10 +29,12 @@ class loginController
                 // return error
                 throw new PDOException("Brak polaczenia z baza!");       
             }
-            // else...
+            
 
 
             // sql
+            // select id, login, password, user role
+            // where login = input value
             $sql = $db->prepare("SELECT id, login, password, rola_uzytkownika, role FROM $this->user WHERE login = :login");
 
             // bind value
@@ -41,26 +43,30 @@ class loginController
 
             // fetch result
             $result = $sql->fetch();
+
+            // close connection
             $db = null;
 
             // if passwords are correct
+            // set user session
             if(password_verify($password, $result['password']))
             {
                 // set session for user
                 $session = new sessionManager();
                 $session->setSession($result);   
             }
-            else // if not 
+            else // if not = login error
             {
                 $result = null;
+
                 // return error
-                throw new PDOException("Bledne dane!");
+                throw new PDOException("Incorrect data!");
             }
             
         }   
         catch(PDOException $ex)
         {
-            // set db error and show index.php
+            // set error and load index.php
             $session = new sessionManager();
             $session->setLoginError($ex->getMessage());   
             Header("Location: ../../index.php"); 
@@ -68,7 +74,7 @@ class loginController
     }
 }
 
-//
+// values for form 
 $user = new loginController();
 $user->login($_POST['login'], $_POST['password']);
 

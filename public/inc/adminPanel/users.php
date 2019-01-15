@@ -26,41 +26,39 @@ $users = $userDataController->getAllUsers();
 <script src="public/js/rowsColor.js"></script>
 
 
+
 <!-- panel box -->
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('users', 'ajax_users-delete');">Usuń zaznaczone</button>
-        <button onclick="userFormBuilder();">Dodaj nowego uzytkownika</button>
-        <button onclick='searchUser();'>Wyszukaj</button>
+        <button onclick="deleteRows('users', 'ajax_users-delete');">Delete selected</button>
+        <button><a href='?ap=addNewUser'>Add new user</a></button>
+        <button onclick='searchUser();'>Search</button>
     </div>
 
     <div id="searchForm"></div>
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Imie</th>
-                <th>Nazwisko</th>
-                <th>Rola</th>
-                <th>Email</th>
+                <th class="short_th">Options</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>School role</th>
+                <th>E-mail</th>
                 <th class='darker_th'>PIN</th>
-                <th>Adres</th>
-                <th>Kontakt</th>
-                <th>Data urodzenia</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Date of birth</th>
                 <th>Login</th>
-                <th>role</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +72,7 @@ $users = $userDataController->getAllUsers();
 
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='users' value='$user[id]'/> 
-                                <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edit</a></button>
                             </td>";
 
                             echo "<td class='center_me'>$user[imie]</td>";
@@ -93,7 +91,7 @@ $users = $userDataController->getAllUsers();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

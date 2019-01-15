@@ -49,9 +49,9 @@ $form_builder->setFormMethod("POST");
 $form_builder->setJsOnClick("editSubject();");
 $form_builder->setHeaderText(
     array(
-        0 => "Kolejność",
-        1 => "Krótka nazwa",
-        2 => "Nazwa"
+        0 => "Order",
+        1 => "Short name",
+        2 => "Name"
     )
 );
 $form_builder->setInputs(
@@ -64,13 +64,13 @@ $form_builder->setInputs(
         1 => array(
             "type" => "text",
             "name" => "short",
-            "placeholder" => "Wprowadz krotka nazwe",
+            "placeholder" => "Enter short name",
             "value" => $subject_data['krotka_nazwa']
         ),
         2 => array(
             "type" => "text",
             "name" => "name",
-            "placeholder" => "Wprowadz nazwe",
+            "placeholder" => "Enter name",
             "value" => $subject_data['nazwa']
         ),
         4 => array(
@@ -81,7 +81,7 @@ $form_builder->setInputs(
         5 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )
     )
 );

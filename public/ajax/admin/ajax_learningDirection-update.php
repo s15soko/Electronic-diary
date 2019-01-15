@@ -26,11 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$learningDirectionController->updateDirection($id, $name, $short))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad!");
+        $session->setFlashMessage("An occurred error!");
     }
     else 
     {
-        $session->setFlashMessage("Zaktualizowano pomyslnie!");
+        $session->setFlashMessage("Update successful!");
     }
 }
 ?>

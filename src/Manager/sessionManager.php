@@ -6,6 +6,7 @@ include_once(dirname(__FILE__)."/../Controller/roleController.php");
 class sessionManager
 {
     // set session variables for user
+    // after logging in
     public function setSession($session)
     {
         $_SESSION['active_user'] = true;
@@ -20,11 +21,13 @@ class sessionManager
         header("Location: ../../index.php");
     }
 
-    // set error when login fail
+
+    // set error when login failed
     public function setLoginError($error)
     {
         $_SESSION['login_error'] = $error;
     }
+
 
     // destroy session
     public function destroySession()
@@ -32,7 +35,8 @@ class sessionManager
         session_destroy();
     }
 
-    // check for active session
+
+    // check if session is active
     public function checkIfIsActiveUserSession()
     {
         if(
@@ -50,6 +54,7 @@ class sessionManager
         }
     }
 
+
     // check for admin roles
     public function checkIfIsAdmin()
     {
@@ -61,6 +66,7 @@ class sessionManager
             return false;
         }
     }
+
 
     // check for moderator roles
     public function checkIfIsModerator()
@@ -81,6 +87,7 @@ class sessionManager
         $_SESSION['flashMessage'] = $name;
     }
 
+    
     // return user id (id_user)
     public function returnUserId()
     {

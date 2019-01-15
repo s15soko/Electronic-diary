@@ -26,11 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$subjectController->updateSubject($id, $order, $short, $name))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad podczas aktualizacji!");
+        $session->setFlashMessage("An occurred error during update!");
     }
     else
     {
-        $session->setFlashMessage("Zaktualizowano pomyslnie!");
+        $session->setFlashMessage("Update successful!");
     }
 }
 ?>

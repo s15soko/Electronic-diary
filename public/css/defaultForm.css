@@ -14,13 +14,13 @@ form h2
 {
     color: white;
     background-color: #55608f;
-    padding: 5px 15px;
+    padding: 2px 15px;
 }
 
 form input[type="text"], input[type="date"], input[type="number"]
 {
     font-size: 19px;
-    padding: 5px 15px;
+    padding: 2px 15px;
     width: 100%;
 }
 
@@ -31,12 +31,12 @@ form input[type="submit"]
     border: none;
     cursor: pointer;
     font-size: 18px;
-    padding: 5px 10px;
+    padding: 2px 10px;
 }
 
 form select
 {
     width: 100%;
     font-size: 19px;
-    padding: 5px 15px;
+    padding: 2px 15px;
 }

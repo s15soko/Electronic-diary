@@ -10,7 +10,7 @@ class schoolYearController
     private $direction = "rok_szkolny";
 
 
-    // return all rows
+    // return all rows (all school years)
     public function returnAllschoolYears()
     {
         try 
@@ -28,6 +28,8 @@ class schoolYearController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -57,19 +59,22 @@ class schoolYearController
             $sql->bindValue(":id", $schoolYear_id, PDO::PARAM_INT);
             $sql->execute();
 
-            // fetch results
-            $results = $sql->fetch();
+            // fetch result
+            $result = $sql->fetch();
+
+            // close connection
             $db = null;
 
-            //return results
-            return $results;
+            //return result
+            return $result;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
+
 
     // add new school year to database
     public function addNewSchoolYear($schoolyear, $datef, $datet)
@@ -90,6 +95,7 @@ class schoolYearController
             $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
             $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -104,7 +110,7 @@ class schoolYearController
     }
 
 
-    // update school year
+    // update school year row
     public function updateSchoolYear($id, $schoolYear, $datef, $datet)
     {
         try 
@@ -123,6 +129,7 @@ class schoolYearController
             $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
             $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -157,8 +164,10 @@ class schoolYearController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
@@ -174,6 +183,4 @@ class schoolYearController
         return $this->direction;
     }
 }
-
-
 ?>

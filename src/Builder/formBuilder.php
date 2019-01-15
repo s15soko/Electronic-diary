@@ -1,20 +1,22 @@
 
-<form id='editFormBuilder'<?php 
+<form id='editFormBuilder'
+
+<?php 
+
     if(isset($method))
     {
         echo "method=$method";
         echo " ";
     }  
 
-    if(isset($js))
-    {
-        echo "onsubmit='$js'";
-    }
 
+    if(isset($js)) echo "onsubmit='$js'";
     ?>
+
     >
 
-    <?php
+<?php
+
     // show inputs
     if(isset($inputs) && $inputs)
     {
@@ -33,7 +35,9 @@
                 }
             }
 
-            if($input['type'] !== 'select')
+
+            // input
+            if($input['type'] !== 'select' && $input['type'] !== 'selectrole')
             {
                 // input
                 echo "<input ";
@@ -45,13 +49,13 @@
                 echo ">";
             }
 
-            // input for select
+            // input for select (for edit pages)
             if($input['type'] === 'select')
             {
                 echo "<select name='$input[name]' required>";
                 
                     // set same value
-                    echo "<option value='$input[value]'>Pozostaw to samo</option>";
+                    echo "<option value='$input[value]'>Leave same value</option>";
 
                     // set options...
                     foreach($input['options'] as $key => $option)
@@ -70,8 +74,27 @@
 
                 echo "</select>";
             }
+
+            // input for select (for user register page)
+            if($input['type'] === 'selectrole')
+            {
+                echo "<select name='$input[name]' required>";
+                
+                    // set empty option
+                    echo "<option disabled selected value>Choose role</option>";
+
+                    // set options...
+                    foreach($input['options'] as $key => $option)
+                    {   
+                        echo "<option value='$option'>$option</option>";
+                    }
+
+                echo "</select>";
+            }
+
             echo "</div>";
-        }
-    }
-    ?>
+        } // end foreach
+    } // end if
+?>
+
 </form>

@@ -31,8 +31,8 @@ $terms = $termsController->getTerms();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('terms', 'ajax_terms-delete');">Usuń zaznaczone</button>
-        <button onclick="termFormBuilder();">Dodaj nowy semestr</button>
+        <button onclick="deleteRows('terms', 'ajax_terms-delete');">Delete selected</button>
+        <button onclick="termFormBuilder();">Add new term</button>
     </div>
 
     <div id="newForm"></div>
@@ -48,11 +48,11 @@ $terms = $termsController->getTerms();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Rok szkolny</th>
-                <th>Semestr</th>
-                <th>Data od</th>
-                <th>Data do</th>
+                <th class="short_th">Options</th>
+                <th>School year</th>
+                <th>Term</th>
+                <th>Date from</th>
+                <th>Date to</th>
             </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@ $terms = $termsController->getTerms();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='terms' value='$term[id]'/> 
-                                <button><a class='btn-link' href='?ap=term&id=$term[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=term&id=$term[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$term[rok_szkolny]</td>";
                             echo "<td class='center_me'>$term[semestr]</td>";
@@ -75,7 +75,7 @@ $terms = $termsController->getTerms();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

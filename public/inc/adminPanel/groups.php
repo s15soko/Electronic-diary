@@ -32,8 +32,8 @@ $groups = $groupsController->getGroups();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('groups', 'ajax_groups-delete');">Usuń zaznaczone</button>
-        <button onclick="groupFormBuilder();">Dodaj nową grupe</button>
+        <button onclick="deleteRows('groups', 'ajax_groups-delete');">Delete selected</button>
+        <button onclick="groupFormBuilder();">Add new group</button>
     </div>
 
     <div id="newForm"></div>
@@ -49,11 +49,11 @@ $groups = $groupsController->getGroups();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Nazwa</th>
-                <th class='short_th'>Grupa</th>
-                <th>Klasa</th>
-                <th>Kierunek</th>
+                <th class="short_th">Options</th>
+                <th>Name</th>
+                <th class='short_th'>Group</th>
+                <th>Class</th>
+                <th>Direction</th>
             </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@ $groups = $groupsController->getGroups();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='groups' value='$group[id]'/> 
-                                <button><a class='btn-link' href='?ap=group&id=$group[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=group&id=$group[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$group[nazwa]</td>";
                             echo "<td class='center_me'>$group[grupa]</td>";
@@ -76,7 +76,7 @@ $groups = $groupsController->getGroups();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

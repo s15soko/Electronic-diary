@@ -127,7 +127,6 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
     $ma_box.attr("class", "ma_box");
 
 
-    // set rows name for average marks
     // for school, class and user
     var rowValue = {0: "Szkola:", 1: "Klasa:", 2: "Ty:"};
     // assign 
@@ -213,7 +212,70 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
 }
 
 
-// 
+// return user id by ajax
+function returnUserId()
+{
+    var userId;
+    // start ajax
+    // get user id
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "public/ajax/user/get/ajax_userID-get.php",
+        success: function(data)
+        {
+                userId = data;
+        }
+    });
+
+    return userId;
+}
+
+// return marks by ajax
+function returnAllMarks()
+{
+    var myAjaxResults;
+    // start ajax
+    // get all marks
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: ({
+            termid: $termSelect,
+            schoolyearid: $schoolYear
+        }),
+        url: "public/ajax/user/get/ajax_allMarks-get.php",
+        success: function(data)
+        {
+            myAjaxResults = data;
+        }
+    });
+    return myAjaxResults;
+}
+
+// returnuser group name by ajax
+function returnUserGroupName()
+{
+    var userGroupName;
+    // start ajax
+    // get user group name
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: ({
+            userid: $userId,
+        }),
+        url: "public/ajax/user/get/ajax_userGroupName-get.php",
+        success: function(data)
+        {
+            userGroupName = data;
+        }
+    });
+    return userGroupName;
+}
+
+
+// load default data
 $(document).ready(function()
 {
     // box for our results
@@ -226,81 +288,91 @@ $(document).ready(function()
     // get choosen type of results
     $typeOfResults = $("#typeOfResults option:selected").attr("data-name");
 
+
     // user id 
-    var userId;
-    // results from ajax
-    var myAjaxResults;
+    $userId = returnUserId();
+    // results (marks)
+    $myAjaxResults = returnAllMarks();
     // user group name
-    var userGroupName;
+    $userGroupName = returnUserGroupName();
 
-    // #region ajax
-        // start ajax
-        // get user id
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "public/ajax/user/get/ajax_userID-get.php",
-            success: function(data)
-            {
-                userId = data;
-            }
-        });
-
-
-        // start ajax
-        // get all marks
-        $.ajax({
-            type: "POST",
-            async: false,
-            data: ({
-                termid: $termSelect,
-                schoolyearid: $schoolYear
-            }),
-            url: "public/ajax/user/get/ajax_allMarks-get.php",
-            success: function(data)
-            {
-                myAjaxResults = data;
-            }
-        });
-
-        // start ajax
-        // get user group name
-        $.ajax({
-            type: "POST",
-            async: false,
-            data: ({
-                userid: userId,
-            }),
-            url: "public/ajax/user/get/ajax_userGroupName-get.php",
-            success: function(data)
-            {
-                userGroupName = data;
-            }
-        });
-        //#endregion
 
     // parse to array
-    userGroupName = JSON.parse(userGroupName);
+    $userGroupName = JSON.parse($userGroupName);
     // parse to array
-    myAjaxResults = JSON.parse(myAjaxResults);
+    $myAjaxResults = JSON.parse($myAjaxResults);
     
     // user subjects
-    var userSubjects = returnUserSubjects(myAjaxResults);
+    $userSubjects = returnUserSubjects($myAjaxResults);
 
-
-
-
-
+   
+    
     // if user pick term and marks 
     if($termSelect && $typeOfResults === 'marks')
     {
-        userSubjects.unshift("Średnia ogólna");
+        $userSubjects.unshift("Średnia ogólna");
         // average for each subject
-        userSubjects.forEach(sub => 
+        $userSubjects.forEach(sub => 
         {
-            subjectAverage(sub, myAjaxResults, userGroupName, userId);
+            subjectAverage(sub, $myAjaxResults, $userGroupName, $userId);
         });
-       
+        
     } // end if
-    
+
 });
+
+
+// load data on change
+function loadData()
+{
+    // clean data in results box
+    $containers = $resultBox.find(".avgContainer")
+    if($containers)
+    {
+        $containers.each(function(index)
+        {
+            this.remove();
+        })
+    }
+    
+    // get selected option from terms/ school years
+    $schoolYear = $("#termSelect option:selected").attr("data-year_id");
+    $termSelect = $("#termSelect option:selected").attr("data-term_id");
+
+    // get choosen type of results
+    $typeOfResults = $("#typeOfResults option:selected").attr("data-name");
+
+
+    if(!isNaN($termSelect))
+    {
+        $myAjaxResults = returnAllMarks();
+        // parse to array
+        $myAjaxResults = JSON.parse($myAjaxResults);
+    }
+    
+    // if type of results == marks
+    if($typeOfResults == 'marks')
+    {
+        // if user pick term
+        if(!isNaN($termSelect))
+        {
+            // average for each subject
+            $userSubjects.forEach(sub => 
+            {
+                subjectAverage(sub, $myAjaxResults, $userGroupName, $userId);
+            });
+            
+        } 
+
+        // if user pick rank for school year (ex. 2019/2020)
+        if($schoolYear && isNaN($termSelect))
+        {
+            console.log("school");
+        }
+    }
+    // if type of results == attendance
+    if($typeOfResults == 'attendance')
+    {
+        console.log('attendance');
+    }
+}

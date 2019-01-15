@@ -25,11 +25,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$groupsController->deleteRows($rows_id))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad!");
+        $session->setFlashMessage("An occurred error!");
     }
     else 
     {
-        $session->setFlashMessage("Usunieto z bazy!");
+        $session->setFlashMessage("Deleted from database!");
     }
 }
 ?>

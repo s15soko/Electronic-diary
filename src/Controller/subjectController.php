@@ -40,17 +40,19 @@ class subjectController
             $sql->bindValue(":id_user", $user_id, PDO::PARAM_INT);
             $sql->execute();
 
-            // fetch result
+            // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
-            //return result
+            //return results
             return $results;
             
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
@@ -74,6 +76,7 @@ class subjectController
             $sql->bindValue(":short", $short, PDO::PARAM_STR);
             $sql->bindValue(":sub_name", $name, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -82,10 +85,11 @@ class subjectController
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
+
 
     // get all subjects from database
     public function getSubjects()
@@ -105,6 +109,8 @@ class subjectController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -116,6 +122,7 @@ class subjectController
             return false;
         }
     }
+
 
     // get subject by id
     public function getSubjectByID($subject_id)
@@ -134,22 +141,24 @@ class subjectController
             $sql->bindValue(":id", $subject_id, PDO::PARAM_INT);
             $sql->execute();
 
-            // fetch results
-            $results = $sql->fetch();
+            // fetch result
+            $result = $sql->fetch();
+
+            // close connection
             $db = null;
 
-            //return results
-            return $results;
+            //return result
+            return $result;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
 
 
-    // update subject
+    // update subject row
     public function updateSubject($id, $order, $short, $name)
     {
         try 
@@ -168,6 +177,7 @@ class subjectController
             $sql->bindValue(":short", $short, PDO::PARAM_STR);
             $sql->bindValue(":subjectname", $name, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -198,6 +208,7 @@ class subjectController
             $sql->bindValue(":teacherid", $teacherID, PDO::PARAM_INT);
             $sql->bindValue(":subjectid", $subjectID, PDO::PARAM_INT);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -231,6 +242,8 @@ class subjectController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return result
@@ -269,6 +282,8 @@ class subjectController
 
             // fetch results
             $results = $sql->fetchAll();
+            
+            // close connection
             $db = null;
 
             //return results
@@ -302,8 +317,10 @@ class subjectController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
@@ -333,8 +350,10 @@ class subjectController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+            
             return true;
         } 
         catch(PDOException $er) 

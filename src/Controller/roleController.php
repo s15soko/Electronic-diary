@@ -10,9 +10,9 @@ class roleController
     );
 
     private $schoolAvailableRoles = array(
-        0 => "UCZEN",
-        1 => "NAUCZYCIEL",
-        2 => "DYREKTOR"
+        0 => "STUDENT", // user
+        1 => "TEACHER", // moderator
+        2 => "DIRECTOR" // administrator
     );
 
 

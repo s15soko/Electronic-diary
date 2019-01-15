@@ -8,7 +8,7 @@
         </p>
 
         <p>
-        <h1>Hasło:</h1>
+        <h1>Password:</h1>
         <input type="password" name="password"/>
         </p>
 
@@ -26,7 +26,7 @@
         </div>
 
         <p>
-        <input type="submit" name="submit" value="zaloguj"/>
+        <input type="submit" name="submit" value="Submit"/>
         </p>
     <form>
   

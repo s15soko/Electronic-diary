@@ -57,10 +57,10 @@ $form_builder->setFormMethod("POST");
 $form_builder->setJsOnClick("editTerm();");
 $form_builder->setHeaderText(
     array(
-        0 => "Rok szkolny:",
-        1 => "Semestr:",
-        2 => "Data od:",
-        3 => "Data do:"
+        0 => "School year:",
+        1 => "Term:",
+        2 => "Date from:",
+        3 => "Date to:"
     )
 );
 $form_builder->setNameOptions(array(0 => "rok_szkolny"));
@@ -100,7 +100,7 @@ $form_builder->setInputs(
         5 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )
     )
 );
@@ -118,8 +118,6 @@ $js = $form_builder->getJs();
 <link rel="stylesheet" type="text/css" href="public/css/defaultForm.css"/>
 <!-- scripts -->
 <script src="public/js/terms.js"></script>
-
-
 
 
 

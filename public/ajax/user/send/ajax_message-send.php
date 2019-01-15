@@ -11,13 +11,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         exit();
     }
 
-
-
     // include src/Controller/messageController
     require_once(dirname(__FILE__)."/../../../../src/Controller/messageController.php");
     $messageController = new messageController();
-
-
 
     // take array from ajax action
     // sender = student
@@ -26,8 +22,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $receiver = $_POST['teacherID'];
     $title = $_POST['title'];
     $content = $_POST['content'];
-
-
     
     // send a message
     if(!$messageController->sendAMessage($sender, $receiver, $title, $content))

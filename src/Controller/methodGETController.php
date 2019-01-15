@@ -13,6 +13,7 @@ if($session->checkIfIsAdmin())
         "teacherSubjects" => "teacherSubjects.php",
         "teachers" => "teachers.php",
         "users" => "users.php",
+        "addNewUser" => "addNewUser.php",
 
         "schoolyears" => "schoolYears.php",
         "terms" => "terms.php",
@@ -21,11 +22,9 @@ if($session->checkIfIsAdmin())
         "directions" => "learningDirections.php",
         "subjects" => "subjects.php",
 
-
-
         // GET for edit
-        "editGroupSubjects" => "edit/editGroupSubjects.php", // add subject to some group
-        "editUserGroup" => "edit/editUserGroup.php", // add user to some group
+        "editGroupSubjects" => "edit/editGroupSubjects.php",
+        "editUserGroup" => "edit/editUserGroup.php",
         // teacher subject no edit page
         // teacher => editUser
         "user" => "edit/editUser.php",
@@ -69,7 +68,6 @@ if($session->checkIfIsModerator() || $session->checkIfIsAdmin())
 
         // GET for edit
         
-
     );
     // GET for admin panel
     if(isset($_GET["mp"]))

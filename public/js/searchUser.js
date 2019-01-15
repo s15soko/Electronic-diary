@@ -26,7 +26,7 @@ function searchUser(row_name = "users_row")
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Wpisz nazwisko: ";
+    h1.innerHTML = "Enter surname: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1

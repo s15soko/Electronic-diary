@@ -31,8 +31,8 @@ $subjects = $subjectController->getSubjects();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('subjects', 'ajax_subjects-delete')">Usuń zaznaczone</button>
-        <button onclick="subjectFormBuilder();">Dodaj nowy przedmiot</button>
+        <button onclick="deleteRows('subjects', 'ajax_subjects-delete')">Delete selected</button>
+        <button onclick="subjectFormBuilder();">Add new subject</button>
     </div>
 
     <div id="newForm"></div>
@@ -48,10 +48,10 @@ $subjects = $subjectController->getSubjects();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Kolejność</th>
-                <th>Krótka nazwa</th>
-                <th>Nazwa</th>
+                <th class="short_th">Options</th>
+                <th>Order</th>
+                <th>short name</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@ $subjects = $subjectController->getSubjects();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='subjects' value='$subject[id]'/> 
-                                <button><a class='btn-link' href='?ap=subject&id=$subject[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=subject&id=$subject[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$subject[kolejnosc]</td>";
                             echo "<td class='center_me'>$subject[krotka_nazwa]</td>";
@@ -73,7 +73,7 @@ $subjects = $subjectController->getSubjects();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

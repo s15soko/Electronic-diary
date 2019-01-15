@@ -49,9 +49,9 @@ $form_builder->setFormMethod("POST");
 $form_builder->setJsOnClick("editSchoolYear();");
 $form_builder->setHeaderText(
     array(
-        0 => "Rok szkolny",
-        1 => "Data od",
-        2 => "Data do"
+        0 => "School year",
+        1 => "Date from",
+        2 => "Date to"
     )
 );
 $form_builder->setInputs(
@@ -79,7 +79,7 @@ $form_builder->setInputs(
         5 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )  
     )
 );

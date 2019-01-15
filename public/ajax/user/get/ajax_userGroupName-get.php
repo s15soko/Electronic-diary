@@ -11,21 +11,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         exit();
     }
 
-
-
     // include src/Controller/groupsController
     require_once(dirname(__FILE__)."/../../../../src/Controller/groupsController.php");
     $groupsController = new groupsController();
 
-
     $userid = $_POST['userid'];
 
-    
     // get all marks
     $groupName = $groupsController->returnGroupName($userid);
 
-
-    
     // return data
     if($groupName)
     {

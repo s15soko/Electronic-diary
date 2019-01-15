@@ -27,7 +27,7 @@ $groups = $groupsController->getGroups();
 <!-- panel box -->
 <div id="container">
 
-    <h1 class='center_me' style='margin-bottom: 25px;'>Dodaj przedmiot do grupy</h1>
+    <h1 class='center_me' style='margin-bottom: 25px;'>Add subject to group</h1>
 
     <?php
     if(isset($_SESSION['flashMessage']))
@@ -41,11 +41,11 @@ $groups = $groupsController->getGroups();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Nazwa</th>
-                <th class='short_th'>Grupa</th>
-                <th>Klasa</th>
-                <th>Kierunek</th>
+                <th class="short_th">Options</th>
+                <th>Name</th>
+                <th class='short_th'>Group</th>
+                <th>Class</th>
+                <th>Direction</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ $groups = $groupsController->getGroups();
                     {
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
-                                <button style='width: 100%;'><a class='btn-link' href='?ap=editGroupSubjects&id=$group[id]'>Pokaz</a></button>
+                                <button style='width: 100%;'><a class='btn-link' href='?ap=editGroupSubjects&id=$group[id]'>Show</a></button>
                             </td>";
                             echo "<td class='center_me'>$group[nazwa]</td>";
                             echo "<td class='center_me'>$group[grupa]</td>";
@@ -67,7 +67,7 @@ $groups = $groupsController->getGroups();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

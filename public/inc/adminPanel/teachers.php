@@ -32,8 +32,8 @@ $teachers = $userDataController->getAllTeachers();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('teachers', 'ajax_teachers-update');">Ustaw jako uczeń</button>
-        <button onclick="searchUser();">Wyszukaj</button>
+        <button onclick="deleteRows('teachers', 'ajax_teachers-update');">Set as student</button>
+        <button onclick="searchUser();">Search</button>
     </div>
 
     <div id="searchForm"></div>
@@ -51,17 +51,17 @@ $teachers = $userDataController->getAllTeachers();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Imie</th>
-                <th>Nazwisko</th>
-                <th>Rola</th>
-                <th>Email</th>
+                <th class="short_th">Options</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>School role</th>
+                <th>E-mail</th>
                 <th class='darker_th'>PIN</th>
-                <th>Adres</th>
-                <th>Kontakt</th>
-                <th>Data urodzenia</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Date of birth</th>
                 <th>Login</th>
-                <th>role</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@ $teachers = $userDataController->getAllTeachers();
                         echo "<tr class='users_row'>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='teachers' value='$teacher[id]'/> 
-                                <button><a class='btn-link' href='?ap=user&id=$teacher[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=user&id=$teacher[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$teacher[imie]</td>";
                             echo "<td class='center_me userSurname'>$teacher[nazwisko]</td>";
@@ -91,7 +91,7 @@ $teachers = $userDataController->getAllTeachers();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

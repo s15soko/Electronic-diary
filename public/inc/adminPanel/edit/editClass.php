@@ -42,8 +42,8 @@ $form_builder->setFormMethod("POST");
 $form_builder->setJsOnClick("editClass();");
 $form_builder->setHeaderText(
     array(
-        0 => "Numer:",
-        1 => "Nazwa:"
+        0 => "Number:",
+        1 => "Name:"
     )
 );
 $form_builder->setInputs(
@@ -51,13 +51,13 @@ $form_builder->setInputs(
         0 => array(
             "type" => "number",
             "name" => "number",
-            "placeholder" => "Wprowadz numer",
+            "placeholder" => "Enter number",
             "value" => $class_data['numer']
         ),
         1 => array(
             "type" => "text",
             "name" => "name",
-            "placeholder" => "Wprowadz nazwe",
+            "placeholder" => "Enter name",
             "value" => $class_data['nazwa']
         ),
         2 => array(
@@ -68,7 +68,7 @@ $form_builder->setInputs(
         3 => array(
             "type" => "submit",
             "name" => "submit",
-            "value" => "Aktualizuj"
+            "value" => "Update"
         )
     )
 );

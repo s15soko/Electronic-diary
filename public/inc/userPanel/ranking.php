@@ -44,8 +44,8 @@ $termsController = new termsController();
 
     <h1 style='text-align: center; margin-bottom: 20px;'>Ranking</h1>
 
-    <h3>Okes klasyfikacyjny:</h3>
-    <select id='termSelect'>
+    <h3>Classification period:</h3>
+    <select id='termSelect' onchange='loadData()'>
     <?php
     foreach($schoolYears as $key => $year)
     {  
@@ -71,10 +71,10 @@ $termsController = new termsController();
 
     <br/><br/>
 
-    <h3>Typ wyników:</h3>
-    <select id='typeOfResults'>
-        <option data-name='marks'>Oceny bieżące - śr. ważona</option>
-        <option data-name='attendance'>Frekwencja</option>
+    <h3>Type of results:</h3>
+    <select id='typeOfResults' onchange='loadData()'>
+        <option data-name='marks'>Current marks - weighted average</option>
+        <option data-name='attendance'>Frequency</option>
     </select>
 
 

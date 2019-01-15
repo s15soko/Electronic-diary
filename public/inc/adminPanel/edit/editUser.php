@@ -23,11 +23,6 @@ if(!$session->checkIfIsAdmin())
 
 
 
-
-
-
-
-
 ?>
 
 

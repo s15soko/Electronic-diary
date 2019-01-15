@@ -50,8 +50,8 @@ $subjects = $groupsController->getGroupSubjects($id);
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('groupSubjects', 'ajax_groupSubjects-delete');">Usuń przedmiot z grupy</button>
-        <button data-groupid='<?php echo $id; ?>' onclick="groupSubjectFormBuilder(this.getAttribute('data-groupid'));">Dodaj przedmiot do grupy</button>
+        <button onclick="deleteRows('groupSubjects', 'ajax_groupSubjects-delete');">Delete subject from group</button>
+        <button data-groupid='<?php echo $id; ?>' onclick="groupSubjectFormBuilder(this.getAttribute('data-groupid'));">Add subject to group</button>
     </div>
 
     <div id="newForm"></div>
@@ -68,10 +68,10 @@ $subjects = $groupsController->getGroupSubjects($id);
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Kolejność</th>
-                <th>Krótka nazwa</th>
-                <th>nazwa</th>
+                <th class="short_th">Options</th>
+                <th>Order</th>
+                <th>Short name</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
@@ -96,7 +96,7 @@ $subjects = $groupsController->getGroupSubjects($id);
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

@@ -31,8 +31,8 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('schoolyears', 'ajax_schoolYears-delete')">Usuń zaznaczone</button>
-        <button onclick="schoolYearFormBuilder();">Dodaj nowy rok szkolny</button>
+        <button onclick="deleteRows('schoolyears', 'ajax_schoolYears-delete')">Delete selected</button>
+        <button onclick="schoolYearFormBuilder();">Add new school year</button>
     </div>
 
     <div id="newForm"></div>
@@ -48,10 +48,10 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Rok szkolny</th>
-                <th>Data od</th>
-                <th>Data do</th>
+                <th class="short_th">Options</th>
+                <th>School year</th>
+                <th>Date from</th>
+                <th>Date to</th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='schoolyears' value='$schoolYear[id]'/> 
-                                <button><a class='btn-link' href='?ap=schoolYear&id=$schoolYear[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=schoolYear&id=$schoolYear[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$schoolYear[rok_szkolny]</td>";
                             echo "<td class='center_me'>$schoolYear[data_od]</td>";
@@ -73,7 +73,7 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

@@ -27,17 +27,20 @@ class classController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
-            //return results
+            // return results
             return $results;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
+
 
     // add new class
     public function addNewClass($number, $name)
@@ -57,10 +60,11 @@ class classController
             $sql->bindValue(":numberc", $number, PDO::PARAM_INT);
             $sql->bindValue(":namec", $name, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
-            //return
+            // return true
             return true;
         } 
         catch(PDOException $er) 
@@ -84,21 +88,21 @@ class classController
 
             // sql
             $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id");
-        
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
-            // close connection
-            $db = null;
 
             // fetch result
             $result = $sql->fetch();
 
-            //return result
+            // close connection
+            $db = null;
+
+            // return result
             return $result;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
@@ -123,13 +127,16 @@ class classController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
+            // return true
             return true;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
@@ -152,14 +159,16 @@ class classController
             $sql->bindValue(":numberclass", $number, PDO::PARAM_INT);
             $sql->bindValue(":nameclass", $name, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
+            // return true
             return true;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }

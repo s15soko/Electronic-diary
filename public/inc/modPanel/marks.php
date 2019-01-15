@@ -12,11 +12,6 @@ if(!$session->checkIfIsAdmin())
 ?>
 
 
-
-
-
-
-
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/marks.css"/>
 <link rel="stylesheet" type="text/css" href="public/css/umarks.css"/>
@@ -32,18 +27,23 @@ if(!$session->checkIfIsAdmin())
 <!-- panel box -->
 <div id="container">
 
-    <h1>Karta nauczyciela</h1>
+    <h1 style='margin-bottom: 25px;'>Tachers card</h1>
 
-    <select>
-        <option value=''>Wybierz semestr</option>
+    Select term:
+    <select value='termID'>
+        <option>Current term</option>
     </select>
 
-    <select>
-        <option value=''>Wybierz grupe</option>
+    <br/><br/>
+    Select group:
+    <select value='groupID'>
+        <option></option>
     </select>
 
-    <select>
-        <option value=''>Wybierz przedmiot</option>
+    <br/><br/>
+    Select subject:
+    <select value='subjecID'>
+        <option></option>
     </select>
 
 

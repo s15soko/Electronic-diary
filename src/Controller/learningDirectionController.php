@@ -27,9 +27,11 @@ class learningDirectionController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
-            //return results
+            // close connection
+            $db = null;
+            
+            // return results
             return $results;
         } 
         catch(PDOException $er) 
@@ -38,7 +40,6 @@ class learningDirectionController
             return false;
         }
     }
-
 
 
     // add new direction to database
@@ -59,10 +60,12 @@ class learningDirectionController
             $sql->bindValue(":name_dir", $name, PDO::PARAM_STR);
             $sql->bindValue(":short", $short, PDO::PARAM_STR);
             $sql->execute();
+
+
             // close connection
             $db = null;
 
-            //return
+            // return
             return true;
         } 
         catch(PDOException $er) 
@@ -74,6 +77,7 @@ class learningDirectionController
 
 
     // return direction row via id
+    // ex. for edit page
     public function returnRow($id)
     {
         try 
@@ -90,13 +94,14 @@ class learningDirectionController
          
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
-            // close connection
-            $db = null;
 
             // fetch result
             $result = $sql->fetch();
 
-            //return result
+            // close connection
+            $db = null;
+
+            // return result
             return $result;
         } 
         catch(PDOException $er) 
@@ -107,7 +112,7 @@ class learningDirectionController
     }
 
 
-    // update subject
+    // update direction
     public function updateDirection($id, $name, $short)
     {
         try 
@@ -125,6 +130,7 @@ class learningDirectionController
             $sql->bindValue(":directionname", $name, PDO::PARAM_STR);
             $sql->bindValue(":short", $short, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -158,8 +164,10 @@ class learningDirectionController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+            
             return true;
         } 
         catch(PDOException $er) 

@@ -27,11 +27,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$schoolYearController->addNewSchoolYear($schoolyear, $datef, $datet))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad!");
+        $session->setFlashMessage("An occurred error!");
     }
     else 
     {
-        $session->setFlashMessage("Dodano do bazy!");
+        $session->setFlashMessage("Added to the database!");
     }
 }
 ?>

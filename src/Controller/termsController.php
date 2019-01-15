@@ -30,6 +30,8 @@ class termsController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -61,6 +63,7 @@ class termsController
             $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
             $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -95,6 +98,8 @@ class termsController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
             //return results
@@ -129,8 +134,10 @@ class termsController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+            
             return true;
         } 
         catch(PDOException $er) 
@@ -159,11 +166,12 @@ class termsController
         
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
-            // close connection
-            $db = null;
 
             // fetch result
             $result = $sql->fetch();
+
+            // close connection
+            $db = null;
 
             //return result
             return $result;
@@ -195,6 +203,7 @@ class termsController
             $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
             $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
             $sql->execute();
+            
             // close connection
             $db = null;
 

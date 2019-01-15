@@ -31,8 +31,8 @@ $classes = $classController->getClasses();
 <div id="container">
 
     <div id="table_options">
-        <button onclick="deleteRows('classes', 'ajax_classes-delete');">Usuń zaznaczone</button>
-        <button onclick="classFormBuilder();">Dodaj nowy semestr</button>
+        <button onclick="deleteRows('classes', 'ajax_classes-delete');">Delete selected</button>
+        <button onclick="classFormBuilder();">Add new class</button>
     </div>
 
     <div id="newForm"></div>
@@ -49,9 +49,9 @@ $classes = $classController->getClasses();
     <table>
         <thead>
             <tr>
-                <th class="short_th">Opcje</th>
-                <th>Numer</th>
-                <th>Nazwa</th>
+                <th class="short_th">Options</th>
+                <th>Number</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@ $classes = $classController->getClasses();
                         echo "<tr>";
                             echo "<td class='form_input-options'> 
                                 <input type='checkbox' name='classes' value='$class[id]'/> 
-                                <button><a class='btn-link' href='?ap=class&id=$class[id]'>Edytuj</a></button>
+                                <button><a class='btn-link' href='?ap=class&id=$class[id]'>Edit</a></button>
                             </td>";
                             echo "<td class='center_me'>$class[numer]</td>";
                             echo "<td class='center_me'>$class[nazwa]</td>";
@@ -72,7 +72,7 @@ $classes = $classController->getClasses();
                     }
                 }
                 else {
-                    echo "Brak danych!";
+                    echo "No data!";
                 }
                 ?>
             </form>   

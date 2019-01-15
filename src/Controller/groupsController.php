@@ -6,7 +6,7 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 class groupsController
 {
-    // table name
+    // table names in database
     private $direction  = "grupa";
     private $direction2 = "klasa";
     private $direction3 = "kierunek";
@@ -14,7 +14,9 @@ class groupsController
     private $direction5 = "przedmiotydlagrupy";
 
 
-    // get all groups from database (+class data and direction data)
+
+    // get all groups from database 
+    // +class data and direction data
     public function getGroups()
     {
         try 
@@ -38,14 +40,16 @@ class groupsController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
+            // close connection
+            $db = null;
+            
             //return results
             return $results;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
@@ -79,14 +83,16 @@ class groupsController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
+            // close connection
+            $db = null;
+            
             //return result
             return $results;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }  
     }
@@ -117,20 +123,22 @@ class groupsController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
+            // close connection
+            $db = null;
+            
             //return result
             return $results;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }  
     }
 
 
-    // delete subjects from group
+    // delete subject/subjects from group
     public function deleteGroupSubjects($rows_id)
     {
         try 
@@ -150,20 +158,21 @@ class groupsController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }     
     }
 
 
     // get all subjects + add data from other table
-    // by left join
     public function getSubjectsForGroup($id)
     {
         try 
@@ -184,14 +193,16 @@ class groupsController
 
             // fetch results
             $results = $sql->fetchAll();
-            $db = null;
 
-            //return result
+            // close connection
+            $db = null;
+            
+            //return results
             return $results;
         }
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
@@ -219,17 +230,18 @@ class groupsController
             
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }     
     }
 
 
-    // check if exist
+    // check if group exist
     public function checkForGroup($name, $number, $classID, $directionID)
     {
         try 
@@ -256,9 +268,11 @@ class groupsController
 
             // fetch results
             $results = $sql->fetchAll();
+
+            // close connection
             $db = null;
 
-            //return result
+            // return results
             return $results;
         } 
         catch(PDOException $er) 
@@ -269,7 +283,7 @@ class groupsController
     }
 
 
-    // update group
+    // update group data
     public function updateGroup($id, $name, $number, $classid, $directionid)
     {
         try 
@@ -295,6 +309,7 @@ class groupsController
             $sql->bindValue(":classid", $classid, PDO::PARAM_INT);
             $sql->bindValue(":directionid", $directionid, PDO::PARAM_INT);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -327,6 +342,7 @@ class groupsController
             $sql->bindValue(":classid", $classID, PDO::PARAM_INT);
             $sql->bindValue(":directionid", $directionID, PDO::PARAM_INT);
             $sql->execute();
+
             // close connection
             $db = null;
 
@@ -334,12 +350,14 @@ class groupsController
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
 
+
     // delete group row/rows
+    // delete by id
     public function deleteRows($rows_id)
     {
         try 
@@ -359,19 +377,22 @@ class groupsController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
         {
-            //return $er->getMessage();
+            // return $er->getMessage();
             return false;
         }
     }
 
 
     // delete user from group
+    // delete by row id
     public function deleteUserFromGroup($rows_id)
     {
         try 
@@ -391,8 +412,10 @@ class groupsController
                 $sql->bindValue(":id", $value, PDO::PARAM_INT);
                 $sql->execute();
             }
+
             // close connection
             $db = null;
+
             return true;
         } 
         catch(PDOException $er) 
@@ -403,8 +426,8 @@ class groupsController
     }
 
 
-
     // return values via id
+    // ex. for edit pages
     public function returnRow($id)
     {
         try 
@@ -421,13 +444,14 @@ class groupsController
         
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
-            // close connection
-            $db = null;
 
             // fetch result
             $result = $sql->fetch();
 
-            //return result
+            // close connection
+            $db = null;
+
+            // return result
             return $result;
         } 
         catch(PDOException $er) 
@@ -457,13 +481,14 @@ class groupsController
         
             $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
             $sql->execute();
-            // close connection
-            $db = null;
 
             // fetch result
             $result = $sql->fetch();
 
-            //return result
+            // close connection
+            $db = null;
+
+            // return result
             return $result;
         } 
         catch(PDOException $er) 

@@ -14,7 +14,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     // user id
     $userid = $session->returnUserId();
 
-    
     // return data
     if($userid)
     {
