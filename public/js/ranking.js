@@ -234,7 +234,6 @@ function returnUserId()
 // return marks by ajax
 function returnAllMarks()
 {
-
     var myAjaxResults;
     // start ajax
     // get all marks

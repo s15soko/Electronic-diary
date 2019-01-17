@@ -13,12 +13,7 @@ if(!$session->checkIfIsActiveUserSession())
 // get user id 
 $user_id = $session->returnUserId();
 
-// include src/Controller/subjectController
-require_once("src/Controller/subjectController.php");
-$subjectController = new subjectController();
-// user subjects
-$userSubjects = $subjectController->getUserSubjects($user_id);
-//print_r($userSubjects);
+
 // include src/Controller/schoolYearController 
 require_once("src/Controller/schoolYearController.php");
 $schoolYearController = new schoolYearController();
@@ -35,9 +30,6 @@ $schoolController = new schoolController();
 // take current school year id and actual term id
 $school = $schoolController->schoolInformation("current_school_year_id, current_term_id");
 
-// include src/Controller/marksController 
-require_once("src/Controller/marksController.php");
-$marksController = new marksController();
 ?>
 
 
@@ -49,131 +41,44 @@ $marksController = new marksController();
 
 
 
+
+
 <!-- panel box -->
 <div id="container">
 
     <h1>Student card</h1>
 
-
     <h3>Term</h3>
-    <select onchange='changeTerm(this);'>
-        <?php    
-       
-        // variable for user marks 
-        $userMarks;
+    <select id='termSelect' onchange='loadMarksData()'>
+    <?php
+    foreach($schoolYears as $key => $year)
+    {  
+        echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
+        // get terms by school id ^
+        $terms = $termsController->getTermsByID($year['id']);
 
-
-        $checkGET = $marksController->checkGET();
-        // foreach year in our school ex. (2018/2019...)
-        foreach($schoolYears as $key => $year)
-        {  
-            
-            if(!$checkGET)
+        foreach($terms as $key => $term)
+        {       
+            if($term['id'] === $school['current_term_id'])
             {
-                // set school year
-                echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
-                // get terms by school id ^
-                $terms = $termsController->getTermsByID($year['id']);
-
-                // get data to variable $userMarks
-                $userMarks = $marksController->getUserMarksByTermID($school['current_term_id'], $user_id);
-                
-                foreach($terms as $key => $term)
-                {       
-                    
-                    if($term['id'] === $school['current_term_id'])
-                    {
-                        echo "<option data-year_id='$year[id]' data-term_id='$term[id]' selected>
-                            &nbsp;&nbsp;&nbsp;$term[name]</option>";
-                        continue;
-                    }
-
-                    echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
-                            &nbsp;&nbsp;&nbsp;$term[name]</option>";    
-                }
+                echo "<option data-year_id='$year[id]' data-term_id='$term[id]' selected>
+                    &nbsp;&nbsp;&nbsp;$term[name]</option>";
+                continue;
             }
-            else // get term and year
-            {
-                
-                if($checkGET['term'] === 'null')
-                {
-                    exit();
-                }
-                else 
-                {
-                    echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
-                    // get terms by school id ^
-                    $terms = $termsController->getTermsByID($year['id']);
 
-                    // get data to variable $userMarks
-                    $userMarks = $marksController->getUserMarksByTermID($checkGET['term'] ,$user_id);
-                   
-                    foreach ($terms as $key => $term) 
-                    {
-                        echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
-                        &nbsp;&nbsp;&nbsp;$term[name]</option>"; 
-                    }
-                }                
-            }
-            
-        }
-        ?>
+            echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
+                    &nbsp;&nbsp;&nbsp;$term[name]</option>";    
+        }  
+    }
+    ?>
     </select>
 
+    <br/><br/>
 
     <div id="marks_container">
 
-        <div id="marks_header">
-            <div class='header_text_box'>
-                <div class='subject_box-header_short'>
-                    Subject
-                </div>
-            </div>
-        </div>
-
-        <div id="marks_body">
-            <?php
-            // show subjects 
-            foreach ($userSubjects as $key => $subject) 
-            {
-                echo "<div class='marks_row'>";
-
-                    echo "<div class='subject_box'>";
-                        echo "<span>$subject[name]</span>";
-                    echo "</div>";
-
-                    echo "<div class='marks_box'>";
-                        foreach ($userMarks as $key => $mark) 
-                        {
-                            if($subject['id'] === $mark['subject_id'])
-                            {
-                                
-                                echo "<div class='mark' style='color: $mark[color]'
-                                    data-mark='$mark[grade]'
-                                    data-desc='$mark[name]'
-                                    data-kind='$mark[type]'
-                                    data-range='$mark[range]'
-                                    data-data='$mark[date]'
-                                    data-weight='$mark[weight]'
-                                    onmouseover='showMarkInformation(this);'>$mark[grade]</div>";
-                            }
-                        }
-                    echo "</div>";
-
-                    echo "<div class='last_mark_box'>";
-                        echo "<div class='mark'>";
-
-                        echo "</div>";
-                    echo "</div>";
-
-                echo "</div>";   
-            }
-            ?> 
-            
-        </div>
     </div>
+
+
 </div>
 
-<script>
-colorMyRows("marks_row");
-</script>

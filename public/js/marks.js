@@ -1,59 +1,217 @@
-// function for term change
-function changeTerm(data)
+
+// return user id by ajax
+function returnUserId()
 {
-    opt = data.options[data.selectedIndex];
+    var userId;
+    // start ajax
+    // get user id
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "public/ajax/user/get/ajax_userID-get.php",
+        success: function(data)
+        {
+            userId = data;
+        }
+    });
 
-    default_url = "userPanel.php?up=marks";
-    termid = opt.getAttribute("data-term_id");
-    yearid = opt.getAttribute("data-year_id");
+    return userId;
+}
 
+// return user marks by ajax
+function returnUserMarks()
+{
+    var myAjaxResults;
+    // start ajax
+    // get all marks
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: ({
+            termID: $termSelect,
+            userID: $userId
+        }),
+        url: "public/ajax/user/get/ajax_userMarksByTerm-get.php",
+        success: function(data)
+        {
+            myAjaxResults = data;
+        }
+    });
+    return myAjaxResults;
+}
 
-    // set GET (if termid null set null)
-    window.location.href = default_url+"&y="+yearid+"&t="+termid;
-    
+// return user subjects
+function returnUserSubjects()
+{
+    var userSubjects;
+    // start ajax
+    // get user subjects
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: ({
+            userID: $userId
+        }),
+        url: "public/ajax/user/get/ajax_userSubjects-get.php",
+        success: function(data)
+        {
+            userSubjects = data;
+        }
+    });
+    return userSubjects;
     
 }
 
 
 
-function showMarkInformation(mark_data)
+
+// load default data
+$(document).ready(function()
 {
-    /*
-    var win = window;
-
-    var mouse_x = win.event.screenX;
-    var mouse_y = win.event.screenY;
-
-    var mark    = mark_data.getAttribute('data-mark');
-    var desc    = mark_data.getAttribute('data-desc');
-    var kind    = mark_data.getAttribute('data-kind');
-    var range   = mark_data.getAttribute('data-range');
-    var data    = mark_data.getAttribute('data-data');
-    var weight  = mark_data.getAttribute('data-weight');
+    // box for our results
+    $resultBox = $("#marks_container");
+    
+    // get selected option from terms/ school years
+    $schoolYear = $("#termSelect option:selected").attr("data-year_id");
+    $termSelect = $("#termSelect option:selected").attr("data-term_id");
 
 
-    var smallWinBox = document.createElement('div');
-    smallWinBox.setAttribute("class", "small_win_data");
-    document.body.appendChild(smallWinBox);
+    // user id 
+    $userId = returnUserId();
+    // get user subjects
+    $userSubjects = returnUserSubjects();
+    
+    // get user marks
+    // by term id
+    $userMarks = returnUserMarks();
+    
 
 
-    var apMe = {0: mark, 1: desc, 2: kind, 3: range, 4: data, 5: weight};
+    // parse to array
+    $userMarks = JSON.parse($userMarks);
+    $userSubjects = JSON.parse($userSubjects);
 
-    var p = Array();
-    var count;
-    for(count = 0; count < 6; count++)
-    {
-        p[count] = document.createElement("p");
-        smallWinBox.appendChild(p[count]);
-    }
 
-    var TNode = Array();
-    for(count = 0; count < 6; count++)
-    {
-        TNode[count] = document.createTextNode(apMe[count]);
-        p[count].appendChild(TNode[count]);
-    }
-*/
+    // create containers
+    // for marks header
+    // marks content
+    createStructure();
+
+    // load marks
+    loadMarksData();
+
+      
+});
+
+
+function createStructure()
+{
+    // header for marks
+    var marks_header = document.createElement("div");
+    $marks_header = $(marks_header);
+    $marks_header.attr("id", "marks_header");
+    $resultBox.append($marks_header);
+    
+    var header_text_box = document.createElement("div");  
+    $header_text_box = $(header_text_box);
+    $header_text_box.attr("class", "header_text_box");
+    $marks_header.append($header_text_box);
+
+    var subject_box_header_short = document.createElement("div");  
+    $subject_box_header_short = $(header_text_box);
+    $subject_box_header_short.attr("class", "subject_box-header_short");
+    $header_text_box.append($subject_box_header_short);
+
+    $subject_box_header_short.text("Subject");
+    // end
+
     
 }
 
+function createMarksBody()
+{
+    // marks body
+    var marks_body = document.createElement("div");
+    $marks_body = $(marks_body);
+    $marks_body.attr("id", "marks_body");
+
+    $resultBox.append($marks_body);
+    // end
+}
+
+
+function loadMarksData()
+{
+    // 
+    container = document.querySelector("#marks_body");
+    if(container !== null)
+    {
+        $container = $(container);
+        $container.each(function(index)
+        {
+            this.remove();
+        })
+    }  
+
+    // create marks body
+    createMarksBody();
+
+    $termSelect = $("#termSelect option:selected").attr("data-term_id");
+    // by term id
+    $userMarks = returnUserMarks();
+    // parse to array
+    $userMarks = JSON.parse($userMarks);
+
+    // foreach subject
+    $userSubjects.forEach(subject => 
+    {
+        var row = document.createElement("div");
+        row.setAttribute("class", "marks_row");
+
+        $marks_body.append(row);
+
+
+        var subject_box = document.createElement("div");
+        subject_box.setAttribute("class", "subject_box");
+        subject_box.innerHTML = subject['name'];
+        row.appendChild(subject_box);
+       
+        var marks_box = document.createElement("div");
+        marks_box.setAttribute("class", "marks_box");
+        row.appendChild(marks_box);
+
+        // foreach mark
+        $userMarks.forEach(user_mark => 
+        {
+            if(subject['id'] === user_mark['subject_id'])
+            {
+                var mark = document.createElement("div");
+                mark.setAttribute("class", "mark");
+                mark.innerHTML = user_mark['grade'];
+                mark.style.color = ""+user_mark['color']+"";
+
+                mark.setAttribute("data-mark", user_mark['grade']);
+                mark.setAttribute("data-desc", user_mark['name']);
+                mark.setAttribute("data-kind", user_mark['type']);
+                mark.setAttribute("data-range", user_mark['range']);
+                mark.setAttribute("data-date", user_mark['date']);
+                mark.setAttribute("data-weight", user_mark['weight']);
+
+                marks_box.appendChild(mark);
+            }
+        });
+
+
+        var last_mark_box = document.createElement("div");
+        last_mark_box.setAttribute("class", "last_mark_box");
+        row.appendChild(last_mark_box);
+
+        var mark = document.createElement("div");
+        mark.setAttribute("class", "mark");
+        last_mark_box.appendChild(mark);
+
+    });    
+    
+
+    
+}

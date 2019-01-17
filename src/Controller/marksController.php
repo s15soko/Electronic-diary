@@ -62,20 +62,6 @@ class marksController
     }
 
 
-    // check for GET
-    public function checkGET()
-    {
-        if(isset($_GET['y']) || isset($_GET['t']))
-        {
-            $results = [
-                "year" => $_GET['y'],
-                "term" => $_GET['t']
-            ];
-            // return results
-            return $results;
-        }
-        return false;
-    }
 
 }
 ?>

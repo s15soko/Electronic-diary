@@ -10,10 +10,6 @@ if(!$session->checkIfIsActiveUserSession())
 }
 
 
-// include src/Controller/rankingController
-require_once("src/Controller/rankingController.php");
-$rankingController = new rankingController();
-
 // include src/Controller/schoolController 
 require_once("src/Controller/schoolController.php");
 $schoolController = new schoolController();
