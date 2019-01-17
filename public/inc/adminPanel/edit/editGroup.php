@@ -68,8 +68,8 @@ $form_builder->setHeaderText(
 );
 $form_builder->setNameOptions(
     array(
-        2 => "nazwa",
-        3 => "nazwa_kierunku"
+        2 => "name",
+        3 => "name"
     )
 );
 $form_builder->setInputs(
@@ -77,26 +77,26 @@ $form_builder->setInputs(
         0 => array(
             "type" => "text",
             "name" => "name",
-            "value" => $group_data['nazwa'],
+            "value" => $group_data['name'],
             "required" => "required"   
         ),
         1 => array(
             "type" => "number",
             "name" => "number",
-            "value" => $group_data['grupa'],
+            "value" => $group_data['group'],
             "required" => "required"   
         ),
         2 => array(
             "type" => "select",
             "name" => "classid",
             "options" => $classes,
-            "value" => $group_data['klasa_id']
+            "value" => $group_data['class_number']
         ),
         3 => array(
             "type" => "select",
             "name" => "directionid",
             "options" => $directions,
-            "value" => $group_data['kierunek_id']
+            "value" => $group_data['direction_id']
         ),
         4 => array(
             "type" => "hidden",

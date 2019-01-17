@@ -29,14 +29,14 @@ function schoolYearFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Rok szkolny: ";
+    h1.innerHTML = "School year: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
     var input1 = document.createElement("input");
     input1.setAttribute("name", "schoolyear");
     input1.setAttribute("type", "text");
-    input1.setAttribute("placeholder", "Wprowadź rok szkolny");
+    input1.setAttribute("placeholder", "Enter school year");
     // append input1 to p1
     p1.appendChild(input1);
 
@@ -47,7 +47,7 @@ function schoolYearFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Data od: ";
+    h2.innerHTML = "Date from: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
@@ -64,7 +64,7 @@ function schoolYearFormBuilder()
     div.appendChild(p3);
     // create h2 text
     var h3 = document.createElement("h2");
-    h3.innerHTML = "Data do";
+    h3.innerHTML = "Date to";
     // append h3 to p3
     p3.appendChild(h3);
     // create input 3
@@ -84,7 +84,7 @@ function schoolYearFormBuilder()
     var input4 = document.createElement("input");
     input4.setAttribute("type", "submit");
     input4.setAttribute("onclick", "addNewSchoolYear()");
-    input4.setAttribute("value", "Dodaj do bazy");
+    input4.setAttribute("value", "Add");
     // append input4 to p4
     p4.appendChild(input4);
 

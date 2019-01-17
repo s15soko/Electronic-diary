@@ -5,7 +5,7 @@
             <?php
                 
                 $school = new schoolController();
-                $s_query = $school->schoolInformation("nazwa");
+                $s_query = $school->schoolInformation("name");
                 // show school name
                 echo $s_query[0];
                 
@@ -22,7 +22,7 @@
                 <?php 
 
                     $user = new userDataController();
-                    $u_query = $user->getUserData("imie");
+                    $u_query = $user->getUserData("name");
                     // show user name
                     echo $u_query[0]."!";
                 ?>

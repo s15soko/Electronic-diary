@@ -59,13 +59,13 @@ $form_builder->setInputs(
             "type" => "text",
             "placeholder" => "Direction name",
             "name" => "name",
-            "value" => $direction_data['nazwa_kierunku']
+            "value" => $direction_data['name']
         ),
         1 => array(
             "type" => "text",
             "placeholder" => "Direction short name",
             "name" => "short",
-            "value" => $direction_data['krotka_nazwa']  
+            "value" => $direction_data['short_name']  
         ),
         2 => array(
             "type" => "hidden",

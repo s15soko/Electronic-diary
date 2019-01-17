@@ -38,11 +38,8 @@ $sentMessages = $messageController->showUserSentMessages($userid);
     </div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 
@@ -67,9 +64,9 @@ $sentMessages = $messageController->showUserSentMessages($userid);
                                 <input type='checkbox' name='userSentMessages' value='$message[id]'/> 
                             </td>";
 
-                            echo "<td style='width: 100px;'>$message[imie] $message[nazwisko]</td>";
-                            echo "<td title='$message[zawartosc]'>$message[temat]</td>";
-                            echo "<td style='width: 82px;'>$message[data]</td>";
+                            echo "<td style='width: 100px;'>$message[name] $message[surname]</td>";
+                            echo "<td title='$message[content]'>$message[title]</td>";
+                            echo "<td style='width: 82px;'>$message[date]</td>";
 
                         echo "</tr>";
                     }

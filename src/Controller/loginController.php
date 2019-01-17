@@ -14,7 +14,7 @@ require_once("../Manager/sessionManager.php");
 class loginController
 {
     // table in database
-    private $user = "uzytkownik";
+    private $user = "user";
 
     // start login 
     public function login($login, $password)
@@ -27,7 +27,7 @@ class loginController
             if(!$db)
             {
                 // return error
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
             
 
@@ -35,7 +35,7 @@ class loginController
             // sql
             // select id, login, password, user role
             // where login = input value
-            $sql = $db->prepare("SELECT id, login, password, rola_uzytkownika, role FROM $this->user WHERE login = :login");
+            $sql = $db->prepare("SELECT id, login, password, school_role, role FROM $this->user WHERE login = :login");
 
             // bind value
             $sql->bindValue(":login", $login, PDO::PARAM_STR);

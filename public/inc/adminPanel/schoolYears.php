@@ -38,11 +38,8 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <table>
@@ -66,9 +63,9 @@ $schoolYears = $schoolYearController->returnAllschoolYears();
                                 <input type='checkbox' name='schoolyears' value='$schoolYear[id]'/> 
                                 <button><a class='btn-link' href='?ap=schoolYear&id=$schoolYear[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$schoolYear[rok_szkolny]</td>";
-                            echo "<td class='center_me'>$schoolYear[data_od]</td>";
-                            echo "<td class='center_me'>$schoolYear[data_do]</td>";
+                            echo "<td class='center_me'>$schoolYear[school_year]</td>";
+                            echo "<td class='center_me'>$schoolYear[date_from]</td>";
+                            echo "<td class='center_me'>$schoolYear[date_to]</td>";
                         echo "</tr>";
                     }
                 }

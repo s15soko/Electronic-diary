@@ -7,11 +7,11 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class subjectController
 {
     // tables in databse
-    private $direction = "przedmiot";
-    private $direction2 = "przedmiotydlagrupy";
-    private $direction3 = "uczenwgrupie";
-    private $direction4 = "uzytkownik";
-    private $direction5 = "przedmiotydlanauczyciela";
+    private $direction = "subject";
+    private $direction2 = "group_subject";
+    private $direction3 = "user_group";
+    private $direction4 = "user";
+    private $direction5 = "teacher_subject";
 
 
     // take user subjects
@@ -23,18 +23,26 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT p.id, p.kolejnosc, p.krotka_nazwa, p.nazwa 
-                FROM 
-                $this->direction AS p, $this->direction2 AS pg, $this->direction3 AS ug, $this->direction4 AS u 
-                WHERE 
-                u.id = :id_user AND 
-                ug.uczen_id = u.id AND 
-                ug.grupa_id = pg.grupa_id AND 
-                pg.przedmiot_id = p.id ORDER BY p.kolejnosc ASC");
+            $sql = $db->prepare("SELECT
+                                s.id,
+                                s.order,
+                                s.short_name,
+                                s.name
+                            
+                                FROM `subject` AS s,
+                                `group_subject` AS gs,
+                                `user_group` AS ug,
+                                `user` AS u
+                                WHERE
+                                u.id = :id_user 
+                                AND ug.student_id = u.id
+                                AND ug.group_id = gs.group_id
+                                AND gs.subject_id = s.id
+                                ORDER by s.order ASC");
 
 
             $sql->bindValue(":id_user", $user_id, PDO::PARAM_INT);
@@ -66,15 +74,15 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :kolejnosc, :short, :sub_name);");
+            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :order, :name, :short_name);");
             
-            $sql->bindValue(":kolejnosc", $order, PDO::PARAM_INT);
-            $sql->bindValue(":short", $short, PDO::PARAM_STR);
-            $sql->bindValue(":sub_name", $name, PDO::PARAM_STR);
+            $sql->bindValue(":order", $order, PDO::PARAM_INT);
+            $sql->bindValue(":name", $name, PDO::PARAM_STR);
+            $sql->bindValue(":short_name", $short, PDO::PARAM_STR);
             $sql->execute();
 
             // close connection
@@ -100,11 +108,11 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY kolejnosc ASC;");
+            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY `order` ASC;");
             $sql->execute();
 
             // fetch results
@@ -133,7 +141,7 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -167,15 +175,20 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("UPDATE $this->direction SET kolejnosc = :order, krotka_nazwa = :short, nazwa = :subjectname WHERE id = :idsubject");
+            $sql = $db->prepare("UPDATE $this->direction 
+                            SET `order` = :order, 
+                            name = :name, 
+                            short_name = :short_name 
+                            WHERE id = :idsubject");
+
             $sql->bindValue(":idsubject", $id, PDO::PARAM_INT);
-            $sql->bindValue(":order", $order, PDO::PARAM_INT);
-            $sql->bindValue(":short", $short, PDO::PARAM_STR);
-            $sql->bindValue(":subjectname", $name, PDO::PARAM_STR);
+            $sql->bindValue(":order", $order, PDO::PARAM_INT);       
+            $sql->bindValue(":name", $name, PDO::PARAM_STR);
+            $sql->bindValue(":short_name", $short, PDO::PARAM_STR);
             $sql->execute();
 
             // close connection
@@ -199,7 +212,7 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -230,11 +243,11 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction5 WHERE idprzedmiotu = :subjectid AND idnauczyciela = :teacherid;");
+            $sql = $db->prepare("SELECT * FROM $this->direction5 WHERE subject_id = :subjectid AND teacher_id = :teacherid;");
                                 
             $sql->bindValue(":teacherid", $teacherID, PDO::PARAM_INT);
             $sql->bindValue(":subjectid", $subjectID, PDO::PARAM_INT);
@@ -265,19 +278,21 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT pdn.id, 
-                                pdn.idprzedmiotu, 
-                                pdn.idnauczyciela, 
-                                p.id AS pid, 
-                                p.kolejnosc AS pkolejnoisc, 
-                                p.krotka_nazwa AS pkrotka_nazwa, 
-                                p.nazwa AS pnazwa 
-                                FROM $this->direction5 as pdn 
-                                INNER JOIN $this->direction as p ON pdn.idprzedmiotu = p.id");
+            $sql = $db->prepare("SELECT 
+                            ts.id,
+                            ts.subject_id,
+                            ts.teacher_id,
+                            s.id AS sid,
+                            s.order AS s_order,
+                            s.short_name AS sshort_name,
+                            s.name AS sname
+                        
+                            FROM `teacher_subject` AS ts
+                            INNER JOIN `subject` AS s ON ts.subject_id = s.id");
             $sql->execute();
 
             // fetch results
@@ -306,7 +321,7 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql
@@ -339,7 +354,7 @@ class subjectController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql

@@ -26,11 +26,8 @@ $groups = $groupsController->getGroups();
     <h1 class='center_me' style='margin-bottom: 25px;'>Add user to  group</h1>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 
@@ -55,10 +52,10 @@ $groups = $groupsController->getGroups();
                             echo "<td class='form_input-options'> 
                                 <button style='width: 100%;'><a class='btn-link' href='?ap=editUserGroup&id=$group[id]'>Show</a></button>
                             </td>";
-                            echo "<td class='center_me'>$group[nazwa]</td>";
-                            echo "<td class='center_me'>$group[grupa]</td>";
-                            echo "<td class='center_me'>$group[rok_szkolny_numer] - $group[rok_szkolny_nazwa]</td>";
-                            echo "<td class='center_me'>$group[nazwa_kierunku]</td>";
+                            echo "<td class='center_me'>$group[name]</td>";
+                            echo "<td class='center_me'>$group[group]</td>";
+                            echo "<td class='center_me'>$group[school_year_number] - $group[school_year_name]</td>";
+                            echo "<td class='center_me'>$group[direction_name]</td>";
                         echo "</tr>";
                     }
                 }

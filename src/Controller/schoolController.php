@@ -5,7 +5,7 @@ require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 class schoolController
 {
     // table in database
-    private $school = "szkola_informacje";
+    private $school = "school";
 
 
     // return data 
@@ -23,7 +23,7 @@ class schoolController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql

@@ -28,7 +28,7 @@ function deleteRows(elementsName, fileName)
     if(myRows.length != 0)
     {
         gFileName = [fileName];
-        alert.render("Chcesz usunac <b>"+myRows.length+"</b> posty?");
+        alert.render("Do you want to delete <b>"+myRows.length+"</b> posts?");
     }
         
 }

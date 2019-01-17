@@ -3,6 +3,13 @@
 require_once("src/Manager/sessionManager.php");
 $session = new sessionManager();
 
+
+if(!$session->checkIfIsActiveUserSession())
+{
+    header("Location: index.php");
+    exit();
+}
+
 // get user id 
 $user_id = $session->returnUserId();
 
@@ -11,7 +18,7 @@ require_once("src/Controller/subjectController.php");
 $subjectController = new subjectController();
 // user subjects
 $userSubjects = $subjectController->getUserSubjects($user_id);
-
+//print_r($userSubjects);
 // include src/Controller/schoolYearController 
 require_once("src/Controller/schoolYearController.php");
 $schoolYearController = new schoolYearController();
@@ -26,7 +33,7 @@ $termsController = new termsController();
 require_once("src/Controller/schoolController.php");
 $schoolController = new schoolController();
 // take current school year id and actual term id
-$school = $schoolController->schoolInformation("obecny_rok_szkolny, obecny_semestr");
+$school = $schoolController->schoolInformation("current_school_year_id, current_term_id");
 
 // include src/Controller/marksController 
 require_once("src/Controller/marksController.php");
@@ -51,6 +58,7 @@ $marksController = new marksController();
     <h3>Term</h3>
     <select onchange='changeTerm(this);'>
         <?php    
+       
         // variable for user marks 
         $userMarks;
 
@@ -59,47 +67,51 @@ $marksController = new marksController();
         // foreach year in our school ex. (2018/2019...)
         foreach($schoolYears as $key => $year)
         {  
+            
             if(!$checkGET)
             {
-                echo "<option data-year_id='$year[id]' data-term_id='null'>$year[rok_szkolny]</option>";
+                // set school year
+                echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
                 // get terms by school id ^
                 $terms = $termsController->getTermsByID($year['id']);
 
                 // get data to variable $userMarks
-                $userMarks = $marksController->getUserMarksByTermID($school['obecny_semestr'] ,$user_id);
-
+                $userMarks = $marksController->getUserMarksByTermID($school['current_term_id'], $user_id);
+                
                 foreach($terms as $key => $term)
                 {       
-                    if($term['id'] === $school['obecny_semestr'])
+                    
+                    if($term['id'] === $school['current_term_id'])
                     {
                         echo "<option data-year_id='$year[id]' data-term_id='$term[id]' selected>
-                            &nbsp;&nbsp;&nbsp;$term[semestr]</option>";
+                            &nbsp;&nbsp;&nbsp;$term[name]</option>";
                         continue;
                     }
 
                     echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
-                            &nbsp;&nbsp;&nbsp;$term[semestr]</option>";    
+                            &nbsp;&nbsp;&nbsp;$term[name]</option>";    
                 }
             }
             else // get term and year
             {
+                
                 if($checkGET['term'] === 'null')
                 {
                     exit();
                 }
                 else 
                 {
-                    echo "<option data-year_id='$year[id]' data-term_id='null'>$year[rok_szkolny]</option>";
+                    echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
                     // get terms by school id ^
                     $terms = $termsController->getTermsByID($year['id']);
 
                     // get data to variable $userMarks
                     $userMarks = $marksController->getUserMarksByTermID($checkGET['term'] ,$user_id);
-
+                   
                     foreach ($terms as $key => $term) 
                     {
                         echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
-                        &nbsp;&nbsp;&nbsp;$term[semestr]</option>"; 
+                        &nbsp;&nbsp;&nbsp;$term[name]</option>"; 
                     }
                 }                
             }
@@ -127,22 +139,23 @@ $marksController = new marksController();
                 echo "<div class='marks_row'>";
 
                     echo "<div class='subject_box'>";
-                        echo "<span>$subject[nazwa]</span>";
+                        echo "<span>$subject[name]</span>";
                     echo "</div>";
 
                     echo "<div class='marks_box'>";
                         foreach ($userMarks as $key => $mark) 
                         {
-                            if($subject['id'] === $mark['przedmiot'])
+                            if($subject['id'] === $mark['subject_id'])
                             {
+                                
                                 echo "<div class='mark' style='color: $mark[color]'
-                                    data-mark='$mark[ocena]'
-                                    data-desc='$mark[nazwa_oceny]'
-                                    data-kind='$mark[rodzaj]'
-                                    data-range='$mark[zakres]'
-                                    data-data='$mark[data]'
-                                    data-weight='$mark[waga_oceny]'
-                                    onmouseover='showMarkInformation(this);'>$mark[ocena]</div>";
+                                    data-mark='$mark[grade]'
+                                    data-desc='$mark[name]'
+                                    data-kind='$mark[type]'
+                                    data-range='$mark[range]'
+                                    data-data='$mark[date]'
+                                    data-weight='$mark[weight]'
+                                    onmouseover='showMarkInformation(this);'>$mark[grade]</div>";
                             }
                         }
                     echo "</div>";

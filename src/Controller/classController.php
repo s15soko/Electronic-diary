@@ -6,7 +6,7 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class classController
 {
     // table name in database
-    private $direction = "klasa";
+    private $direction = "class";
 
 
     // get all classes from database
@@ -18,11 +18,11 @@ class classController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY numer ASC;");
+            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY `number` ASC;");
             $sql->execute();
 
             // fetch results
@@ -51,14 +51,14 @@ class classController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :numberc, :namec);");
+            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :number, :name);");
             
-            $sql->bindValue(":numberc", $number, PDO::PARAM_INT);
-            $sql->bindValue(":namec", $name, PDO::PARAM_STR);
+            $sql->bindValue(":number", $number, PDO::PARAM_INT);
+            $sql->bindValue(":name", $name, PDO::PARAM_STR);
             $sql->execute();
 
             // close connection
@@ -83,7 +83,7 @@ class classController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -116,7 +116,7 @@ class classController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql
@@ -150,11 +150,11 @@ class classController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("UPDATE $this->direction SET numer = :numberclass, nazwa = :nameclass WHERE id = :idclass");
+            $sql = $db->prepare("UPDATE $this->direction SET `number` = :numberclass, `name` = :nameclass WHERE id = :idclass");
             $sql->bindValue(":idclass", $id, PDO::PARAM_INT);
             $sql->bindValue(":numberclass", $number, PDO::PARAM_INT);
             $sql->bindValue(":nameclass", $name, PDO::PARAM_STR);

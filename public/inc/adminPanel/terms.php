@@ -38,11 +38,8 @@ $terms = $termsController->getTerms();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <table>
@@ -67,10 +64,10 @@ $terms = $termsController->getTerms();
                                 <input type='checkbox' name='terms' value='$term[id]'/> 
                                 <button><a class='btn-link' href='?ap=term&id=$term[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$term[rok_szkolny]</td>";
-                            echo "<td class='center_me'>$term[semestr]</td>";
-                            echo "<td class='center_me'>$term[data_od]</td>";
-                            echo "<td class='center_me'>$term[data_do]</td>";
+                            echo "<td class='center_me'>$term[school_year]</td>";
+                            echo "<td class='center_me'>$term[name]</td>";
+                            echo "<td class='center_me'>$term[date_from]</td>";
+                            echo "<td class='center_me'>$term[date_to]</td>";
                         echo "</tr>";
                     }
                 }

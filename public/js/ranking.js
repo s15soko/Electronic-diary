@@ -13,7 +13,7 @@ function returnUserSubjects(myAjaxResults)
         if(userSubjects == 0)
         {
             // push first element
-            userSubjects.push(res['nazwa']);
+            userSubjects.push(res['name']);
         }
         else // if isnt empty
         {
@@ -22,7 +22,7 @@ function returnUserSubjects(myAjaxResults)
             userSubjects.forEach(sub => 
             {
                 // if subject exist in array
-                if(sub == res['nazwa'])
+                if(sub == res['name'])
                     flag = true; // set flag on true
             });
 
@@ -30,7 +30,7 @@ function returnUserSubjects(myAjaxResults)
             // push new subject
             if(!flag)
             {
-                userSubjects.push(res['nazwa']);
+                userSubjects.push(res['name']);
             }
         }
     });
@@ -56,22 +56,22 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
     {
         // for first element
         // average for all subjects
-        if(subject == "Średnia ogólna")
+        if(subject == "General average")
         {
             // for school
-            schoolWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+            schoolWholeAverage += ((element['value'] * element['weight'])/element['weight']);
 
             // for class
-            if(element['nazwagrupy'] == userGroupName[0])
+            if(element['groupname'] == userGroupName[0])
             {
-                classWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+                classWholeAverage += ((element['value'] * element['weight'])/element['weight']);
                 count_class++;
             }
 
             // for user
-            if(element['iducznia'] == userId)
+            if(element['student_id'] == userId)
             {
-                userWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+                userWholeAverage += ((element['value'] * element['weight'])/element['weight']);
 
                 count_user++;
             }
@@ -79,22 +79,22 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
             count_school++;
         }
         // average for one subject
-        else if(element['nazwa'] == subject)
+        else if(element['name'] == subject)
         {
             // for school
-            schoolWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+            schoolWholeAverage += ((element['value'] * element['weight'])/element['weight']);
 
             // for class
-            if(element['nazwagrupy'] == userGroupName[0])
+            if(element['groupname'] == userGroupName[0])
             {
-                classWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+                classWholeAverage += ((element['value'] * element['weight'])/element['weight']);
                 count_class++;
             }
 
             // for user
-            if(element['iducznia'] == userId)
+            if(element['student_id'] == userId)
             {
-                userWholeAverage += ((element['wartosc'] * element['waga_oceny'])/element['waga_oceny']);
+                userWholeAverage += ((element['value'] * element['weight'])/element['weight']);
 
                 count_user++;
             }
@@ -128,7 +128,7 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
 
 
     // for school, class and user
-    var rowValue = {0: "Szkola:", 1: "Klasa:", 2: "Ty:"};
+    var rowValue = {0: "School:", 1: "Class:", 2: "You:"};
     // assign 
     var average = {0: schoolAverage, 1: classAverage, 2: userAverage}
 
@@ -234,6 +234,7 @@ function returnUserId()
 // return marks by ajax
 function returnAllMarks()
 {
+
     var myAjaxResults;
     // start ajax
     // get all marks
@@ -296,7 +297,6 @@ $(document).ready(function()
     // user group name
     $userGroupName = returnUserGroupName();
 
-
     // parse to array
     $userGroupName = JSON.parse($userGroupName);
     // parse to array
@@ -305,12 +305,11 @@ $(document).ready(function()
     // user subjects
     $userSubjects = returnUserSubjects($myAjaxResults);
 
-   
-    
+
     // if user pick term and marks 
     if($termSelect && $typeOfResults === 'marks')
     {
-        $userSubjects.unshift("Średnia ogólna");
+        $userSubjects.unshift("General average");
         // average for each subject
         $userSubjects.forEach(sub => 
         {

@@ -134,7 +134,7 @@ function getAllTeachers()
                 // create element
                 var opt = document.createElement("option");
                 opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['imie'] + " " + element['nazwisko'];
+                opt.innerHTML = element['name'] + " " + element['surname'];
                 teacherSelect.appendChild(opt);
             });
         }

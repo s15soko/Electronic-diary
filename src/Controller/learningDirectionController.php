@@ -6,7 +6,7 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class learningDirectionController
 {
     // table in database
-    private $direction = "kierunek";
+    private $direction = "direction";
 
 
     // get all directions from database
@@ -18,7 +18,7 @@ class learningDirectionController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -51,7 +51,7 @@ class learningDirectionController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -86,7 +86,7 @@ class learningDirectionController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -121,11 +121,11 @@ class learningDirectionController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("UPDATE $this->direction SET nazwa_kierunku = :directionname, krotka_nazwa = :short WHERE id = :iddirection");
+            $sql = $db->prepare("UPDATE $this->direction SET name = :directionname, short_name = :short WHERE id = :iddirection");
             $sql->bindValue(":iddirection", $id, PDO::PARAM_INT);
             $sql->bindValue(":directionname", $name, PDO::PARAM_STR);
             $sql->bindValue(":short", $short, PDO::PARAM_STR);
@@ -153,7 +153,7 @@ class learningDirectionController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql

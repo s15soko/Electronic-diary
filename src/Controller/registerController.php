@@ -8,7 +8,7 @@ require_once(dirname(__FILE__). "/../Manager/sessionManager.php");
 class registerController
 {
     // table in database
-    private $direction = "uzytkownik";
+    private $direction = "user";
 
 
     // add new user to database
@@ -99,7 +99,7 @@ class registerController
     
                 // sql
                 $sql = $db->prepare("INSERT INTO $this->direction VALUES 
-                    (null, :username, :surname, :schoolrole, :email, :pin, :address, :contact, :datebirth, :login, :password, :role);");
+                    (null, :username, :surname, :datebirth, :pin, :login, :password, :schoolrole, :role, :address, :contact, :email);");
                 $sql->bindValue(":username", $name, PDO::PARAM_STR);
                 $sql->bindValue(":surname", $surname, PDO::PARAM_STR);
                 $sql->bindValue(":schoolrole", $schoolrole, PDO::PARAM_STR);

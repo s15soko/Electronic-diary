@@ -27,11 +27,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!$messageController->sendAMessage($sender, $receiver, $title, $content))
     {
         // if something went wrong - show error message
-        $session->setFlashMessage("Wystapil blad!");
+        $session->setFlashMessage("An occurred error!");
     }
     else 
     {
-        $session->setFlashMessage("Wyslano wiadomosc!");
+        $session->setFlashMessage("Message sent!");
     }
     
     

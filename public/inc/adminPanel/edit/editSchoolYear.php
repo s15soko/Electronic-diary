@@ -59,17 +59,17 @@ $form_builder->setInputs(
         0 => array(
             "type" => "text",
             "name" => "schoolYear",
-            "value" => $schoolYear_data['rok_szkolny']
+            "value" => $schoolYear_data['school_year']
         ),
         1 => array(
             "type" => "date",
             "name" => "datef",
-            "value" => $schoolYear_data['data_od']
+            "value" => $schoolYear_data['date_from']
         ),
         2 => array(
             "type" => "date",
             "name" => "datet",
-            "value" => $schoolYear_data['data_do']
+            "value" => $schoolYear_data['date_to']
         ),
         4 => array(
             "type" => "hidden",

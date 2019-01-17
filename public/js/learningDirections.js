@@ -27,14 +27,14 @@ function directionsFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Nazwa: ";
+    h1.innerHTML = "Name: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
     var input1 = document.createElement("input");
     input1.setAttribute("name", "name");
     input1.setAttribute("type", "text");
-    input1.setAttribute("placeholder", "Wprowadź nazwę kierunku");
+    input1.setAttribute("placeholder", "Enter name");
     // append input1 to p1
     p1.appendChild(input1);
 
@@ -45,14 +45,14 @@ function directionsFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Krótka nazwa: ";
+    h2.innerHTML = "Short name: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
     var input2 = document.createElement("input");
     input2.setAttribute("name", "short_name");
     input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Wprowadź krótką nazwę");
+    input2.setAttribute("placeholder", "Enter short name");
     // append input2 to p2
     p2.appendChild(input2);
 
@@ -67,7 +67,7 @@ function directionsFormBuilder()
     var input3 = document.createElement("input");
     input3.setAttribute("type", "submit");
     input3.setAttribute("onclick", "addNewLearDirection()");
-    input3.setAttribute("value", "Dodaj do bazy");
+    input3.setAttribute("value", "Add");
     // append input3 to p3
     p3.appendChild(input3);
 

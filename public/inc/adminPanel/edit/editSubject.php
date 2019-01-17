@@ -59,19 +59,19 @@ $form_builder->setInputs(
         0 => array(
             "type" => "number",
             "name" => "order",
-            "value" => $subject_data['kolejnosc']
+            "value" => $subject_data['order']
         ),
         1 => array(
             "type" => "text",
             "name" => "short",
             "placeholder" => "Enter short name",
-            "value" => $subject_data['krotka_nazwa']
+            "value" => $subject_data['short_name']
         ),
         2 => array(
             "type" => "text",
             "name" => "name",
             "placeholder" => "Enter name",
-            "value" => $subject_data['nazwa']
+            "value" => $subject_data['name']
         ),
         4 => array(
             "type" => "hidden",

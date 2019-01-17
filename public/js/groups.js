@@ -27,12 +27,12 @@ function groupFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Nazwa: ";
+    h1.innerHTML = "Name: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
     var input1 = document.createElement("input");
-    input1.setAttribute("placeholder","Wprowadz nazwe grupy (klasa + kierunek)");
+    input1.setAttribute("placeholder","Enter group name (class + direction)");
     input1.setAttribute("name", "group_name");
     input1.setAttribute("type", "text");
     // append input1 to p1
@@ -46,7 +46,7 @@ function groupFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Numer grupy: ";
+    h2.innerHTML = "Group number: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
@@ -65,7 +65,7 @@ function groupFormBuilder()
     div.appendChild(p3);
     // create h2 text
     var h3 = document.createElement("h2");
-    h3.innerHTML = "Klasa: ";
+    h3.innerHTML = "Class: ";
     // append h3 to p3
     p3.appendChild(h3);
     // create input 3
@@ -86,7 +86,7 @@ function groupFormBuilder()
     div.appendChild(p4);
     // create h2 text
     var h4 = document.createElement("h2");
-    h4.innerHTML = "Kierunek: ";
+    h4.innerHTML = "Direction: ";
     // append h4 to p4
     p4.appendChild(h4);
     // create input 4
@@ -108,7 +108,7 @@ function groupFormBuilder()
     var input5 = document.createElement("input");
     input5.setAttribute("type", "submit");
     input5.setAttribute("onclick", "addNewGroup()");
-    input5.setAttribute("value", "Dodaj do bazy");
+    input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
 
@@ -137,11 +137,6 @@ function userGroupFormBuilder()
      // append div to form
      form.appendChild(div);
 
-
-
-
-
-
      // submit
     // create paragraph 5
     var p5 = document.createElement("p");
@@ -151,14 +146,10 @@ function userGroupFormBuilder()
     var input5 = document.createElement("input");
     input5.setAttribute("type", "submit");
     input5.setAttribute("onclick", "addNewGroupUser()");
-    input5.setAttribute("value", "Dodaj do bazy");
+    input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
 }
-
-
-
-
 
 
 // get all subjects for group (add data from other table)
@@ -180,12 +171,12 @@ function getSubjectsForGroup(groupid)
             data.forEach(element => 
             {
                 // if null 
-                if(element['grupa_id'] === null)
+                if(element['group_id'] === null)
                 {   
                     // create element
                     var opt = document.createElement("option");
                     opt.setAttribute("value", element['id']);
-                    opt.innerHTML = element['nazwa'];
+                    opt.innerHTML = element['name'];
                     subjectSelect.appendChild(opt);
                 }
 
@@ -224,7 +215,7 @@ function groupSubjectFormBuilder(id)
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Przedmiot: ";
+    h1.innerHTML = "Subject: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
@@ -247,7 +238,7 @@ function groupSubjectFormBuilder(id)
     var input5 = document.createElement("input");
     input5.setAttribute("type", "submit");
     input5.setAttribute("onclick", "addNewSubjectToGroup("+id+")");
-    input5.setAttribute("value", "Dodaj do bazy");
+    input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
 
@@ -276,8 +267,6 @@ function addNewSubjectToGroup(id)
 
 
 
-
-
 // get by ajax data from database
 function getAllClasses()
 {
@@ -297,7 +286,7 @@ function getAllClasses()
                 // create element
                 var opt = document.createElement("option");
                 opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['numer'] + " - " + element['nazwa'];
+                opt.innerHTML = element['number'] + " - " + element['name'];
                 classSelect.appendChild(opt);
 
 
@@ -327,7 +316,7 @@ function getAllDirections()
                 // create element
                 var opt = document.createElement("option");
                 opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['nazwa_kierunku'];
+                opt.innerHTML = element['name'];
                 directionSelect.appendChild(opt);
 
 

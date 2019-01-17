@@ -75,14 +75,14 @@ $users = $userDataController->getAllUsers();
                                 <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edit</a></button>
                             </td>";
 
-                            echo "<td class='center_me'>$user[imie]</td>";
-                            echo "<td class='center_me userSurname'>$user[nazwisko]</td>";
-                            echo "<td class='center_me'>$user[rola_uzytkownika]</td>";
+                            echo "<td class='center_me'>$user[name]</td>";
+                            echo "<td class='center_me userSurname'>$user[surname]</td>";
+                            echo "<td class='center_me'>$user[school_role]</td>";
                             echo "<td class='center_me'>$user[email]</td>";
                             echo "<td class='center_me darker_td'>$user[PIN]</td>";
-                            echo "<td class='center_me'>$user[adres]</td>";
-                            echo "<td class='center_me'>$user[kontakt]</td>";
-                            echo "<td class='center_me'>$user[data_urodzenia]</td>";
+                            echo "<td class='center_me'>$user[address]</td>";
+                            echo "<td class='center_me'>$user[contact]</td>";
+                            echo "<td class='center_me'>$user[date_of_birth]</td>";
                             echo "<td class='center_me darker_td'>$user[login]</td>";
                             echo "<td class='center_me darker_td'>$user[role]</td>";
 

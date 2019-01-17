@@ -25,14 +25,14 @@ function subjectFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Kolejnosc: ";
+    h1.innerHTML = "Order: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
     var input1 = document.createElement("input");
     input1.setAttribute("name", "order");
     input1.setAttribute("type", "number");
-    input1.setAttribute("placeholder", "Wprowadź numer kolejności");
+    input1.setAttribute("placeholder", "Enter number of order");
     // append input1 to p1
     p1.appendChild(input1);
 
@@ -43,14 +43,14 @@ function subjectFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Krótka nazwa: ";
+    h2.innerHTML = "Short name: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
     var input2 = document.createElement("input");
     input2.setAttribute("name", "shortname");
     input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Wprowadź krótką nazwe");
+    input2.setAttribute("placeholder", "Enter short name");
     // append input2 to p2
     p2.appendChild(input2);
 
@@ -61,14 +61,14 @@ function subjectFormBuilder()
     div.appendChild(p3);
     // create h2 text
     var h3 = document.createElement("h2");
-    h3.innerHTML = "Nazwa";
+    h3.innerHTML = "Name";
     // append h3 to p3
     p3.appendChild(h3);
     // create input 3
     var input3 = document.createElement("input");
     input3.setAttribute("name", "name");
     input3.setAttribute("type", "text");
-    input3.setAttribute("placeholder", "Wprowadź nazwe");
+    input3.setAttribute("placeholder", "Enter name");
     // append input3 to p3
     p3.appendChild(input3);
 
@@ -82,7 +82,7 @@ function subjectFormBuilder()
     var input4 = document.createElement("input");
     input4.setAttribute("type", "submit");
     input4.setAttribute("onclick", "addNewSubject()");
-    input4.setAttribute("value", "Dodaj do bazy");
+    input4.setAttribute("value", "Add");
     // append input4 to p4
     p4.appendChild(input4);
 

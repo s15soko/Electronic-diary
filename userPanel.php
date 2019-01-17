@@ -62,6 +62,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                             <a href="?mp=marks"><li title="Enter the mark">Enter the mark</li></a>
                             <a href="?mp=presences"><li title="Presences">Presences</li></a>
                             <a href="?up=messages"><li title="Messages">Messages</li></a>
+                            <a href="?mp=lessonplan"><li title="Lesson plan">Lesson plan</li></a>
                         <?php
                     }
                     // show ADMINISTRATOR options 
@@ -69,6 +70,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                     {
                         ?>
                             <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Administrator options</li>
+                            <a href="?ap=studentLessonPlanCreator"><li title="Lesson Plan Creator">Student Lesson Plan Creator</li></a>
                             <a href="?ap=groupSubjects"><li title="Subjects for group">Subjects for group</li></a>
                             <a href="?ap=userGroup"><li title="Stundent in group">Stundent in group</li></a>
                             <a href="?ap=teacherSubjects"><li title="Subjects for teacher">Subjects for teacher</li></a>

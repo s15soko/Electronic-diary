@@ -6,7 +6,7 @@ require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 class rankingController
 {
     // table in database
-    private $direction = 'oceny';
+    private $direction = 'grade';
 
 
     // get all marks from database
@@ -19,22 +19,30 @@ class rankingController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT o.id AS ocenaid, o.id_ucznia AS iducznia ,os.ocena, os.wartosc, o.waga_oceny, o.semestr, p.nazwa, uwg.grupa_id AS grupaucznia, g.nazwa AS nazwagrupy 
+            $sql = $db->prepare("SELECT g.id AS gradeid, 
+                                    g.student_id,
+                                    gs.grade, 
+                                    gs.value, 
+                                    g.weight, 
+                                    g.term_id, 
+                                    s.name,
+                                    ug.group_id AS usergroup, 
+                                    gg.name AS groupname 
 
-                                    FROM oceny AS o
+                                    FROM `grade` AS g
 
-                                    INNER JOIN ocena_skala AS os ON os.id = o.ocena
-                                    INNER JOIN semestr AS s ON s.id = o.semestr
-                                    INNER JOIN przedmiot AS p ON o.przedmiot = p.id
-                                    INNER JOIN uczenwgrupie AS uwg ON o.id_ucznia = uwg.uczen_id
-                                    INNER JOIN grupa AS g ON g.id = uwg.grupa_id
+                                    INNER JOIN `grade_scale` AS gs ON gs.id = g.grade
+                                    INNER JOIN `term` AS t ON t.id = g.term_id
+                                    INNER JOIN `subject` AS s ON g.subject_id = s.id
+                                    INNER JOIN `user_group` AS ug ON g.student_id = ug.student_id
+                                    INNER JOIN `group` AS gg ON gg.id = ug.group_id
 
-                                    AND o.semestr = :termid
-                                    AND o.rok_szkolny = :schoolyearid");
+                                    AND g.term_id = :termid
+                                    AND g.school_year_id = :schoolyearid");
                                 
             $sql->bindValue(":termid", $termid, PDO::PARAM_INT);
             $sql->bindValue(":schoolyearid", $schoolyearid, PDO::PARAM_INT);

@@ -38,11 +38,8 @@ $classes = $classController->getClasses();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 
@@ -66,8 +63,8 @@ $classes = $classController->getClasses();
                                 <input type='checkbox' name='classes' value='$class[id]'/> 
                                 <button><a class='btn-link' href='?ap=class&id=$class[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$class[numer]</td>";
-                            echo "<td class='center_me'>$class[nazwa]</td>";
+                            echo "<td class='center_me'>$class[number]</td>";
+                            echo "<td class='center_me'>$class[name]</td>";
                         echo "</tr>";
                     }
                 }

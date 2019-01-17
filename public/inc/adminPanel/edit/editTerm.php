@@ -63,34 +63,34 @@ $form_builder->setHeaderText(
         3 => "Date to:"
     )
 );
-$form_builder->setNameOptions(array(0 => "rok_szkolny"));
+$form_builder->setNameOptions(array(0 => "school_year"));
 $form_builder->setInputs(
     array(
         0 => array(
             "type" => "select",
             "name" => "rok_szkolny",
             "options" => $schoolYears,
-            "value" => $term_data['rok_szkolny'],
+            "value" => $term_data['school_year_id'],
             "required" => "required"   
         ),
         1 => array(
             "type" => "text",
-            "placeholder" => "Semestr",
+            "placeholder" => "Term",
             "name" => "semestr",
-            "value" => $term_data['semestr'],
+            "value" => $term_data['name'],
             "required" => "required"
         ),
         2 => array(
             "type" => "date",
-            "placeholder" => "Data od",
+            "placeholder" => "Date from",
             "name" => "data_f",
-            "value" => $term_data['data_od']  
+            "value" => $term_data['date_from']  
         ),
         3 => array(
             "type" => "date",
-            "placeholder" => "Data do",
+            "placeholder" => "Date to",
             "name" => "data_t",
-            "value" => $term_data['data_do']  
+            "value" => $term_data['date_to']  
         ),
         4 => array(
             "type" => "hidden",

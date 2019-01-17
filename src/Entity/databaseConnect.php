@@ -4,7 +4,7 @@ function get_database()
 {
     // database values
     $mysql_host = 'localhost';
-    $database = 'dziennikelektryczny';
+    $database = 'electronic_diary';
     $dbusername = 'root';
     $dbpassword = '';
 

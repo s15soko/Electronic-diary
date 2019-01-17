@@ -5,9 +5,9 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class termsController
 {
     // table in database
-    private $direction = "semestr";
+    private $direction = "term";
     // second table
-    private $direction2 = "rok_szkolny";
+    private $direction2 = "school_year";
 
 
     // get all terms from database and school year 
@@ -19,13 +19,17 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.id, r.rok_szkolny, s.semestr, s.data_od, s.data_do 
-                            FROM $this->direction as s, $this->direction2 as r
-                            WHERE s.rok_szkolny = r.id;");
+            $sql = $db->prepare("SELECT t.id, 
+                                sy.school_year, 
+                                t.name, 
+                                t.date_from, 
+                                t.date_to 
+                                FROM `term` AS t, `school_year` AS sy 
+                                WHERE t.school_year_id = sy.id");
             $sql->execute();
 
             // fetch results
@@ -53,7 +57,7 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -85,14 +89,15 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.id, r.rok_szkolny, s.semestr, s.data_od, s.data_do 
-            FROM $this->direction as s, $this->direction2 as r
-            WHERE s.rok_szkolny = :id
-            AND s.rok_szkolny = r.id ORDER BY s.data_od ASC");
+            $sql = $db->prepare("SELECT t.id, sy.school_year, t.name, t.date_from, t.date_to 
+                                    FROM `term` AS t, `school_year`AS sy 
+                                    WHERE t.school_year_id = :id 
+                                    AND t.school_year_id = sy.id 
+                                    ORDER BY t.date_from ASC");
             $sql->bindValue(":id", $year_id, PDO::PARAM_INT);
             $sql->execute();
 
@@ -123,7 +128,7 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -156,13 +161,14 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT s.*, rs.id, rs.rok_szkolny FROM semestr AS s 
-                                INNER JOIN rok_szkolny AS rs 
-                                ON rs.id = s.rok_szkolny AND s.id = :id");
+            $sql = $db->prepare("SELECT t.*, sy.id, sy.school_year 
+                                FROM `term` AS t 
+                                INNER JOIN `school_year` AS sy ON sy.id = t.school_year_id 
+                                AND t.id = :id");
         
             $sql->bindValue(":id", $id, PDO::PARAM_INT);
             $sql->execute();
@@ -192,11 +198,12 @@ class termsController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("UPDATE $this->direction SET rok_szkolny = :yearid, semestr = :termstr, data_od = :datef, data_do = :datet WHERE id = :idterm");
+            $sql = $db->prepare("UPDATE $this->direction SET school_year_id = :yearid, name = :termstr, date_from = :datef, date_to = :datet 
+                                WHERE id = :idterm");
             $sql->bindValue(":idterm", $id, PDO::PARAM_INT);
             $sql->bindValue(":yearid", $year, PDO::PARAM_INT);
             $sql->bindValue(":termstr", $term, PDO::PARAM_STR);

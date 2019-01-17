@@ -6,8 +6,8 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 class messageController
 {
-    private $direction = "wiadomosc_nadawcza";
-    private $direction2 = "wiadomosc_odbiorcza";
+    private $direction = "outbox_message";
+    private $direction2 = "receiving_message";
 
 
     // send a message
@@ -19,7 +19,7 @@ class messageController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // begin transaction
@@ -57,14 +57,17 @@ class messageController
             if(!$db)
             {
                 // return error
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
             
             // sql
-            // nadawca = user id 
             // inner join data about receiver user like name and surname
-            $sql = $db->prepare("SELECT wn.*, u.imie, u.nazwisko FROM wiadomosc_nadawcza as wn 
-                                INNER JOIN uzytkownik AS u ON wn.odbiorca = u.id AND wn.nadawca = :userid");
+            $sql = $db->prepare("SELECT 
+                        om.*, u.name, u.surname
+                        FROM `outbox_message` AS om
+                        INNER JOIN `user` AS u
+                        ON om.sender_id = u.id
+                        AND om.sender_id = :userid");
 
             // bind value
             $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
@@ -98,14 +101,17 @@ class messageController
             if(!$db)
             {
                 // return error
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            // odbiorca = user id 
             // inner join data about sender user like name and surname
-            $sql = $db->prepare("SELECT wo.*, u.imie, u.nazwisko FROM wiadomosc_odbiorcza as wo 
-                        INNER JOIN uzytkownik AS u ON wo.nadawca = u.id AND wo.odbiorca = :userid");
+            $sql = $db->prepare("SELECT 
+                        rm.*, u.name, u.surname
+                        FROM `receiving_message` AS rm
+                        INNER JOIN `user` AS u
+                        ON rm.receiver_id = u.id
+                        AND rm.receiver_id = :userid");
 
             // bind value
             $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
@@ -138,7 +144,7 @@ class messageController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -172,7 +178,7 @@ class messageController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql

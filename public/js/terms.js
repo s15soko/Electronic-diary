@@ -25,7 +25,7 @@ function termFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Rok szkolny: ";
+    h1.innerHTML = "School year: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
@@ -44,14 +44,14 @@ function termFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Semestr: ";
+    h2.innerHTML = "Term: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
     var input2 = document.createElement("input");
     input2.setAttribute("name", "term");
     input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Wprowadź nazwe semestru");
+    input2.setAttribute("placeholder", "Enter term name");
     // append input2 to p2
     p2.appendChild(input2);
 
@@ -64,7 +64,7 @@ function termFormBuilder()
     div.appendChild(p3);
     // create h2 text
     var h3 = document.createElement("h2");
-    h3.innerHTML = "Data od: ";
+    h3.innerHTML = "Date from: ";
     // append h3 to p3
     p3.appendChild(h3);
     // create input 3
@@ -83,7 +83,7 @@ function termFormBuilder()
     div.appendChild(p4);
     // create h2 text
     var h4 = document.createElement("h2");
-    h4.innerHTML = "Data od: ";
+    h4.innerHTML = "Date to: ";
     // append h4 to p4
     p4.appendChild(h4);
     // create input 4
@@ -104,7 +104,7 @@ function termFormBuilder()
     var input5 = document.createElement("input");
     input5.setAttribute("type", "submit");
     input5.setAttribute("onclick", "addNewTerm()");
-    input5.setAttribute("value", "Dodaj do bazy");
+    input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
 
@@ -131,7 +131,7 @@ function getAllSchoolYears()
                 // create element
                 var opt = document.createElement("option");
                 opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['rok_szkolny'];
+                opt.innerHTML = element['school_year'];
                 termSelect.appendChild(opt);
 
 

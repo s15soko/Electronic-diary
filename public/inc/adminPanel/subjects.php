@@ -38,11 +38,8 @@ $subjects = $subjectController->getSubjects();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <table>
@@ -66,9 +63,9 @@ $subjects = $subjectController->getSubjects();
                                 <input type='checkbox' name='subjects' value='$subject[id]'/> 
                                 <button><a class='btn-link' href='?ap=subject&id=$subject[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$subject[kolejnosc]</td>";
-                            echo "<td class='center_me'>$subject[krotka_nazwa]</td>";
-                            echo "<td class='center_me'>$subject[nazwa]</td>";
+                            echo "<td class='center_me'>$subject[order]</td>";
+                            echo "<td class='center_me'>$subject[short_name]</td>";
+                            echo "<td class='center_me'>$subject[name]</td>";
                         echo "</tr>";
                     }
                 }

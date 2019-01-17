@@ -7,7 +7,7 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class schoolYearController
 {
     // table name in database
-    private $direction = "rok_szkolny";
+    private $direction = "school_year";
 
 
     // return all rows (all school years)
@@ -19,7 +19,7 @@ class schoolYearController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -51,7 +51,7 @@ class schoolYearController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -85,7 +85,7 @@ class schoolYearController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -119,11 +119,13 @@ class schoolYearController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("UPDATE $this->direction SET rok_szkolny = :schoolyear, data_od = :datef, data_do = :datet WHERE id = :idschoolyear");
+            $sql = $db->prepare("UPDATE $this->direction SET school_year = :schoolyear, date_from = :datef, date_to = :datet 
+                                WHERE id = :idschoolyear");
+
             $sql->bindValue(":idschoolyear", $id, PDO::PARAM_INT);
             $sql->bindValue(":schoolyear", $schoolYear, PDO::PARAM_STR);
             $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
@@ -153,7 +155,7 @@ class schoolYearController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql

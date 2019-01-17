@@ -39,11 +39,8 @@ $groups = $groupsController->getGroups();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <table>
@@ -68,10 +65,10 @@ $groups = $groupsController->getGroups();
                                 <input type='checkbox' name='groups' value='$group[id]'/> 
                                 <button><a class='btn-link' href='?ap=group&id=$group[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$group[nazwa]</td>";
-                            echo "<td class='center_me'>$group[grupa]</td>";
-                            echo "<td class='center_me'>$group[rok_szkolny_numer] - $group[rok_szkolny_nazwa]</td>";
-                            echo "<td class='center_me'>$group[nazwa_kierunku]</td>";
+                            echo "<td class='center_me'>$group[name]</td>";
+                            echo "<td class='center_me'>$group[group]</td>";
+                            echo "<td class='center_me'>$group[school_year_number] - $group[school_year_name]</td>";
+                            echo "<td class='center_me'>$group[direction_name]</td>";
                         echo "</tr>";
                     }
                 }

@@ -30,11 +30,8 @@ $groups = $groupsController->getGroups();
     <h1 class='center_me' style='margin-bottom: 25px;'>Add subject to group</h1>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 

@@ -5,7 +5,7 @@ require_once(dirname(__FILE__). "/../Manager/sessionManager.php");
 class userDataController
 {
     // table in database
-    private $direction = "uzytkownik";
+    private $direction = "user";
 
 
 
@@ -18,11 +18,11 @@ class userDataController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY rola_uzytkownika;");
+            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY school_role;");
             $sql->execute();
 
             // fetch results
@@ -50,11 +50,13 @@ class userDataController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE rola_uzytkownika = 'TEACHER' OR rola_uzytkownika = 'DIRECTOR' ORDER BY rola_uzytkownika");
+            $sql = $db->prepare("SELECT * FROM $this->direction 
+                        WHERE school_role = 'TEACHER' 
+                        OR school_role = 'DIRECTOR' ORDER BY school_role");
             $sql->execute();
 
             // fetch results
@@ -82,7 +84,7 @@ class userDataController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             
@@ -90,7 +92,7 @@ class userDataController
             foreach ($rows_id as $key => $id) 
             {
                 $sql = $db->prepare("UPDATE $this->direction 
-                        SET rola_uzytkownika = 'STUDENT', 
+                        SET school_role = 'STUDENT', 
                         role = 'USER' 
                         WHERE id = :id");
                         
@@ -127,7 +129,7 @@ class userDataController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // sql
@@ -161,7 +163,7 @@ class userDataController
             $db = get_database(); 
             if(!$db)
             {
-                throw new PDOException("Brak polaczenia z baza!");       
+                throw new PDOException("No connection with database!");       
             }
 
             // foreach sql

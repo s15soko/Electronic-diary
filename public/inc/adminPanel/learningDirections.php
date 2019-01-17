@@ -39,11 +39,8 @@ $directions = $learningDirectionController->getLearningDirections();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <table>
@@ -66,8 +63,8 @@ $directions = $learningDirectionController->getLearningDirections();
                                 <input type='checkbox' name='directions' value='$direction[id]'/> 
                                 <button><a class='btn-link' href='?ap=direction&id=$direction[id]'>Edit</a></button>
                             </td>";
-                            echo "<td>$direction[nazwa_kierunku]</td>";
-                            echo "<td class='center_me'>$direction[krotka_nazwa]</td>";
+                            echo "<td>$direction[name]</td>";
+                            echo "<td class='center_me'>$direction[short_name]</td>";
                         echo "</tr>";
                     }
                 }

@@ -8,6 +8,7 @@ if($session->checkIfIsAdmin())
 {
     //gets array
     $GETS = array(
+        "studentLessonPlanCreator" => "studentLessonPlanCreator.php",
         "groupSubjects" => "groupSubjects.php",
         "userGroup" => "userGroup.php",
         "teacherSubjects" => "teacherSubjects.php",
@@ -65,8 +66,8 @@ if($session->checkIfIsModerator() || $session->checkIfIsAdmin())
     //gets array
     $GETS = array(
         "marks" => "marks.php",
-
-        // GET for edit
+        "presences" => "presences.php",
+        "lessonplan" => "lessonPlan.php"
         
     );
     // GET for admin panel
@@ -97,7 +98,7 @@ if($session->checkIfIsModerator() || $session->checkIfIsAdmin())
 //gets array
 $user_GETS = array(
     "marks" => "marks.php",
-
+    "lessonplan" => "lessonPlan.php",
     "ranking" => "ranking.php",
     "messages" => "messages.php",
     

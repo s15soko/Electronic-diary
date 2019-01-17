@@ -28,7 +28,7 @@ function teacherSubjectFormBuilder()
     div.appendChild(p1);
     // create h2 text
     var h1 = document.createElement("h2");
-    h1.innerHTML = "Nauczyciel: ";
+    h1.innerHTML = "Teacher: ";
     // append h1 to p1
     p1.appendChild(h1);
     // create input 1
@@ -47,7 +47,7 @@ function teacherSubjectFormBuilder()
     div.appendChild(p2);
     // create h2 text
     var h2 = document.createElement("h2");
-    h2.innerHTML = "Przedmiot: ";
+    h2.innerHTML = "Subject: ";
     // append h2 to p2
     p2.appendChild(h2);
     // create input 2
@@ -72,7 +72,7 @@ function teacherSubjectFormBuilder()
     var input5 = document.createElement("input");
     input5.setAttribute("type", "submit");
     input5.setAttribute("onclick", "addNewTeacherSubject()");
-    input5.setAttribute("value", "Dodaj do bazy");
+    input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
 
@@ -123,7 +123,7 @@ function getAllSubjects()
                 // create element
                 var opt = document.createElement("option");
                 opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['nazwa'];
+                opt.innerHTML = element['name'];
                 subjectSelect.appendChild(opt);
             });
         }
@@ -148,12 +148,12 @@ function getAllTeachers()
             data.forEach(element => 
             {
                 // if 
-                if(element['rola_uzytkownika'] !== "DYREKTOR")
+                if(element['school_role'] !== "DIRECTOR")
                 {
                     // create element
                     var opt = document.createElement("option");
                     opt.setAttribute("value", element['id']);
-                    opt.innerHTML = element['imie'] + " " + element['nazwisko'];
+                    opt.innerHTML = element['name'] + " " + element['surname'];
                     teacherSelect.appendChild(opt);
                 }
             });
@@ -178,7 +178,7 @@ function getAllTeachersSubjects()
             // add options
             data.forEach(element => 
             {
-                var tbody = document.getElementById(element['idnauczyciela']);
+                var tbody = document.getElementById(element['teacher_id']);
                 if(tbody)
                 {
                     // create row (tr)
@@ -196,7 +196,7 @@ function getAllTeachersSubjects()
 
 
                     var td = document.createElement("td");
-                    td.innerHTML = element['pnazwa'] + " ("+element['pkrotka_nazwa']+")";
+                    td.innerHTML = element['sname'] + " ("+element['sshort_name']+")";
 
 
                     // append

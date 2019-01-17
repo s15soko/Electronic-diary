@@ -52,13 +52,13 @@ $form_builder->setInputs(
             "type" => "number",
             "name" => "number",
             "placeholder" => "Enter number",
-            "value" => $class_data['numer']
+            "value" => $class_data['number']
         ),
         1 => array(
             "type" => "text",
             "name" => "name",
             "placeholder" => "Enter name",
-            "value" => $class_data['nazwa']
+            "value" => $class_data['name']
         ),
         2 => array(
             "type" => "hidden",

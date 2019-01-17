@@ -48,11 +48,8 @@ $userid = $session->returnUserId();
     <div id='newForm' data-userid='<?php echo $userid; ?>'></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <div id="table_options">

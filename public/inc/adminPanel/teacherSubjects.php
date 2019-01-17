@@ -42,11 +42,8 @@ $teachers = $userDataController->getAllTeachers();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     <?php 
@@ -55,7 +52,7 @@ $teachers = $userDataController->getAllTeachers();
         foreach ($teachers as $key => $teacher) 
         {
             // continue if role == administrator/admin
-            if($teacher['rola_uzytkownika'] === "DIRECTOR")
+            if($teacher['school_role'] === "DIRECTOR")
             {
                 continue;
             }
@@ -66,9 +63,9 @@ $teachers = $userDataController->getAllTeachers();
                         <th class="short_th">Options</th>
                         <th>  
                             <?php 
-                            echo $teacher['imie'];
+                            echo $teacher['name'];
                             echo " ";
-                            echo $teacher['nazwisko'];
+                            echo $teacher['surname'];
                             echo " -- PIN: " . $teacher['PIN'];
                             ?>
                         </th>

@@ -18,7 +18,7 @@ $rankingController = new rankingController();
 require_once("src/Controller/schoolController.php");
 $schoolController = new schoolController();
 // take current school year id and actual term id
-$school = $schoolController->schoolInformation("obecny_rok_szkolny, obecny_semestr");
+$school = $schoolController->schoolInformation("current_school_year_id, current_term_id");
 
 // include src/Controller/schoolYearController 
 require_once("src/Controller/schoolYearController.php");
@@ -49,21 +49,21 @@ $termsController = new termsController();
     <?php
     foreach($schoolYears as $key => $year)
     {  
-        echo "<option data-year_id='$year[id]' data-term_id='null'>$year[rok_szkolny]</option>";
+        echo "<option data-year_id='$year[id]' data-term_id='null'>$year[school_year]</option>";
         // get terms by school id ^
         $terms = $termsController->getTermsByID($year['id']);
 
         foreach($terms as $key => $term)
         {       
-            if($term['id'] === $school['obecny_semestr'])
+            if($term['id'] === $school['current_term_id'])
             {
                 echo "<option data-year_id='$year[id]' data-term_id='$term[id]' selected>
-                    &nbsp;&nbsp;&nbsp;$term[semestr]</option>";
+                    &nbsp;&nbsp;&nbsp;$term[name]</option>";
                 continue;
             }
 
             echo "<option data-year_id='$year[id]' data-term_id='$term[id]'>
-                    &nbsp;&nbsp;&nbsp;$term[semestr]</option>";    
+                    &nbsp;&nbsp;&nbsp;$term[name]</option>";    
         }  
     }
     ?>

@@ -40,11 +40,8 @@ $teachers = $userDataController->getAllTeachers();
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
 
@@ -76,14 +73,14 @@ $teachers = $userDataController->getAllTeachers();
                                 <input type='checkbox' name='teachers' value='$teacher[id]'/> 
                                 <button><a class='btn-link' href='?ap=user&id=$teacher[id]'>Edit</a></button>
                             </td>";
-                            echo "<td class='center_me'>$teacher[imie]</td>";
-                            echo "<td class='center_me userSurname'>$teacher[nazwisko]</td>";
-                            echo "<td class='center_me'>$teacher[rola_uzytkownika]</td>";
+                            echo "<td class='center_me'>$teacher[name]</td>";
+                            echo "<td class='center_me userSurname'>$teacher[surname]</td>";
+                            echo "<td class='center_me'>$teacher[school_role]</td>";
                             echo "<td class='center_me'>$teacher[email]</td>";
                             echo "<td class='center_me darker_td'>$teacher[PIN]</td>";
-                            echo "<td class='center_me'>$teacher[adres]</td>";
-                            echo "<td class='center_me'>$teacher[kontakt]</td>";
-                            echo "<td class='center_me'>$teacher[data_urodzenia]</td>";
+                            echo "<td class='center_me'>$teacher[address]</td>";
+                            echo "<td class='center_me'>$teacher[contact]</td>";
+                            echo "<td class='center_me'>$teacher[date_of_birth]</td>";
                             echo "<td class='center_me darker_td'>$teacher[login]</td>";
                             echo "<td class='center_me darker_td'>$teacher[role]</td>";
                         echo "</tr>";
