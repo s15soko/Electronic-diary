@@ -56,8 +56,9 @@ $subjectController = new subjectController();
 <!-- panel box -->
 <div id="container">
 
-    <h1 style='margin-bottom: 25px;'>Tachers card</h1>
-
+    <h1 style='margin-bottom: 25px;'>Teacher card</h1>
+    
+    <form method="POST">
     <div id="teacher_panel">
         <div class="grade_box_data">
             Select term:
@@ -101,9 +102,9 @@ $subjectController = new subjectController();
         </div>
         <div class="grade_box_data2">
             Weight:
-            <input type='number' name='weight' placeholder='Grade weight'>
+            <input type='number' name='weight' placeholder='Grade weight' required="required">
             Range:
-            <input type='text' name='weight' placeholder='Grade range'>
+            <input type='text' name='range' placeholder='Grade range'>
             Type:
             <select id='gradeType'>
                 <?php
@@ -117,12 +118,26 @@ $subjectController = new subjectController();
                 }
                 ?>
             </select>
+            Grade:
+            <select id='grade'>
+                <?php
+                // include src/Controller/marksController 
+                require_once("src/Controller/marksController.php");
+                $marksController = new marksController();
+                $grades = $marksController->getGradesScale();
+                foreach ($grades as $key => $grade) 
+                {
+                    echo "<option value='$grade[id]'>$grade[grade]</option>";
+                }
+                ?>
+            </select>
         </div>
         <div class="grade_box_data3">
-                Add grade
-                <input type="submit" value="add" name="submit" onclick="addNewGrade();">
+            Add grade
+            <input type="submit" value="add" name="submit" onclick="addNewGrade();">
         </div>
     </div>
+    </form>
     
     <div id='resultsBox'>
     </div>

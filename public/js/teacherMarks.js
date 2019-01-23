@@ -231,7 +231,8 @@ function createUsersTable(term, users)
                 checkbox = document.createElement("input");
                 $checkbox = $(checkbox);
                 $checkbox.attr("type","checkbox");
-                $checkbox.attr("id",user['student_id']);
+                $checkbox.attr("name","user_checkbox");
+                $checkbox.attr("value", user['student_id']);
                 $std_checkbox.append($checkbox);
             // std name
             std_name = document.createElement("div");
@@ -281,4 +282,62 @@ function loadData()
     var groupUsers = getGroupUsers(groupID);
    
     createUsersTable(termSelect, groupUsers);
+}
+
+
+// add new grade
+function addNewGrade()
+{
+    var schoolYearID = $("#termID option:selected").attr("data-year_id");
+    var termID = $("#termID option:selected").attr("data-term_id");
+    var subjectID = $("#subjectID option:selected").attr("data-subject_id");
+    var gradeWeight = document.getElementsByName("weight")[0].value;
+    var gradeRange = document.getElementsByName("range")[0].value;
+    var gradeTypeID = $("#gradeType option:selected").attr("value");
+    var gradeID = $("#grade option:selected").attr("value");
+
+    var ROWS = document.getElementsByName("user_checkbox");
+    var users = new Array();
+
+    // check which one row is checked -> save to array
+    ROWS.forEach(element => 
+    {
+        if(element.checked === true)
+        {
+            // if is checked push to table users
+            users.push(element.value);
+        }
+    });
+
+    
+
+    if(users.length > 0)
+    {
+        var teacherID = returnUserId();
+        
+        // start ajax
+        $.ajax({
+            type: "post",
+            url: "public/ajax/mod/ajax_newGrade-add.php",
+            data: ({
+                users: users,
+                teacherID: teacherID,
+                schoolYearID: schoolYearID,
+                termID: termID,
+                subjectID: subjectID,
+                gradeWeight: gradeWeight,
+                gradeRange: gradeRange,
+                gradeTypeID: gradeTypeID,
+                gradeID: gradeID
+            }),
+            success: function()
+            {
+                
+                window.location.href = "?mp=marks";
+            }
+        });
+    }
+    
+
+
 }
