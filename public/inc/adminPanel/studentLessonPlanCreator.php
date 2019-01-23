@@ -29,10 +29,6 @@ if(!$session->checkIfIsAdmin())
     ?>
     <div id="lessonplan_nav">
 
-        Select Term:
-        <select id="termSelect" name='termID'>
-        </select>
-
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Select Class:
         <select id="classSelect" name='classID'>

@@ -1,0 +1,92 @@
+#resultsBox
+{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+}
+
+#students_container
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.student_row
+{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    padding: 1px;
+    width: 100%;
+    min-height: 20px;
+}
+
+.student_data
+{
+    min-width: 219px;
+    width: 219px;
+    max-width: 219px;
+
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.std_number
+{
+    width: 25px;
+    text-align: center;
+}
+.std_checkbox
+{
+
+}
+.std_name
+{
+    padding: 0 0 0 8px;
+}
+
+.student_marks
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.std_mark
+{
+    display: block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid rgb(175, 175, 175);
+    margin: 0 1px;
+}
+
+#teacher_panel
+{
+    display: flex;
+    flex-direction: row;
+}
+.grade_box_data
+{
+    width: min-content;
+    padding: 0 20px;
+}
+
+.grade_box_data2
+{
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    padding: 0 20px;
+}
+
+.grade_box_data3
+{
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    padding: 0 20px;
+}

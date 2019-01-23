@@ -6,8 +6,7 @@ var g_SUBJECTS = Array();
 // load default
 // 1) get hours
 // 2) set empty fields
-// 3) get all term
-// 4) get all classes
+// 3) get all classes
 // 4) get all groups
 $(document).ready(function()
 {
@@ -52,10 +51,8 @@ $(document).ready(function()
     // 2*
     setEmptyFields(hours);
     // 3*
-    getAllTerms();
-    // 4*
     getAllClasses();
-    // 5*
+    // 4*
     getAllGroups();
 });
 
@@ -204,32 +201,6 @@ function getHours()
 }
 
 
-// get terms by ajax 
-function getAllTerms()
-{
-    // start ajax
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "public/ajax/admin/get/ajax_terms-get.php",
-        success: function(data)
-        {
-            // find by id
-            var termSelect = document.getElementById("termSelect");
-            
-            // add options
-            data.forEach(element => 
-            {
-                // create element
-                var opt = document.createElement("option");
-                opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['name'];
-                termSelect.appendChild(opt);
-            });
-        }
-    });
-    
-}
 // get classes by ajax 
 function getAllClasses()
 {
@@ -325,10 +296,8 @@ function addNewPlan()
 myLessonArray = JSON.stringify(myLessonArray);
 
 // get other values
-var term = document.getElementById("termSelect").value;
 var userclass = document.getElementById("classSelect").value;
 var group = document.getElementById("groupSelect").value;
-var term = document.getElementById("termSelect").value;
 var desc = document.getElementsByName("description")[0].value;
 var datef = document.getElementsByName("date_from")[0].value;
 var datet = document.getElementsByName("date_to")[0].value;
@@ -340,10 +309,8 @@ $.ajax({
     type: "post",
     url: "public/ajax/admin/ajax_userLessonPlan-add.php",
     data: ({
-        term: term,
         userclass: userclass,
         group: group,
-        term: term,
         desc: desc,
         datef: datef,
         datet: datet,

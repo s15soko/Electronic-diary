@@ -90,7 +90,6 @@ function schoolYearFormBuilder()
 
 }
 
-
 // ajax for adding new school year
 function addNewSchoolYear()
 {
@@ -116,8 +115,6 @@ function addNewSchoolYear()
     });
 }
 
-
-
 // ajax for edit / update school year data 
 function editSchoolYear()
 {
@@ -126,7 +123,6 @@ function editSchoolYear()
     var eleN2 = document.getElementsByName("datef")[0].value;
     var eleN3 = document.getElementsByName("datet")[0].value;
     var id_schoolYear = document.getElementsByName("id")[0].value;
-
 
     // start ajax
     $.ajax({
@@ -143,6 +139,4 @@ function editSchoolYear()
             window.location.href = "?ap=schoolyears";
         }
     }); 
-
-
 }

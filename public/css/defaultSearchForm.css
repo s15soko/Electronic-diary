@@ -17,7 +17,7 @@
 {
     background-color: rgb(6, 0, 61);
     color: white;
-    font-size: 20px;
+    font-size: 17px;
     padding: 1px 10px;
     width: min-content;
     white-space: nowrap;
@@ -26,17 +26,17 @@
 {
     width: 100%;
     height: auto;
-    padding: 5px 10px;
+    padding: 2px 10px;
     border: none;
-    font-size: 19px;
+    font-size: 14px;
 }
 #container #searchForm input[type="number"]
 {
     width: 100%;
     height: auto;
-    padding: 5px 10px;
+    padding: 2px 10px;
     border: none;
-    font-size: 19px;
+    font-size: 14px;
 }
 #container #searchForm input[type="submit"]
 {
@@ -44,8 +44,8 @@
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 18px;
-    padding: 5px 10px;
+    font-size: 14px;
+    padding: 2px 10px;
     transition: 0.3s;
 }
 #container #searchForm input[type="submit"]:hover
@@ -58,14 +58,14 @@
 {
     width: 100%;
     height: auto;
-    padding: 5px 10px;
+    padding: 2px 10px;
     border: none;
-    font-size: 19px;
+    font-size: 14px;
 }
 
 #container #searchForm select
 {
     width: 100%;
-    font-size: 19px;
-    padding: 5px 10px;
+    font-size: 14px;
+    padding: 2px 10px;
 }

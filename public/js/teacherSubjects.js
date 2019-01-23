@@ -21,7 +21,6 @@ function teacherSubjectFormBuilder()
 
 
 
-
     // create paragraph 1
     var p1 = document.createElement("p");
     // append it to form
@@ -39,6 +38,7 @@ function teacherSubjectFormBuilder()
     p1.appendChild(input1);
     // get options 
     getAllTeachers();
+
 
 
     // create paragraph 2
@@ -61,8 +61,6 @@ function teacherSubjectFormBuilder()
 
 
 
-
-
     // submit
     // create paragraph 5
     var p5 = document.createElement("p");
@@ -75,8 +73,6 @@ function teacherSubjectFormBuilder()
     input5.setAttribute("value", "Add");
     // append input5 to p5
     p5.appendChild(input5);
-
-    
 }
 
 // add new subject for teacher
@@ -100,9 +96,7 @@ function addNewTeacherSubject()
             window.location.reload();
         }
     });
-
 }
-
 
 // get all subjects by ajax
 function getAllSubjects()
@@ -129,7 +123,6 @@ function getAllSubjects()
         }
     });
 }
-
 
 // get all teachers by ajax
 function getAllTeachers()
@@ -160,8 +153,6 @@ function getAllTeachers()
         }
     }); 
 }
-
-
 
 // get all subjects for all teachers
 // and create new td element for it

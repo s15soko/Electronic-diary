@@ -41,7 +41,7 @@ body
     border-right: 1px solid #b4b4b4;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 18px;
     overflow-y: auto;
 }
 #panel_menu > ul
@@ -53,9 +53,10 @@ body
 }
 #panel_menu > ul li
 {
-    padding: 7px 8px;
+    padding: 5px 8px;
     text-align: center;
     cursor: pointer;
+    height: auto;
     border-bottom: 1px solid #b4b4b430;
 }
 #panel_menu a

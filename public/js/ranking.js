@@ -304,19 +304,20 @@ $(document).ready(function()
     // user subjects
     $userSubjects = returnUserSubjects($myAjaxResults);
 
-
+    
     // if user pick term and marks 
     if($termSelect && $typeOfResults === 'marks')
     {
+        
         $userSubjects.unshift("General average");
         // average for each subject
         $userSubjects.forEach(sub => 
         {
+            
             subjectAverage(sub, $myAjaxResults, $userGroupName, $userId);
         });
         
     } // end if
-
 });
 
 

@@ -21,8 +21,6 @@ if(!$session->checkIfIsAdmin())
     exit();
 }
 
-
-
 ?>
 
 

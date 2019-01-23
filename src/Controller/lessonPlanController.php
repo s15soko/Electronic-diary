@@ -6,7 +6,7 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 class lessonPlanController
 {
     // table name
-    private $direction = "user_lessonplan";
+    private $direction = "user_lesson_plan";
 
     // get lesson hours
     public function getLessonHours()
@@ -40,7 +40,7 @@ class lessonPlanController
     }
 
     // add new lesson plan for student
-    public function addUserLessonPlan($term, $class, $group, $desc, $datef, $datet, $lessonplan)
+    public function addUserLessonPlan($class, $group, $desc, $datef, $datet, $lessonplan)
     {
         try 
         {
@@ -52,9 +52,8 @@ class lessonPlanController
             }
 
             // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :term, :class, :group, :descr, :datef, :datet, :lessonplan);");
+            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :class, :group, :descr, :datef, :datet, :lessonplan);");
 
-            $sql->bindValue(":term", $term, PDO::PARAM_INT);
             $sql->bindValue(":class", $class, PDO::PARAM_INT);
             $sql->bindValue(":group", $group, PDO::PARAM_INT);
             $sql->bindValue(":descr", $desc, PDO::PARAM_STR);
@@ -75,7 +74,36 @@ class lessonPlanController
         }
     }
 
+    // get all lesson plans for users
+    public function getUserLessonPlans()
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
 
+            $sql = $db->prepare("SELECT * FROM $this->direction;");
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetchAll();
+
+            // close connection
+            $db = null;
+            
+            //return results
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
 }
 
 ?>

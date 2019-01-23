@@ -57,7 +57,6 @@ function termFormBuilder()
 
 
 
-
     // create paragraph 3
     var p3 = document.createElement("p");
     // append it to form
@@ -73,7 +72,6 @@ function termFormBuilder()
     input3.setAttribute("type", "date");
     // append input3 to p3
     p3.appendChild(input3);
-
 
 
 
@@ -106,11 +104,8 @@ function termFormBuilder()
     input5.setAttribute("onclick", "addNewTerm()");
     input5.setAttribute("value", "Add");
     // append input5 to p5
-    p5.appendChild(input5);
-
-    
+    p5.appendChild(input5);    
 }
-
 
 // get by ajax data from database
 function getAllSchoolYears()
@@ -133,16 +128,10 @@ function getAllSchoolYears()
                 opt.setAttribute("value", element['id']);
                 opt.innerHTML = element['school_year'];
                 termSelect.appendChild(opt);
-
-
             });
         }
-    });
-    
+    }); 
 }
-
-
-
 
 // ajax for adding new term
 function addNewTerm()
@@ -152,7 +141,6 @@ function addNewTerm()
     var n2 = document.getElementsByName("term")[0].value;
     var n3 = document.getElementsByName("date_f")[0].value;
     var n4 = document.getElementsByName("date_t")[0].value;
-
 
     // start ajax
     $.ajax({
@@ -170,10 +158,7 @@ function addNewTerm()
             window.location.reload();
         }
     });
-    
 }
-
-
 
 // ajax for edit / update term data 
 function editTerm()
@@ -202,5 +187,4 @@ function editTerm()
             window.location.href = "?ap=terms";
         }
     });
-
 }

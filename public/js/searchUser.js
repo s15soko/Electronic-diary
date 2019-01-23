@@ -20,6 +20,7 @@ function searchUser(row_name = "users_row")
     form.appendChild(div);
     
 
+
     // create paragraph 1
     var p1 = document.createElement("p");
     // append it to form
@@ -38,20 +39,14 @@ function searchUser(row_name = "users_row")
     p1.appendChild(input1);
 }
 
-
-
 // start search
 function startSearch(row_name)
 {
     var value = document.getElementById("searchUserInput").value;
     var vlength = value.length;
 
-   
-
     // get all users
     var users = document.getElementsByClassName(row_name);
-    
-
 
     // get rows value
     var Surname = Array();
@@ -66,8 +61,7 @@ function startSearch(row_name)
         users[i].style.display = "table-row";   
     }
 
-
-    //
+    // filter
     for(i = 0; i < users.length; i++)
     { 
         for(j = 0; j < vlength; j++)
@@ -78,8 +72,5 @@ function startSearch(row_name)
             }          
         } 
     }
-
-
-    
 }
 

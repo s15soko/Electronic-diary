@@ -37,6 +37,7 @@ function subjectFormBuilder()
     p1.appendChild(input1);
 
 
+
     // create paragraph 2
     var p2 = document.createElement("p");
     // append it to form
@@ -53,6 +54,7 @@ function subjectFormBuilder()
     input2.setAttribute("placeholder", "Enter short name");
     // append input2 to p2
     p2.appendChild(input2);
+
 
 
     // create paragraph 3
@@ -73,6 +75,7 @@ function subjectFormBuilder()
     p3.appendChild(input3);
 
 
+
     // submit
     // create paragraph 4
     var p4 = document.createElement("p");
@@ -85,9 +88,7 @@ function subjectFormBuilder()
     input4.setAttribute("value", "Add");
     // append input4 to p4
     p4.appendChild(input4);
-
 }
-
 
 // ajax for adding new subject
 function addNewSubject()
@@ -112,9 +113,7 @@ function addNewSubject()
             window.location.reload();
         }
     });
-    
 }
-
 
 // ajax for edit / update subject data 
 function editSubject()

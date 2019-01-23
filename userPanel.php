@@ -58,7 +58,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                     if($_SESSION['role'] === "MODERATOR" || $_SESSION['role'] === "ADMINISTRATOR")
                     {
                         ?>
-                        <li style='background-color: #C7C7C7; font-size: 15px;'>Teacher options</li>
+                        <li style='background-color: #C7C7C7; font-size: 14px;'>Teacher options</li>
                             <a href="?mp=marks"><li title="Enter the mark">Enter the mark</li></a>
                             <a href="?mp=presences"><li title="Presences">Presences</li></a>
                             <a href="?up=messages"><li title="Messages">Messages</li></a>
@@ -69,15 +69,17 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
                     if($_SESSION['role'] === "ADMINISTRATOR")
                     {
                         ?>
-                            <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Administrator options</li>
-                            <a href="?ap=studentLessonPlanCreator"><li title="Lesson Plan Creator">Student Lesson Plan Creator</li></a>
+                            <li style='background-color: #C7C7C7; font-size: 14px; margin-top: 40px;'>Administrator options</li>
+                            <a href="?ap=studentLessonPlanCreator"><li title="Lesson Plan Creator for student">Student Lesson Plan Creator</li></a>
+                            <a href="?ap=teacherLessonPlanCreator"><li title="Lesson Plan Creator for teacher">Teacher Lesson Plan Creator</li></a>
+                            <a href="?ap=LessonPlans"><li title="All lesson plans">All lesson plans</li></a>
                             <a href="?ap=groupSubjects"><li title="Subjects for group">Subjects for group</li></a>
                             <a href="?ap=userGroup"><li title="Stundent in group">Stundent in group</li></a>
                             <a href="?ap=teacherSubjects"><li title="Subjects for teacher">Subjects for teacher</li></a>
                             <a href="?ap=teachers"><li title="Teachers">Teachers</li></a>
                             <a href="?ap=users"><li title="Users">Users</li></a>
 
-                            <li style='background-color: #C7C7C7; font-size: 15px; margin-top: 55px;'>Additional options</li>
+                            <li style='background-color: #C7C7C7; font-size: 14px; margin-top: 40px;'>Additional options</li>
                             <a href="?ap=schoolyears"><li title="School years">School years</li></a>
                             <a href="?ap=terms"><li title="Terms">Terms</li></a>
                             <a href="?ap=classes"><li title="Classes">Classes</li></a> 

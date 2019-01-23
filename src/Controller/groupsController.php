@@ -117,8 +117,7 @@ class groupsController
             }
 
             // sql
-            $sql = $db->prepare("SELECT gs.id, 
-                                s.id AS sid, 
+            $sql = $db->prepare("SELECT s.id,
                                 s.order, 
                                 s.short_name, 
                                 s.name 

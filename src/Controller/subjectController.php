@@ -312,6 +312,45 @@ class subjectController
     }
 
 
+    // get teacher subjects
+    // by user id
+    // + data from subjects table
+    public function getTeacherSubjects($teacherID)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT ts.subject_id AS id, ts.teacher_id, s.name 
+                                FROM `teacher_subject` AS ts 
+                                INNER JOIN `subject` AS s ON ts.subject_id = s.id
+                                AND ts.teacher_id = :teacherid");
+            $sql->bindValue(":teacherid", $teacherID, PDO::PARAM_INT);
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetchAll();
+            
+            // close connection
+            $db = null;
+
+            //return results
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
+
     // delete subject row/rows
     public function deleteRows($rows_id)
     {

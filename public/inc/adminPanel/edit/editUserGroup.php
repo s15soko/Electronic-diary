@@ -61,11 +61,8 @@ $users = $groupsController->getGroupUsers($id);
     <div id="newForm"></div>
 
     <?php
-    if(isset($_SESSION['flashMessage']))
-    {
-        echo "<span class='flash_message'>". $_SESSION['flashMessage'] . "</span>";
-        unset($_SESSION['flashMessage']);
-    }
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
     ?>
 
     
@@ -93,9 +90,9 @@ $users = $groupsController->getGroupUsers($id);
                                 <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edit</a></button>
                             </td>";
 
-                            echo "<td class='center_me'>$user[imie]</td>";
-                            echo "<td class='center_me userSurname'>$user[nazwisko]</td>";
-                            echo "<td class='center_me'>$user[rola_uzytkownika]</td>";
+                            echo "<td class='center_me'>$user[name]</td>";
+                            echo "<td class='center_me userSurname'>$user[surname]</td>";
+                            echo "<td class='center_me'>$user[school_role]</td>";
                             echo "<td class='center_me darker_td'>$user[PIN]</td>";
 
                         echo "</tr>";
