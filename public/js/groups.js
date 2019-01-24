@@ -134,22 +134,87 @@ function userGroupFormBuilder()
      // create div (form)
      var div = document.createElement("form");
      div.setAttribute("class", "activeNewForm");
+     div.setAttribute("method", "POST");
      // append div to form
      form.appendChild(div);
-
-     // submit
-    // create paragraph 5
-    var p5 = document.createElement("p");
+     
+    // create paragraph 1
+    var p1 = document.createElement("p");
     // append it to form
-    div.appendChild(p5);
-    // create input 5
-    var input5 = document.createElement("input");
-    input5.setAttribute("type", "submit");
-    input5.setAttribute("onclick", "addNewGroupUser()");
-    input5.setAttribute("value", "Add");
-    // append input5 to p5
-    p5.appendChild(input5);
+    div.appendChild(p1);
+    // create h2 text
+    var h1 = document.createElement("h2");
+    h1.innerHTML = "User: ";
+    // append h1 to p1
+    p1.appendChild(h1);
+    // create input 1
+    var input1 = document.createElement("select");
+    input1.setAttribute("id", "userSelect");
+    input1.setAttribute("required", "required");
+    input1.setAttribute("name", "user");
+    // append input1 to p1
+    p1.appendChild(input1);
+    // get options 
+    getAllUsersWithoutGroup();
+
+
+    // submit
+    // create paragraph 2
+    var p2 = document.createElement("p");
+    // append it to form
+    div.appendChild(p2);
+    // create input 2
+    var input2 = document.createElement("input");
+    input2.setAttribute("type", "submit");
+    input2.setAttribute("onclick", "addNewGroupUser()");
+    input2.setAttribute("value", "Add");
+    // append input2 to p2
+    p2.appendChild(input2);
 }
+
+// get all users with out group
+function getAllUsersWithoutGroup()
+{
+    // start ajax
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "public/ajax/admin/get/ajax_usersWithoutGroup-get.php",
+        success: function(data)
+        {
+            // find by id
+            var userSelect = document.getElementById("userSelect");
+            
+            // add options
+            data.forEach(element => 
+            {
+                // create element
+                var opt = document.createElement("option");
+                opt.setAttribute("value", element['user_id']);
+                opt.innerHTML = element['name'] + " " + element['surname'] + " - " + element['PIN'];
+                userSelect.appendChild(opt);
+            });
+        }
+    }); 
+}
+// add user to group
+function addNewGroupUser()
+{
+    var uid = document.getElementById("userSelect")[0].value;
+    var gid = document.getElementById("userInGroup_form").getAttribute("data-groupid");
+
+
+    // start ajax
+    $.ajax({
+        type: "POST",
+        url: "public/ajax/admin/ajax_userToGroup-add.php",
+        data: ({
+            groupid: gid,
+            userid: uid
+        })
+    });
+}
+
 
 
 // get all subjects for group (add data from other table)

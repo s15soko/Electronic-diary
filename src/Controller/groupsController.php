@@ -147,6 +147,73 @@ class groupsController
     }
 
 
+    // get all users with out group 
+    public function getAllUsersWithoutGroup()
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            // sql
+            $sql = $db->prepare("SELECT u.id AS `user_id`, u.name, u.surname, u.PIN, u.school_role, ug.student_id, ug.group_id FROM `user` AS u 
+                            LEFT JOIN `user_group` AS ug ON u.id = ug.student_id
+                            WHERE u.school_role = 'STUDENT' AND student_id IS NULL");
+                                
+            $sql->execute();
+
+            // fetch results
+            $results = $sql->fetchAll();
+
+            // close connection
+            $db = null;
+            
+            //return result
+            return $results;
+        } 
+        catch(PDOException $er) 
+        {
+            // return $er->getMessage();
+            return false;
+        }  
+    }
+
+    // add user to group
+    public function addUserToGroup($groupID, $userID)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            // sql
+            $sql = $db->prepare("INSERT INTO $this->direction4 VALUES (null, :userID, :groupid);");
+         
+            $sql->bindValue(":groupid", $groupID, PDO::PARAM_INT);
+            $sql->bindValue(":userID", $userID, PDO::PARAM_INT);
+            $sql->execute();
+            
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            // return $er->getMessage();
+            return false;
+        }     
+    }
+
+
     // delete subject/subjects from group
     public function deleteGroupSubjects($rows_id)
     {
@@ -179,6 +246,7 @@ class groupsController
             return false;
         }     
     }
+
 
 
     // get all subjects + add data from other table

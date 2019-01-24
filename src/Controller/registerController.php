@@ -95,7 +95,7 @@ class registerController
 
 
                 // hash password
-                $password = password_hash($password, PASSWORD_DEFAULT);
+                $password = password_hash($password, PASSWORD_BCRYPT, array(15));
     
                 // sql
                 $sql = $db->prepare("INSERT INTO $this->direction VALUES 

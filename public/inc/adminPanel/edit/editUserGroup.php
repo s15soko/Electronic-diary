@@ -77,7 +77,7 @@ $users = $groupsController->getGroupUsers($id);
             </tr>
         </thead>
         <tbody>
-            <form id="userInGroup_form">
+            <form id="userInGroup_form" data-groupid="<?php echo $_GET['id'];?>">
                 <?php 
                 if($users)
                 {

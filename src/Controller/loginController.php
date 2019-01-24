@@ -48,7 +48,7 @@ class loginController
             $db = null;
 
             // if passwords are correct
-            // set user session
+            // set user session  
             if(password_verify($password, $result['password']))
             {
                 // set session for user

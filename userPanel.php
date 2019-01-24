@@ -114,7 +114,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
 
                     <p><h1>Hello!</h1></p>
                     <p>Nice to see you here!</p>
-                    
+
 
             </div>
 
