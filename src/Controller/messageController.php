@@ -66,7 +66,7 @@ class messageController
                         om.*, u.name, u.surname
                         FROM `outbox_message` AS om
                         INNER JOIN `user` AS u
-                        ON om.sender_id = u.id
+                        ON om.receiver_id = u.id
                         AND om.sender_id = :userid");
 
             // bind value
@@ -110,7 +110,7 @@ class messageController
                         rm.*, u.name, u.surname
                         FROM `receiving_message` AS rm
                         INNER JOIN `user` AS u
-                        ON rm.receiver_id = u.id
+                        ON rm.sender_id = u.id
                         AND rm.receiver_id = :userid");
 
             // bind value

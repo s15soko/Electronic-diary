@@ -57,6 +57,11 @@ $subjectController = new subjectController();
 <div id="container">
 
     <h1 style='margin-bottom: 25px;'>Teacher card</h1>
+    <?php
+    // include src/Builder/flashMessage
+    include_once("src/Builder/flashMessage.php");
+    ?>
+
     
     <form method="POST">
     <div id="teacher_panel">

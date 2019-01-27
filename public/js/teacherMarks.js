@@ -77,10 +77,10 @@ function getTeacherSubjects(userId)
 
     return subjects;
 }
-// get subjects for teacher
+// get users for group
 function getGroupUsers(group)
 {
-    var subjects;
+    var users;
     // start ajax
     // get all marks
     $.ajax({
@@ -93,11 +93,11 @@ function getGroupUsers(group)
         url: "public/ajax/mod/get/ajax_groupUsers-get.php",
         success: function(data)
         {
-            subjects = data;
+            users = data;
         }
     });
     
-    return subjects;
+    return users;
 }
 // get user marks by term id and subject id
 function getUserMarks(term, subject)
@@ -280,6 +280,15 @@ function loadData()
 
     // get users from group
     var groupUsers = getGroupUsers(groupID);
+
+    var ROWS = document.getElementsByName("user_checkbox");
+    ROWS.forEach(element => 
+        {
+            if(element.checked === true)
+            {
+                element.checked = false;
+            }
+        });
    
     createUsersTable(termSelect, groupUsers);
 }
@@ -308,10 +317,9 @@ function addNewGrade()
             users.push(element.value);
         }
     });
+   
 
-    
-
-    if(users.length > 0)
+    if(!jQuery.isEmptyObject(users))
     {
         var teacherID = returnUserId();
         
@@ -329,12 +337,7 @@ function addNewGrade()
                 gradeRange: gradeRange,
                 gradeTypeID: gradeTypeID,
                 gradeID: gradeID
-            }),
-            success: function()
-            {
-                
-                window.location.href = "?mp=marks";
-            }
+            })
         });
     }
     
