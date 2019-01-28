@@ -2,12 +2,12 @@
 var g_TEACHERS = Array();
 // global variable for all subjects
 var g_SUBJECTS = Array();
+// global variable for all groups
+var g_GROUPS = Array();
 
 // load default
 // 1) get hours
 // 2) set empty fields
-// 3) get all classes
-// 4) get all groups
 $(document).ready(function()
 {
     // start ajax
@@ -36,7 +36,7 @@ $(document).ready(function()
         url: "public/ajax/admin/get/ajax_subjects-get.php",
         success: function(data)
         {
-            // add options
+            // add
             data.forEach(element => 
             {
                 g_SUBJECTS.push(element);
@@ -44,16 +44,30 @@ $(document).ready(function()
             
         }
     }); 
+    // start ajax
+    // get all groups
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        async: false,
+        url: "public/ajax/admin/get/ajax_groups-get.php",
+        success: function(data)
+        {
+            data.forEach(element => 
+            {
+                g_GROUPS.push(element);
+            });
+        }
+    });
 
 
     // 1*
     var hours = getHours();
     // 2*
     setEmptyFields(hours);
-    // 3*
-    getAllClasses();
-    // 4*
-    getAllGroups();
+
+    // get all teachers
+    getAllTeachers();
 });
 
 // set empty fields to choose the lesson
@@ -89,54 +103,45 @@ function setEmptyFields(hours)
         {
             l_box[j]= document.createElement("div");
             l_box[j].setAttribute("class", "l_box");
-            l_box[j].setAttribute("data-hour", hours[j]['id']);
+            l_box[j].setAttribute("data-hour", hours[j]['number']);
 
             // first select for subject
             s1 = document.createElement("select");
             s1.setAttribute("class", "selectSubject");
             s1.setAttribute("name", "subjectID");
 
-            // select for teacher
+            // select for group
             s2 = document.createElement("select");
-            s2.setAttribute("class", "selectTeacher");
-            s2.setAttribute("name", "teacherID");
+            s2.setAttribute("class", "selectGroup");
+            s2.setAttribute("name", "groupID");
 
             l_box[j].appendChild(s1);
             l_box[j].appendChild(s2);
             lesson_container[i].appendChild(l_box[j]);
 
 
-            // get teachers for this row
-            getAllTeachers(lesson_container[i].getAttribute("data-day"), j);
+            // get groups for this row
+            getAllGroups(lesson_container[i].getAttribute("data-day"), j);
 
             // get subjects for this row
             getAllSubjects(lesson_container[i].getAttribute("data-day"), j);
         }        
     }
 }
-
-
 // get all teachers by ajax
-function getAllTeachers(day, lesson_number)
+function getAllTeachers()
 {
-    var lesson_container = document.querySelectorAll(".lesson_container")[day];
-    var row = lesson_container.querySelectorAll(".l_box")[lesson_number];
-
-    var selTeacher = row.querySelector(".selectTeacher");
-    var opt = document.createElement("option");
-    opt.setAttribute("hidden", "true");
-    opt.setAttribute("selected", "true");
-    opt.setAttribute("disabled", "true");
-    opt.innerHTML = "Select teacher";
-    selTeacher.appendChild(opt);
-
-    g_TEACHERS.forEach(element =>
+    // find by id
+    var teacherSelect = document.getElementById("teacherSelect");
+            
+    // add options
+    g_TEACHERS.forEach(element => 
     {
-        opt = document.createElement("option");
-        opt.setAttribute("data-teacherID", element['id']);
+        // create element
+        var opt = document.createElement("option");
+        opt.setAttribute("value", element['id']);
         opt.innerHTML = element['name'] + " " + element['surname'];
-
-        selTeacher.appendChild(opt);
+        teacherSelect.appendChild(opt);
     });
 }
 // get all teachers by ajax
@@ -199,61 +204,29 @@ function getHours()
     // return array
     return hours;
 }
-
-
-// get classes by ajax 
-function getAllClasses()
-{
-    // start ajax
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "public/ajax/admin/get/ajax_classes-get.php",
-        success: function(data)
-        {
-            // find by id
-            var classSelect = document.getElementById("classSelect");
-            
-            // add options
-            data.forEach(element => 
-            {
-                // create element
-                var opt = document.createElement("option");
-                opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['number'] + " - " + element['name'];
-                classSelect.appendChild(opt);
-            });
-        }
-    });
-    
-}
 // get groups by ajax 
-function getAllGroups()
+function getAllGroups(day, lesson_number)
 {
-    // start ajax
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "public/ajax/admin/get/ajax_groups-get.php",
-        success: function(data)
-        {
-            // find by id
-            var groupSelect = document.getElementById("groupSelect");
-            
-            // add options
-            data.forEach(element => 
-            {
-                // create element
-                var opt = document.createElement("option");
-                opt.setAttribute("value", element['id']);
-                opt.innerHTML = element['name'] + ", g: " + element['group'];
-                groupSelect.appendChild(opt);
-            });
-        }
-    });
-    
-}
+    var lesson_container = document.querySelectorAll(".lesson_container")[day];
+    var row = lesson_container.querySelectorAll(".l_box")[lesson_number];
 
+    var selGroup = row.querySelector(".selectGroup");
+    var opt = document.createElement("option");
+    opt.setAttribute("hidden", "true");
+    opt.setAttribute("selected", "true");
+    opt.setAttribute("disabled", "true");
+    opt.innerHTML = "Select Group";
+    selGroup.appendChild(opt);
+
+    g_GROUPS.forEach(element =>
+    {
+        opt = document.createElement("option");
+        opt.setAttribute("data-groupID", element['id']);
+        opt.innerHTML = element['name'] + ", g:" + element['group'];
+
+        selGroup.appendChild(opt);
+    });   
+}
 // add new plan
 // convert to array in json
 function addNewPlan()
@@ -273,9 +246,9 @@ function addNewPlan()
         var allLessons = element.querySelectorAll(".l_box");
         allLessons.forEach(el => 
         {
-            // get teacher id
-            var select = el.querySelectorAll(".selectTeacher")[0];
-            selectedTeacher = select.options[select.selectedIndex].getAttribute("data-teacherid");
+            // get group id
+            var select = el.querySelectorAll(".selectGroup")[0];
+            selectedGroup = select.options[select.selectedIndex].getAttribute("data-groupid");
 
             // get subject id
             select = el.querySelectorAll(".selectSubject")[0];
@@ -285,32 +258,29 @@ function addNewPlan()
             var hour = el.getAttribute("data-hour");
 
 
-            lessons[hour] = {"t": selectedTeacher, "s": selectedSubject};
+            lessons[hour] = {"g": selectedGroup, "s": selectedSubject};
         });
 
 
         myLessonArray[day] = lessons;
         counter++;
     });
- 
+    console.log(myLessonArray);
 myLessonArray = JSON.stringify(myLessonArray);
 
 // get other values
-var userclass = document.getElementById("classSelect").value;
-var group = document.getElementById("groupSelect").value;
+var teacherID = document.getElementById("teacherSelect").value;
 var desc = document.getElementsByName("description")[0].value;
 var datef = document.getElementsByName("date_from")[0].value;
 var datet = document.getElementsByName("date_to")[0].value;
 
 
 // start ajax
-// start ajax
 $.ajax({
     type: "post",
-    url: "public/ajax/admin/ajax_userLessonPlan-add.php",
+    url: "public/ajax/admin/ajax_teacherLessonPlan-add.php",
     data: ({
-        userclass: userclass,
-        group: group,
+        teacherID: teacherID,
         desc: desc,
         datef: datef,
         datet: datet,
@@ -318,7 +288,6 @@ $.ajax({
     }),
     success: function()
     {
-        console.log(123);
         // reload
         window.location.reload();
     }

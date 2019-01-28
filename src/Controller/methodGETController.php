@@ -9,6 +9,7 @@ if($session->checkIfIsAdmin())
     //gets array
     $GETS = array(
         "studentLessonPlanCreator" => "studentLessonPlanCreator.php",
+        "teacherLessonPlanCreator" => "teacherLessonPlanCreator.php",
         "groupSubjects" => "groupSubjects.php",
         "userGroup" => "userGroup.php",
         "teacherSubjects" => "teacherSubjects.php",

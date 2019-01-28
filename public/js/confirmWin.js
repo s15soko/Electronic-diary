@@ -37,6 +37,7 @@ function myAlert(objectName)
             var winW = window.innerWidth;
             //var winH = window.innerHeight;
 
+            // display box on the center on the screen
             myBox.style.display = "block";
             myBox.style.left = (winW/2)-(200)+"px";
         }   

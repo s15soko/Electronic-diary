@@ -16,27 +16,21 @@ if(!$session->checkIfIsAdmin())
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/lessonplan.css"/> 
 <!-- scripts -->
-<script src="public/js/admin_lessonplanForStudent.js"></script>
+<script src="public/js/admin_lessonplanForTeacher.js"></script>
 
 
 <!-- panel box -->
 <div id="container">
 
-    <h1 class='center_me' style='margin-bottom: 10px;'>Lesson plan creator for student</h1>
+    <h1 class='center_me' style='margin-bottom: 10px;'>Lesson plan creator for teacher</h1>
     <?php
     // include src/Builder/flashMessage
     include_once("src/Builder/flashMessage.php");
     ?>
     <div id="lessonplan_nav">
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Select Class:
-        <select id="classSelect" name='classID'>
-        </select>
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Select Group:
-        <select id="groupSelect" name='groupID'>
+        Select Teacher:
+        <select id="teacherSelect" name='teacherID'>
         </select>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

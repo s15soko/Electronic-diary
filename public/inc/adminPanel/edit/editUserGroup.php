@@ -70,6 +70,7 @@ $users = $groupsController->getGroupUsers($id);
         <thead>
             <tr>
                 <th class="short_th">Options</th>
+                
                 <th>Name</th>
                 <th>Surname</th>
                 <th>School role</th>
@@ -89,7 +90,7 @@ $users = $groupsController->getGroupUsers($id);
                                 <input type='checkbox' name='userGroup' value='$user[id]'/> 
                                 <button><a class='btn-link' href='?ap=user&id=$user[id]'>Edit</a></button>
                             </td>";
-
+                            
                             echo "<td class='center_me'>$user[name]</td>";
                             echo "<td class='center_me userSurname'>$user[surname]</td>";
                             echo "<td class='center_me'>$user[school_role]</td>";

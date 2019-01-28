@@ -7,6 +7,7 @@ class lessonPlanController
 {
     // table name
     private $direction = "user_lesson_plan";
+    private $direction2 = "admin_lesson_plan";
 
     // get lesson hours
     public function getLessonHours()
@@ -73,6 +74,41 @@ class lessonPlanController
             return false;
         }
     }
+
+    // add new lesson plan for teacher
+    public function addTeacherLessonPlan($teacherID, $desc, $datef, $datet, $lessonplan)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            // sql
+            $sql = $db->prepare("INSERT INTO $this->direction2 VALUES (null, :teacher, :descr, :datef, :datet, :lessonplan);");
+
+            $sql->bindValue(":teacher", $teacherID, PDO::PARAM_INT);
+            $sql->bindValue(":descr", $desc, PDO::PARAM_STR);
+            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
+            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
+            $sql->bindValue(":lessonplan", $lessonplan, PDO::PARAM_STR);
+            $sql->execute();
+
+            // close connection
+            $db = null;
+
+            return true;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
 
     // get all lesson plans for users
     public function getUserLessonPlans()

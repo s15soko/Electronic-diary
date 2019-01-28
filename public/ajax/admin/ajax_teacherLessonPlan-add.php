@@ -17,8 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../src/Controller/lessonPlanController.php");
     $lessonPlanController = new lessonPlanController();
 
-    $class = $_POST['userclass'];
-    $group = $_POST['group'];
+    $teacherID = $_POST['teacherID'];
     $desc = $_POST['desc'];
     $datef = $_POST['datef'];
     $datet = $_POST['datet'];
@@ -26,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
     // add new lesson plan
-    if($lessonPlanController->addUserLessonPlan($class, $group, $desc, $datef, $datet, $lessonplan))
+    if($lessonPlanController->addTeacherLessonPlan($teacherID, $desc, $datef, $datet, $lessonplan))
     {
         $session->setFlashMessage("Added to the database!");
     }

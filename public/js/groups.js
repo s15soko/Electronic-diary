@@ -362,7 +362,7 @@ function getAllClasses()
 }
 
 
-// get by ajax data from database
+// get learning direction by ajax
 function getAllDirections()
 {
     // start ajax
@@ -393,7 +393,7 @@ function getAllDirections()
 
 
 
-// ajax for adding new group
+// add new group by ajax
 function addNewGroup()
 {
     var n1 = document.getElementsByName("group_name")[0].value;
@@ -419,7 +419,8 @@ function addNewGroup()
 }
 
 
-// ajax for edit / update group data 
+// take data by ajax
+// for edit page
 function editGroup()
 {
     // get values
