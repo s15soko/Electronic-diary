@@ -266,32 +266,32 @@ function addNewPlan()
         counter++;
     });
     console.log(myLessonArray);
-myLessonArray = JSON.stringify(myLessonArray);
+    myLessonArray = JSON.stringify(myLessonArray);
 
-// get other values
-var teacherID = document.getElementById("teacherSelect").value;
-var desc = document.getElementsByName("description")[0].value;
-var datef = document.getElementsByName("date_from")[0].value;
-var datet = document.getElementsByName("date_to")[0].value;
+    // get other values
+    var teacherID = document.getElementById("teacherSelect").value;
+    var desc = document.getElementsByName("description")[0].value;
+    var datef = document.getElementsByName("date_from")[0].value;
+    var datet = document.getElementsByName("date_to")[0].value;
 
 
-// start ajax
-$.ajax({
-    type: "post",
-    url: "public/ajax/admin/ajax_teacherLessonPlan-add.php",
-    data: ({
-        teacherID: teacherID,
-        desc: desc,
-        datef: datef,
-        datet: datet,
-        lessonplan: myLessonArray,
-    }),
-    success: function()
-    {
-        // reload
-        window.location.reload();
-    }
-});
+    // start ajax
+    $.ajax({
+        type: "post",
+        url: "public/ajax/admin/ajax_teacherLessonPlan-add.php",
+        data: ({
+            teacherID: teacherID,
+            desc: desc,
+            datef: datef,
+            datet: datet,
+            lessonplan: myLessonArray,
+        }),
+        success: function()
+        {
+            // reload
+            window.location.reload();
+        }
+    });
 }
 
 

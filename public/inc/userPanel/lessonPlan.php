@@ -24,18 +24,17 @@ if(!$session->checkIfIsActiveUserSession())
 
     <div id="lessonplan_nav">
 
-        Term:
-        <select id="">
-
+        Group:
+        <select id="selectGroup">
+            <option value="3">fdsfds</option>
         </select>
         &nbsp;&nbsp;&nbsp;
-        Group:
-        <select id="">
-
-        </select>
-
+        Date:
+        <button><--</button>
+        <button>--></button>
 
     </div>
+    
     <div id="lessonplan_container">
 
         <div id="hours_container">
@@ -43,11 +42,7 @@ if(!$session->checkIfIsActiveUserSession())
         </div>
 
         <div id="lessons_container">
-            <div class='lesson_container'><div class='nav_info'></div></div>
-            <div class='lesson_container'><div class='nav_info'></div></div>
-            <div class='lesson_container'><div class='nav_info'></div></div>
-            <div class='lesson_container'><div class='nav_info'></div></div>
-            <div class='lesson_container'><div class='nav_info'></div></div>
+
         </div>
 
     </div>

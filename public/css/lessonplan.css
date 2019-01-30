@@ -78,6 +78,36 @@
 
     overflow: hidden;
 }
+.l_box .teacher
+{
+    display: block;
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 4px;
+    font-size: 12px;
+}
+.l_box .subject
+{
+    display: block;
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 4px;
+    font-weight: 700;
+    text-align: center;
+}
+.l_box .info
+{
+    display: block;
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 4px;
+    font-size: 12px;
+}
+
+
 .l_box select
 {
     width: min-content;

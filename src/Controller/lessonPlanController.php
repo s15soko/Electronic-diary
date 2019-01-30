@@ -140,6 +140,44 @@ class lessonPlanController
             return false;
         }
     }
+
+    // get user lesson plan by group id and date data
+    public function getUserLessonPlan($datefrom, $dateto, $groupid)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            $sql = $db->prepare("SELECT * FROM $this->direction
+                                WHERE date_from <= :datefrom 
+                                AND date_to >= :dateto 
+                                AND group_id = :groupid");
+
+            $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
+            $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
+            $sql->bindValue(":groupid", $groupid, PDO::PARAM_INT);      
+            $sql->execute();
+
+            // fetch result
+            $result = $sql->fetch();
+
+            // close connection
+            $db = null;
+            
+            //return result
+            return $result;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
 }
 
 ?>
