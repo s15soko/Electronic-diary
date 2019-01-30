@@ -18,6 +18,6 @@
 3) For students
 	- Checking grades
 	- Messages system
-
+	- Checking lesson plan
 	- Grades ranking
 	
