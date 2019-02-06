@@ -23,7 +23,20 @@ if($_SESSION['role'] === "USER")
 <div id="container">
 
 
-    <div id="lessonplan_container">
+    <div id="lessonplan_nav">
+
+        Teacher:
+        <select id="selectTeacher" onchange="setEmptyFields();">
+            
+        </select>
+        &nbsp;&nbsp;&nbsp;
+        Date:
+        <button onclick="changeDatePreviousWeek();"><--</button>
+        <button onclick="changeDateNextWeek();">--></button>
+
+        </div>
+
+        <div id="lessonplan_container">
 
         <div id="hours_container">
             <div class='nav_info'></div>
@@ -34,5 +47,6 @@ if($_SESSION['role'] === "USER")
         </div>
 
     </div>
+
 </div>
 

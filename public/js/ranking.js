@@ -81,6 +81,7 @@ function subjectAverage(subject, myAjaxResults, userGroupName, userId)
         // average for one subject
         else if(element['name'] == subject)
         {
+            
             // for school
             schoolWholeAverage += ((element['value'] * element['weight'])/element['weight']);
 
@@ -247,7 +248,7 @@ function returnAllMarks()
         url: "public/ajax/user/get/ajax_allMarks-get.php",
         success: function(data)
         {
-            myAjaxResults = data;
+            myAjaxResults = data;    
         }
     });
     return myAjaxResults;
@@ -292,19 +293,18 @@ $(document).ready(function()
     // user id 
     $userId = returnUserId();
     // results (marks)
-    $myAjaxResults = returnAllMarks();
+    $myMarks = returnAllMarks();
     // user group name
     $userGroupName = returnUserGroupName();
 
     // parse to array
     $userGroupName = JSON.parse($userGroupName);
     // parse to array
-    $myAjaxResults = JSON.parse($myAjaxResults);
+    $myMarks = JSON.parse($myMarks);
     
     // user subjects
-    $userSubjects = returnUserSubjects($myAjaxResults);
+    $userSubjects = returnUserSubjects($myMarks);
 
-    
     // if user pick term and marks 
     if($termSelect && $typeOfResults === 'marks')
     {
@@ -314,7 +314,7 @@ $(document).ready(function()
         $userSubjects.forEach(sub => 
         {
             
-            subjectAverage(sub, $myAjaxResults, $userGroupName, $userId);
+            subjectAverage(sub, $myMarks, $userGroupName, $userId);
         });
         
     } // end if

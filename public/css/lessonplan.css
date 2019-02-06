@@ -27,7 +27,7 @@
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    font-size: 15px;
+    font-size: 14px;
     text-align: right;
     padding: 2px;
 }.h_box:last-child {border-bottom: 1px solid #ccc;}
@@ -74,37 +74,44 @@
     border: 1px solid #ccc;
 
     display: flex;
-    flex-direction: column;
+    justify-content: row;
+    flex-wrap: wrap;
 
     overflow: hidden;
 }
 .l_box .teacher
 {
     display: block;
-    width: auto;
+    width: 50%;
     overflow: hidden;
     white-space: nowrap;
     padding: 0 4px;
     font-size: 12px;
+    text-align: center;
+    height: 25px;
 }
+
 .l_box .subject
 {
     display: block;
-    width: auto;
     overflow: hidden;
     white-space: nowrap;
     padding: 0 4px;
     font-weight: 700;
     text-align: center;
+    height: 25px;
+    width: 100%;
 }
-.l_box .info
+.l_box .roomNumber
 {
     display: block;
-    width: auto;
+    width: 50%;
+    text-align: center;
     overflow: hidden;
     white-space: nowrap;
     padding: 0 4px;
     font-size: 12px;
+    height: 25px;
 }
 
 
@@ -112,5 +119,9 @@
 {
     width: min-content;
     background-color: rgb(238, 238, 238);
+    width: min-content;
+    max-width: 50%;
+    height: 25px;
 }
+
 

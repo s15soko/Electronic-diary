@@ -25,13 +25,13 @@ if(!$session->checkIfIsActiveUserSession())
     <div id="lessonplan_nav">
 
         Group:
-        <select id="selectGroup">
-            <option value="3">fdsfds</option>
+        <select id="selectGroup" onchange="setEmptyFields();">
+            
         </select>
         &nbsp;&nbsp;&nbsp;
         Date:
-        <button><--</button>
-        <button>--></button>
+        <button onclick="changeDatePreviousWeek();"><--</button>
+        <button onclick="changeDateNextWeek();">--></button>
 
     </div>
     

@@ -115,8 +115,14 @@ function setEmptyFields(hours)
             s2.setAttribute("class", "selectGroup");
             s2.setAttribute("name", "groupID");
 
+            // select for class room number
+            s3 = document.createElement("select");
+            s3.setAttribute("class", "selectRoomNumber");
+            s3.setAttribute("name", "classRoomNumber");
+
             l_box[j].appendChild(s1);
             l_box[j].appendChild(s2);
+            l_box[j].appendChild(s3);
             lesson_container[i].appendChild(l_box[j]);
 
 
@@ -125,6 +131,9 @@ function setEmptyFields(hours)
 
             // get subjects for this row
             getAllSubjects(lesson_container[i].getAttribute("data-day"), j);
+
+            // get class choise for this row
+            classRoomNumber(lesson_container[i].getAttribute("data-day"), j);
         }        
     }
 }
@@ -167,6 +176,31 @@ function getAllSubjects(day, lesson_number)
         selSubject.appendChild(opt);
     });
 }
+function classRoomNumber(day, lesson_number)
+{
+    var lesson_container = document.querySelectorAll(".lesson_container")[day];
+    var row = lesson_container.querySelectorAll(".l_box")[lesson_number];
+
+    var selSubject1 = row.querySelector(".selectRoomNumber");
+    var opt = document.createElement("option");
+    opt.setAttribute("hidden", "true");
+    opt.setAttribute("selected", "true");
+    opt.setAttribute("disabled", "true");
+    opt.innerHTML = "Room";
+    selSubject1.appendChild(opt);
+
+    var gRoomNumber = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+
+    gRoomNumber.forEach(room =>
+    {
+        opt = document.createElement("option");
+        opt.setAttribute("data-classRoomNumber", room);
+        opt.innerHTML = room;
+
+        selSubject1.appendChild(opt);
+    });
+}
+
 // get hours by ajax
 function getHours()
 {
@@ -254,18 +288,22 @@ function addNewPlan()
             select = el.querySelectorAll(".selectSubject")[0];
             selectedSubject = select.options[select.selectedIndex].getAttribute("data-subjectid");
 
+            // get class room number
+            select = el.querySelectorAll(".selectRoomNumber")[0];
+            roomNumber = select.options[select.selectedIndex].getAttribute("data-classroomnumber");
+
             // take lesson hour
             var hour = el.getAttribute("data-hour");
 
 
-            lessons[hour] = {"g": selectedGroup, "s": selectedSubject};
+            lessons[hour] = {"g": selectedGroup, "s": selectedSubject, "rn": roomNumber};
         });
 
 
         myLessonArray[day] = lessons;
         counter++;
     });
-    console.log(myLessonArray);
+    
     myLessonArray = JSON.stringify(myLessonArray);
 
     // get other values

@@ -7,7 +7,7 @@ class lessonPlanController
 {
     // table name
     private $direction = "user_lesson_plan";
-    private $direction2 = "admin_lesson_plan";
+    private $direction2 = "teacher_lesson_plan";
 
     // get lesson hours
     public function getLessonHours()
