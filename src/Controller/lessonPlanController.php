@@ -109,7 +109,6 @@ class lessonPlanController
         }
     }
 
-
     // get all lesson plans for users
     public function getUserLessonPlans()
     {
@@ -178,6 +177,45 @@ class lessonPlanController
             return false;
         }
     }
+
+    // get teacher lesson plan by teacher id and date data
+    public function getTeacherLessonPlan($teacherID, $datefrom, $dateto)
+    {
+        try 
+        {
+            // get db
+            $db = get_database(); 
+            if(!$db)
+            {
+                throw new PDOException("No connection with database!");       
+            }
+
+            $sql = $db->prepare("SELECT * FROM $this->direction2
+                                WHERE date_from <= :datefrom 
+                                AND date_to >= :dateto 
+                                AND teacher_id = :teacher_id");
+
+            $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
+            $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
+            $sql->bindValue(":teacher_id", $teacherID, PDO::PARAM_INT);      
+            $sql->execute();
+
+            // fetch result
+            $result = $sql->fetch();
+
+            // close connection
+            $db = null;
+            
+            //return result
+            return $result;
+        } 
+        catch(PDOException $er) 
+        {
+            //return $er->getMessage();
+            return false;
+        }
+    }
+
 }
 
 ?>

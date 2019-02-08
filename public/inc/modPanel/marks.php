@@ -96,7 +96,7 @@ $subjectController = new subjectController();
                 <?php
                 foreach ($allGroups as $key => $group) 
                 {
-                    echo "<option data-group_id='$group[id]' value='$group[id]'>$group[name]</option>";
+                    echo "<option data-group_id='$group[id]' value='$group[id]'>$group[name], g: $group[group]</option>";
                 }
                 ?>
             </select>

@@ -90,7 +90,17 @@
     text-align: center;
     height: 25px;
 }
-
+.l_box .group
+{
+    display: block;
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 4px;
+    font-size: 12px;
+    text-align: center;
+    height: 25px;
+}
 .l_box .subject
 {
     display: block;

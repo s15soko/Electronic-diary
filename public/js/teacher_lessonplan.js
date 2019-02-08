@@ -14,9 +14,77 @@ $(document).ready(function()
     getAllGroups();
     getAllTeachers();
     getAllSubjects();
-    //setFields();   
+    setFields();   
 
 });
+
+// return user id by ajax
+function returnUserId()
+{
+    var userId;
+    // start ajax
+    // get user id
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "public/ajax/user/get/ajax_userID-get.php",
+        success: function(data)
+        {
+                userId = data;
+        }
+    });
+
+    return userId;
+}
+
+// get date
+function getMyDate()
+{
+    var year = g_DATA.getUTCFullYear();
+    var month = g_DATA.getUTCMonth() + 1;
+    var day = g_DATA.getUTCDate();
+
+    // get day 0-6
+    var dayOfWeek = g_DATA.getUTCDay();
+    //g_DATA.setDate(g_DATA.getDate() - (dayOfWeek-1) + 7);
+
+    // set monday of this week
+    day -= (dayOfWeek-1);
+    if(day < 10) day = "0" + day;
+
+    if(month < 10) month = "0" + month;
+    var dateStr = year + "-" + month + "-" + day;
+    
+    return dateStr;
+}
+
+
+// get lesson plan
+function getLessonPlan()
+{
+    var myDate = getMyDate().toString();
+    var teacherID = returnUserId();
+
+    var lessonPlan;
+    // get lesson plan by date
+    $.ajax({
+        type: "POST",
+        async: false,
+        dataType: "json",
+        data: ({
+            datefrom: myDate,
+            dateto: myDate,
+            teacherID: teacherID
+        }),
+        url: "public/ajax/mod/get/ajax_lessonPlan-get.php",
+        success: function(data)
+        {
+            lessonPlan = data;           
+        }
+    }); 
+    
+    return lessonPlan;
+}
 
 
 function setFields()
@@ -41,7 +109,6 @@ function setFields()
     var plan = getLessonPlan();
     var lessonplan = JSON.parse(plan["lessons"]);
     
-
 
     var year = g_DATA.getUTCFullYear();
     var month = g_DATA.getUTCMonth() + 1;
@@ -109,25 +176,27 @@ function setFields()
                     }
                 });
             }
-            // if is set teacher
-            if(lessonplan[i][hour]["t"])
+
+            // if is set group
+            if(lessonplan[i][hour]["g"])
             {
-                // for each teacher
-                g_TEACHERS.forEach(teacher => 
+                flag = true;
+
+                g_GROUPS.forEach(group => 
                 {
-                    // check teacher data
-                    if(teacher['id'] == lessonplan[i][hour]["t"])
+                    // check fo subject
+                    if(group["id"] == lessonplan[i][hour]["g"])
                     {
-                        var t_div = document.createElement("div");
-                        t_div.setAttribute("class", "teacher");
-                        t_div.setAttribute("title", teacher["name"] + " " + teacher["surname"]);
-                        t_div.innerHTML = teacher["name"] + " " + teacher["surname"];
-                        
-                        l_box[hour].appendChild(t_div);
+                        var s_div = document.createElement("div");
+                        s_div.setAttribute("class", "group");
+                        s_div.setAttribute("title", group["name"]);
+                        s_div.innerHTML = group["name"] + ", g: " + group["group"];
+                            
+                        l_box[hour].appendChild(s_div);
                     }
                 });
             }
-
+            
             if(lessonplan[i][hour]["rn"])
             {
                 var i_div = document.createElement("div");
