@@ -1,6 +1,8 @@
 <?php
 // include src/Entity/databaseConnent
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
+// include src/Manager/sessionManager
+require_once(dirname(__FILE__)."/../Manager/sessionManager.php");
 
 class groupsController extends DatabaseConnection
 {
@@ -18,6 +20,7 @@ class groupsController extends DatabaseConnection
      */
     public function getGroups()
     {
+        
         if($this->db)
         {
             try {

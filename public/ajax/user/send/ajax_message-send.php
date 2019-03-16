@@ -5,11 +5,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../../src/Manager/sessionManager.php");
     $session = new sessionManager();
 
-    // 
     if(!$session->checkIfIsActiveUserSession())
-    {
         exit();
-    }
+    
 
     // include src/Controller/messageController
     require_once(dirname(__FILE__)."/../../../../src/Controller/messageController.php");

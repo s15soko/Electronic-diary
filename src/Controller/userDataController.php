@@ -32,7 +32,8 @@ class userDataController extends DatabaseConnection
         if($this->db)
         {
             try {
-                $sql = $this->db->prepare("SELECT t.id, t.name, t.surname, t.date_of_birth, t.PIN, t.login, t.school_role, t.role, t.address, t.contact, t.email FROM $this->direction AS t
+                $sql = $this->db->prepare("SELECT t.id, t.name, t.surname, t.date_of_birth, t.PIN, t.login, t.school_role, t.role, t.address, t.contact, t.email 
+                        FROM user AS t
                         WHERE t.school_role = 'TEACHER' 
                         OR t.school_role = 'DIRECTOR' ORDER BY t.school_role");
                 $sql->execute();

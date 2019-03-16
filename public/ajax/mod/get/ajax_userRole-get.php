@@ -6,12 +6,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $session = new sessionManager();
 
     if($_SESSION['role'] === "USER")
-    {
         exit();
-    }
-
 
     echo json_encode($_SESSION['role']);
-
 }
 ?>

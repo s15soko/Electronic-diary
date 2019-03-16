@@ -109,7 +109,7 @@ require_once(getcwd() . "/src/Controller/userDataController.php");
 
                     <?php
                     // include src/Controller/methodGETController.php
-                    include_once("src/Controller/methodGETController.php");
+                    include_once(dirname(__FILE__)."/src/Controller/methodGETController.php");
                     ?>
 
                     <p><h1>Hello!</h1></p>

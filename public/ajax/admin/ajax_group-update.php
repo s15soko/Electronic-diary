@@ -5,16 +5,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../src/Manager/sessionManager.php");
     $session = new sessionManager();
 
-    // if role !== ADMIN
     if(!$session->checkIfIsAdmin())
-    {
         exit();
-    }
-
+    
     // include src/Controller/groupsController
     include_once(dirname(__FILE__)."/../../../src/Controller/groupsController.php");
     $groupsController = new groupsController();
-
 
     // take array from ajax action
     $name = $_POST['name'];
@@ -29,9 +25,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         // if something went wrong - show error message
         $session->setFlashMessage("An occurred error during update!");
     }
-    else
-    {
-        $session->setFlashMessage("Update successful!");
-    }
+    else $session->setFlashMessage("Update successful!");
 }
 ?>

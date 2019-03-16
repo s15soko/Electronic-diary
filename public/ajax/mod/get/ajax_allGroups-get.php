@@ -6,16 +6,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $session = new sessionManager();
 
     if($_SESSION['role'] === "USER")
-    {
         exit();
-    }
 
     // include src/Controller/groupsController
     require_once(dirname(__FILE__)."/../../../../src/Controller/groupsController.php");
     $groupsController = new groupsController();
-    $allGroups = $groupsController->getGroups();
 
-    echo json_encode($allGroups);
-
+    echo json_encode($groupsController->getGroups());
 }
 ?>

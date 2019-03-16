@@ -6,14 +6,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $session = new sessionManager();
 
     if($_SESSION['role'] === "USER")
-    {
         exit();
-    }
 
     // include src/Controller/marksController
     include_once(dirname(__FILE__)."/../../../src/Controller/marksController.php");
     $marksController = new marksController();
-
 
     // take array from ajax
     $users = $_POST['users'];
@@ -33,9 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         // if something went wrong - show error message
         $session->setFlashMessage("An occurred error!");
     }
-    else 
-    {
-        $session->setFlashMessage("Added to the database!");
-    }
+    else $session->setFlashMessage("Added to the database!");
+    
 }
 ?>

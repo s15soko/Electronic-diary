@@ -5,11 +5,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include_once(dirname(__FILE__)."/../../../../src/Manager/sessionManager.php");
     $session = new sessionManager();
 
-    //
     if(!$session->checkIfIsActiveUserSession())
-    {
         exit();
-    }
 
     // include src/Controller/marksController
     require_once(dirname(__FILE__)."/../../../../src/Controller/marksController.php");
@@ -17,18 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     $termID = $_POST['termID'];
     $userID = $_POST['userID'];
-
-    // get user marks
-    $marks = $marksController->getUserMarksByTermID($termID, $userID);
     
-    // return data
-    if($marks)
-    {
-        echo json_encode($marks);
-    }
-    else
-    {
-        return false;
-    }
+    echo json_encode($marksController->getUserMarksByTermID($termID, $userID));
 }
 ?>
