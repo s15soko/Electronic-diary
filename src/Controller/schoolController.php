@@ -2,56 +2,33 @@
 // include src/Entity/databaseConnent
 require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 
-class schoolController
+class schoolController extends DatabaseConnection
 {
     // table in database
     private $school = "school";
 
-
     // return data 
     public function schoolInformation($param = 0)
     {
-        $thing = "*";
-        if($param !== 0)
+        if($this->db)
         {
-            // ex. school name
-            $thing = $param;
-        }
-        try 
-        {
-            // get db
-            $db = get_database(); 
-            if(!$db)
+            $thing = "*";
+            if($param !== 0)
             {
-                throw new PDOException("No connection with database!");       
+                // ex. school name
+                $thing = $param;
             }
+            try {
+                $sql = $this->db->prepare("SELECT $thing FROM $this->school;");
+                $sql->execute();
 
-            // sql
-            $sql = $db->prepare("SELECT $thing FROM $this->school;");
-            $sql->execute();
+                $result = $sql->fetch();
 
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-            
-            //return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
-        }
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }  
     }
-
-
-    
-
 }
-
-
-
-
 ?>

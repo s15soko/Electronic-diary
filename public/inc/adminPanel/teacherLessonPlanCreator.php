@@ -8,10 +8,7 @@ if(!$session->checkIfIsAdmin())
     header("location: index.php");
     exit();
 }
-
-
 ?>
-
 
 <!-- styles -->
 <link rel="stylesheet" type="text/css" href="public/css/lessonplan.css"/> 

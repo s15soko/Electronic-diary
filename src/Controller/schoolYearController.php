@@ -4,178 +4,126 @@ require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 
 
-class schoolYearController
+class schoolYearController extends DatabaseConnection
 {
     // table name in database
     private $direction = "school_year";
 
-
-    // return all rows (all school years)
+    /**
+     * return all rows (all school years)
+     */
     public function returnAllschoolYears()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction;");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction;");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // get school year by id
+    /**
+     * get school year by id
+     * 
+     * @param int $schoolYear_id
+     */ 
     public function getSchoolYearByID($schoolYear_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction WHERE id = :id");
+                $sql->bindValue(":id", $schoolYear_id, PDO::PARAM_INT);
+                $sql->execute();
+
+                $result = $sql->fetch();
+
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id");
-            $sql->bindValue(":id", $schoolYear_id, PDO::PARAM_INT);
-            $sql->execute();
-
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            //return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
-
-    // add new school year to database
+    /**
+     *  add new school year
+     */
     public function addNewSchoolYear($schoolyear, $datef, $datet)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :schoolyear, :datef, :datet);");
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction VALUES (null, :schoolyear, :datef, :datet);");
             
-            $sql->bindValue(":schoolyear", $schoolyear, PDO::PARAM_STR);
-            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
-            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
-            $sql->execute();
+                $sql->bindValue(":schoolyear", htmlentities($schoolyear), PDO::PARAM_STR);
+                $sql->bindValue(":datef", htmlentities($datef), PDO::PARAM_STR);
+                $sql->bindValue(":datet", htmlentities($datet), PDO::PARAM_STR);
+                $sql->execute();
 
-            // close connection
-            $db = null;
-
-            //return
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // update school year row
+    /**
+     * update school year
+     * 
+     * @param int $id
+     */
     public function updateSchoolYear($id, $schoolYear, $datef, $datet)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("UPDATE $this->direction SET school_year = :schoolyear, date_from = :datef, date_to = :datet 
+            try {
+                $sql = $this->db->prepare("UPDATE $this->direction SET school_year = :schoolyear, date_from = :datef, date_to = :datet 
                                 WHERE id = :idschoolyear");
 
-            $sql->bindValue(":idschoolyear", $id, PDO::PARAM_INT);
-            $sql->bindValue(":schoolyear", $schoolYear, PDO::PARAM_STR);
-            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
-            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
-            $sql->execute();
+                $sql->bindValue(":idschoolyear", $id, PDO::PARAM_INT);
+                $sql->bindValue(":schoolyear", htmlentities($schoolYear), PDO::PARAM_STR);
+                $sql->bindValue(":datef", htmlentities($datef), PDO::PARAM_STR);
+                $sql->bindValue(":datet", htmlentities($datet), PDO::PARAM_STR);
+                $sql->execute();
 
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-
-    // delete school year row/rows
+    /**
+     * delete school year row/rows
+     * 
+     * @param array<int> $rows_id
+     */
     public function deleteRows($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                foreach ($rows_id as $key => $value) 
+                {
+                    $sql = $this->db->prepare("DELETE FROM $this->direction WHERE id = :id");
+            
+                    $sql->bindValue(":id", $value, PDO::PARAM_INT);
+                    $sql->execute();
+                }
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 

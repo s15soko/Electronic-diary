@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 
-class marksController
+class marksController extends DatabaseConnection
 {
     // table name in database
     private $direction = "grade";
@@ -11,22 +11,15 @@ class marksController
     private $direction3 = "grade_type";
 
 
-
-
-    // find all user marks by term id
+    /**
+     * Find all user marks by term id
+     */
     public function getUserMarksByTermID($term_id, $user_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // return marks + data from $direction2 and $direction3
-            $sql = $db->prepare("SELECT g.*, gs.*, gt.* 
+            try {
+                $sql = $this->db->prepare("SELECT g.*, gs.*, gt.* 
                                     FROM `grade` AS g 
                                     INNER JOIN `grade_scale` AS gs 
                                     ON g.grade = gs.id 
@@ -36,179 +29,120 @@ class marksController
                                     ON g.type = gt.id 
                                     ORDER BY g.date DESC");
 
-            $sql->bindValue(":iduser", $user_id, PDO::PARAM_INT);
-            $sql->bindValue(":idterm", $term_id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":iduser", $user_id, PDO::PARAM_INT);
+                $sql->bindValue(":idterm", $term_id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                $results = $sql->fetchAll();
+     
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
-    // add new grade
+    /**
+     * Add new grade
+     */ 
     public function addNewGrade($users, $teacherID, $schoolYearID, $termID, $subjectID, $gradeWeight, $gradeRange, $gradeTypeID, $gradeID)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                foreach ($users as $user) 
+                {
+                    $sql = $this->db->prepare("INSERT INTO $this->direction VALUES 
+                                        (NULL, :grade, :gweight, :grange, :gtype, :gdate, :student_id, :teacher_id, :subject_id, :term_id, :schoolyear_id)");
+                                        
+                    if($gradeWeight > 100) $gradeWeight = 100;
+
+                    $sql->bindValue(":grade", $gradeID, PDO::PARAM_INT);
+                    $sql->bindValue(":gweight", $gradeWeight, PDO::PARAM_INT);
+                    $sql->bindValue(":grange", htmlentities($gradeRange), PDO::PARAM_STR);
+                    $sql->bindValue(":gtype", $gradeTypeID, PDO::PARAM_INT);
+                    $sql->bindValue(":gdate", htmlentities(date("Y-m-d")), PDO::PARAM_STR);
+                    $sql->bindValue(":student_id", $user, PDO::PARAM_INT);
+                    $sql->bindValue(":teacher_id", $teacherID, PDO::PARAM_INT);
+                    $sql->bindValue(":subject_id", $subjectID, PDO::PARAM_INT);
+                    $sql->bindValue(":term_id", $termID, PDO::PARAM_INT);
+                    $sql->bindValue(":schoolyear_id", $schoolYearID, PDO::PARAM_INT);
+
+                    $sql->execute();
+                }
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // foreach sql
-            foreach ($users as $user) 
-            {
-                $sql = $db->prepare("INSERT INTO $this->direction VALUES 
-                                    (NULL, :grade, :gweight, :grange, :gtype, :gdate, :student_id, :teacher_id, :subject_id, :term_id, :schoolyear_id)");
-                                    
-                if($gradeWeight > 100) $gradeWeight = 100;
-
-                $sql->bindValue(":grade", $gradeID, PDO::PARAM_INT);
-                $sql->bindValue(":gweight", $gradeWeight, PDO::PARAM_INT);
-                $sql->bindValue(":grange", $gradeRange, PDO::PARAM_STR);
-                $sql->bindValue(":gtype", $gradeTypeID, PDO::PARAM_INT);
-                $sql->bindValue(":gdate", date("Y-m-d"), PDO::PARAM_STR);
-                $sql->bindValue(":student_id", $user, PDO::PARAM_INT);
-                $sql->bindValue(":teacher_id", $teacherID, PDO::PARAM_INT);
-                $sql->bindValue(":subject_id", $subjectID, PDO::PARAM_INT);
-                $sql->bindValue(":term_id", $termID, PDO::PARAM_INT);
-                $sql->bindValue(":schoolyear_id", $schoolYearID, PDO::PARAM_INT);
-
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }     
+        }    
     }
 
-    // get all grade type
+    /**
+     * Get all grade types
+     */
     public function getGradeTypes()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction3");
+                $sql->execute();
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            $sql = $db->prepare("SELECT * FROM $this->direction3");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // get all grades scale
+    /**
+     * Get all grades scale
+     */ 
     public function getGradesScale()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction2");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            $sql = $db->prepare("SELECT * FROM $this->direction2");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-
-    // find all user marks by year id
-    public function getUserMarksByYearID($year_id, $user_id)
-    {
-        // pokaz wystawione oceny
-    }
-
-
-    // get USERS marks by term id, subject id
-    // order by date
+    /**
+     * Get USERS marks by term id, subject id
+     * 
+     * @param int $term_id
+     * @param int $subject_id
+     */
     public function getUsersMarksByTermIDSubjectID($term_id, $subject_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            $sql = $db->prepare("SELECT g.*, gs.grade AS user_grade FROM $this->direction AS g 
+            try {
+                $sql = $this->db->prepare("SELECT g.*, gs.grade AS user_grade FROM $this->direction AS g 
                             INNER JOIN grade_scale AS gs ON gs.id = g.grade
                             AND g.term_id = :term_id
                             AND g.subject_id = :subject_id");
-            $sql->bindValue(":term_id", $term_id, PDO::PARAM_INT);
-            $sql->bindValue(":subject_id", $subject_id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":term_id", $term_id, PDO::PARAM_INT);
+                $sql->bindValue(":subject_id", $subject_id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
+                $results = $sql->fetchAll();
 
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
-
-
 }
 ?>

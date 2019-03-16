@@ -3,181 +3,139 @@
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 
-class learningDirectionController
+class learningDirectionController extends DatabaseConnection
 {
     // table in database
     private $direction = "direction";
 
 
-    // get all directions from database
+    /**
+     * Get all directions from database
+     */
     public function getLearningDirections()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction;");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction;");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            // return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
 
-    // add new direction to database
+    /**
+     * Add new direction
+     * 
+     * @param string $name
+     * @param string $short short name
+     */ 
     public function addNewDirection($name, $short)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                // sql
+                $sql = $this->db->prepare("INSERT INTO $this->direction VALUES (null, :name_dir, :short);");
+                
+                $sql->bindValue(":name_dir", htmlentities($name), PDO::PARAM_STR);
+                $sql->bindValue(":short", htmlentities($short), PDO::PARAM_STR);
+                $sql->execute();
+                
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :name_dir, :short);");
-            
-            $sql->bindValue(":name_dir", $name, PDO::PARAM_STR);
-            $sql->bindValue(":short", $short, PDO::PARAM_STR);
-            $sql->execute();
-
-
-            // close connection
-            $db = null;
-
-            // return
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
+
     }
 
 
-    // return direction row via id
-    // ex. for edit page
+    /**
+     * return direction row via id
+     * 
+     * @param int $id direction id
+     */
     public function returnRow($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id;");
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction WHERE id = :id;");
          
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            // return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                $result = $sql->fetch();
+                
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // update direction
+    /**
+     *  update direction
+     * 
+     * @param int $id
+     * @param string $name
+     * @param string $short short name
+     */ 
     public function updateDirection($id, $name, $short)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("UPDATE $this->direction SET name = :directionname, short_name = :short WHERE id = :iddirection");
+                $sql->bindValue(":iddirection", $id, PDO::PARAM_INT);
+                $sql->bindValue(":directionname", htmlentities($name), PDO::PARAM_STR);
+                $sql->bindValue(":short", htmlentities($short), PDO::PARAM_STR);
+                $sql->execute();
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("UPDATE $this->direction SET name = :directionname, short_name = :short WHERE id = :iddirection");
-            $sql->bindValue(":iddirection", $id, PDO::PARAM_INT);
-            $sql->bindValue(":directionname", $name, PDO::PARAM_STR);
-            $sql->bindValue(":short", $short, PDO::PARAM_STR);
-            $sql->execute();
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
 
-    // delete direction row/rows
+    /**
+     * delete direction row/rows
+     * 
+     * @param array<int> $rows_id
+     */ 
     public function deleteRows($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
+            try {
+                foreach ($rows_id as $key => $value) 
+                {
+                    $value = (int)$value;
+                    $sql = "DELETE FROM $this->direction WHERE id = $value";
             
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                    $this->db->exec($sql);
+                }
+                
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
     
-    // return table name
+    /**
+     * Return table name
+     */
     public function returnTableName()
     {
         return $this->direction;

@@ -5,7 +5,7 @@ require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 require_once(dirname(__FILE__). "/../Manager/sessionManager.php");
 
 
-class registerController
+class registerController extends DatabaseConnection
 {
     // table in database
     private $direction = "user";
@@ -17,10 +17,11 @@ class registerController
         
         $flag = true;
         // check email, pin, login, password
-        // rest in js
 
         // array for errors
         $errors = array();
+		
+		$login = mysqli_real_escape_string($login);
 
 
         // check email
@@ -71,8 +72,6 @@ class registerController
             // set error
             $errors[] = "Password is too short";
         }
-
-
         
         // set error flash messages
         if(!empty($errors))
@@ -84,45 +83,33 @@ class registerController
         // if flag == true - register user
         if($flag)
         {
-            try 
+            if($this->db)
             {
-                // get db
-                $db = get_database(); 
-                if(!$db)
-                {
-                    throw new PDOException("No connection with database!");       
+                try {
+                    // hash password
+                    $password = password_hash($password, PASSWORD_BCRYPT, array(15));
+        
+                    // sql
+                    $sql = $db->prepare("INSERT INTO $this->direction VALUES 
+                        (null, :username, :surname, :datebirth, :pin, :login, :password, :schoolrole, :role, :address, :contact, :email);");
+                    $sql->bindValue(":username", htmlentities($name), PDO::PARAM_STR);
+                    $sql->bindValue(":surname", htmlentities($surname), PDO::PARAM_STR);
+                    $sql->bindValue(":schoolrole", htmlentities($schoolrole), PDO::PARAM_STR);
+                    $sql->bindValue(":email", htmlentities($email), PDO::PARAM_STR);
+                    $sql->bindValue(":pin", htmlentities($pin), PDO::PARAM_STR);
+                    $sql->bindValue(":address", htmlentities($address), PDO::PARAM_STR);
+                    $sql->bindValue(":contact", htmlentities($contact), PDO::PARAM_STR);
+                    $sql->bindValue(":datebirth", htmlentities($date), PDO::PARAM_STR);
+                    $sql->bindValue(":login", htmlentities($login), PDO::PARAM_STR);
+                    $sql->bindValue(":password", htmlentities($password), PDO::PARAM_STR);
+                    $sql->bindValue(":role", htmlentities($role), PDO::PARAM_STR);
+        
+                    $sql->execute();
+
+                    return true;
+                } catch (\Throwable $th) {
+                    return false;
                 }
-
-
-                // hash password
-                $password = password_hash($password, PASSWORD_BCRYPT, array(15));
-    
-                // sql
-                $sql = $db->prepare("INSERT INTO $this->direction VALUES 
-                    (null, :username, :surname, :datebirth, :pin, :login, :password, :schoolrole, :role, :address, :contact, :email);");
-                $sql->bindValue(":username", $name, PDO::PARAM_STR);
-                $sql->bindValue(":surname", $surname, PDO::PARAM_STR);
-                $sql->bindValue(":schoolrole", $schoolrole, PDO::PARAM_STR);
-                $sql->bindValue(":email", $email, PDO::PARAM_STR);
-                $sql->bindValue(":pin", $pin, PDO::PARAM_STR);
-                $sql->bindValue(":address", $address, PDO::PARAM_STR);
-                $sql->bindValue(":contact", $contact, PDO::PARAM_STR);
-                $sql->bindValue(":datebirth", $date, PDO::PARAM_STR);
-                $sql->bindValue(":login", $login, PDO::PARAM_STR);
-                $sql->bindValue(":password", $password, PDO::PARAM_STR);
-                $sql->bindValue(":role", $role, PDO::PARAM_STR);
-    
-                $sql->execute();
-    
-                // close connection
-                $db = null;
-    
-                return true;
-            } 
-            catch(PDOException $er) 
-            {
-                // return $er->getMessage();
-                return false;
             }
         }  
     }

@@ -3,216 +3,166 @@
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 
-class lessonPlanController
+class lessonPlanController extends DatabaseConnection
 {
     // table name
     private $direction = "user_lesson_plan";
     private $direction2 = "teacher_lesson_plan";
 
-    // get lesson hours
+    /**
+     * Get lesson hours
+     */
     public function getLessonHours()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM lesson_hours");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            $sql = $db->prepare("SELECT * FROM lesson_hours");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // add new lesson plan for student
+    /**
+     * Add new lesson plan for student
+     * 
+     * @param int $class 
+     * @param int $group
+     * @param string $desc
+     * @param string $datef date from
+     * @param string $datet date to
+     * @param array $lessonplan
+     */
     public function addUserLessonPlan($class, $group, $desc, $datef, $datet, $lessonplan)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction VALUES (null, :class, :group, :descr, :datef, :datet, :lessonplan);");
+
+                $sql->bindValue(":class", $class, PDO::PARAM_INT);
+                $sql->bindValue(":group", $group, PDO::PARAM_INT);
+                $sql->bindValue(":descr", htmlentities($desc), PDO::PARAM_STR);
+                $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
+                $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
+                $sql->bindValue(":lessonplan", htmlentities($lessonplan), PDO::PARAM_STR);
+                $sql->execute();
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :class, :group, :descr, :datef, :datet, :lessonplan);");
-
-            $sql->bindValue(":class", $class, PDO::PARAM_INT);
-            $sql->bindValue(":group", $group, PDO::PARAM_INT);
-            $sql->bindValue(":descr", $desc, PDO::PARAM_STR);
-            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
-            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
-            $sql->bindValue(":lessonplan", $lessonplan, PDO::PARAM_STR);
-            $sql->execute();
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // add new lesson plan for teacher
+    /**
+     * Add new lesson plan for teacher
+     * 
+     * @param int $teacherID
+     * @param string $desc
+     * @param string $datef date from
+     * @param string $datet date to
+     * @param array $lessonplan
+     */
     public function addTeacherLessonPlan($teacherID, $desc, $datef, $datet, $lessonplan)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction2 VALUES (null, :teacher, :descr, :datef, :datet, :lessonplan);");
+
+                $sql->bindValue(":teacher", $teacherID, PDO::PARAM_INT);
+                $sql->bindValue(":descr", htmlentities($desc), PDO::PARAM_STR);
+                $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
+                $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
+                $sql->bindValue(":lessonplan", htmlentities($lessonplan), PDO::PARAM_STR);
+                $sql->execute();
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction2 VALUES (null, :teacher, :descr, :datef, :datet, :lessonplan);");
-
-            $sql->bindValue(":teacher", $teacherID, PDO::PARAM_INT);
-            $sql->bindValue(":descr", $desc, PDO::PARAM_STR);
-            $sql->bindValue(":datef", $datef, PDO::PARAM_STR);
-            $sql->bindValue(":datet", $datet, PDO::PARAM_STR);
-            $sql->bindValue(":lessonplan", $lessonplan, PDO::PARAM_STR);
-            $sql->execute();
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // get all lesson plans for users
+    /**
+     * Get all lesson plans for users
+     */
     public function getUserLessonPlans()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction;");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            $sql = $db->prepare("SELECT * FROM $this->direction;");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // get user lesson plan by group id and date data
+    /**
+     * Get user lesson plan by group id and date data
+     * 
+     */
     public function getUserLessonPlan($datefrom, $dateto, $groupid)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            $sql = $db->prepare("SELECT * FROM $this->direction
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction
                                 WHERE date_from <= :datefrom 
                                 AND date_to >= :dateto 
                                 AND group_id = :groupid");
 
-            $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
-            $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
-            $sql->bindValue(":groupid", $groupid, PDO::PARAM_INT);      
-            $sql->execute();
+                $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
+                $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
+                $sql->bindValue(":groupid", $groupid, PDO::PARAM_INT);      
+                $sql->execute();
 
-            // fetch result
-            $result = $sql->fetch();
+                $result = $sql->fetch();
 
-            // close connection
-            $db = null;
-            
-            //return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
-    // get teacher lesson plan by teacher id and date data
+    /**
+     * Get teacher lesson plan by teacher id and date data
+     */ 
     public function getTeacherLessonPlan($teacherID, $datefrom, $dateto)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            $sql = $db->prepare("SELECT * FROM $this->direction2
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction2
                                 WHERE date_from <= :datefrom 
                                 AND date_to >= :dateto 
                                 AND teacher_id = :teacher_id");
 
-            $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
-            $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
-            $sql->bindValue(":teacher_id", $teacherID, PDO::PARAM_INT);      
-            $sql->execute();
+                $sql->bindValue(":datefrom", $datefrom, PDO::PARAM_STR);
+                $sql->bindValue(":dateto", $dateto, PDO::PARAM_STR);    
+                $sql->bindValue(":teacher_id", $teacherID, PDO::PARAM_INT);      
+                $sql->execute();
 
-            // fetch result
-            $result = $sql->fetch();
+                $result = $sql->fetch();
 
-            // close connection
-            $db = null;
-            
-            //return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 

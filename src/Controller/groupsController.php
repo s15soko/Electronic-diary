@@ -2,9 +2,7 @@
 // include src/Entity/databaseConnent
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
-
-
-class groupsController
+class groupsController extends DatabaseConnection
 {
     // table names in database
     private $direction  = "group";
@@ -14,22 +12,16 @@ class groupsController
     private $direction5 = "group_subject";
 
 
-
-    // get all groups from database 
-    // +class data and direction data
+    /**
+     * Get all groups from database 
+     * +class data and direction data
+     */
     public function getGroups()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT g.*, 
+            try {
+                $sql = $this->db->prepare("SELECT g.*, 
                                 c.id AS school_year_id, 
                                 c.number AS school_year_number, 
                                 c.name AS school_year_name, 
@@ -39,39 +31,29 @@ class groupsController
                                 INNER JOIN class AS c ON g.class_number = c.id 
                                 INNER JOIN direction AS d ON d.id = g.direction_id 
                                 ORDER BY c.number DESC, g.group ASC");
-            $sql->execute();
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
+                $results = $sql->fetchAll();
 
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // get group Users (by group id)
+    /**
+     * Get group Users
+     * 
+     * @param int $id group id
+     */
     public function getGroupUsers($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT ug.*, 
+            try {
+                $sql = $this->db->prepare("SELECT ug.*, 
 
                             u.id AS userid,
                             u.name,
@@ -84,40 +66,30 @@ class groupsController
                             AND ug.group_id = :id");
                                 
 
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return result
-            return $results;
+                $results = $sql->fetchAll();
+                
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }  
     }
 
 
-    // get group subjects (by group id)
+    /**
+     * Get group subjects
+     * 
+     * @param int $id group id
+     */
     public function getGroupSubjects($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT s.id,
+            try {
+                $sql = $this->db->prepare("SELECT s.id,
                                 s.order, 
                                 s.short_name, 
                                 s.name 
@@ -127,459 +99,345 @@ class groupsController
                                 ORDER BY s.order ASC");
                                 
 
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
+                $results = $sql->fetchAll();
 
-            // close connection
-            $db = null;
-            
-            //return result
-            return $results;
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }  
     }
 
 
-    // get all users with out group 
+    /**
+     * Get all users without group 
+     */
     public function getAllUsersWithoutGroup()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT u.id AS `user_id`, u.name, u.surname, u.PIN, u.school_role, ug.student_id, ug.group_id FROM `user` AS u 
+            try {
+                $sql = $this->db->prepare("SELECT u.id AS `user_id`, u.name, u.surname, u.PIN, u.school_role, ug.student_id, ug.group_id FROM `user` AS u 
                             LEFT JOIN `user_group` AS ug ON u.id = ug.student_id
                             WHERE u.school_role = 'STUDENT' AND student_id IS NULL");
                                 
-            $sql->execute();
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return result
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }  
+                $results = $sql->fetchAll();
+                
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }
     }
 
-    // add user to group
+    /**
+     * Add user to group
+     * 
+     * @param int $groupID 
+     * @param int 
+     */
     public function addUserToGroup($groupID, $userID)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction4 VALUES (null, :userID, :groupid);");
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction4 VALUES (null, :userID, :groupid);");
          
-            $sql->bindValue(":groupid", $groupID, PDO::PARAM_INT);
-            $sql->bindValue(":userID", $userID, PDO::PARAM_INT);
-            $sql->execute();
-            
-            // close connection
-            $db = null;
+                $sql->bindValue(":groupid", $groupID, PDO::PARAM_INT);
+                $sql->bindValue(":userID", $userID, PDO::PARAM_INT);
+                $sql->execute();
+                
 
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }     
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }   
     }
 
 
-    // delete subject/subjects from group
+    /**
+     * Delete subject/subjects from group
+     * 
+     * @param array<int> $rows_id
+     */
     public function deleteGroupSubjects($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                foreach ($rows_id as $key => $value) 
+                {
+                    $sql = $this->db->prepare("DELETE FROM $this->direction5 WHERE id = :id");
+            
+                    $sql->bindValue(":id", $value, PDO::PARAM_INT);
+                    $sql->execute();
+                }
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction5 WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }     
+        }
     }
 
 
-
-    // get all subjects + add data from other table
+    /**
+     * Get all subjects
+     * 
+     * @param int $id group id
+     */
     public function getSubjectsForGroup($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT s.*, 
+            try {
+                $sql = $this->db->prepare("SELECT s.*, 
                                 gs.group_id, 
                                 gs.subject_id 
                                 FROM `subject` AS s 
                                 LEFT JOIN `group_subject` AS gs ON gs.subject_id = s.id 
                                 AND gs.group_id = :id");
                                 
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-            
-            //return results
-            return $results;
-        }
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
+                $results = $sql->fetchAll();
+                
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // add subject to group
+    /**
+     * Add subject to group
+     * 
+     * @param int $groupID
+     * @param int $subjectID
+     */ 
     public function addSubjectToGroup($groupId, $subjectId)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-
-            $sql = $db->prepare("INSERT INTO $this->direction5 VALUES (null, :groupid, :subjectid);");
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction5 VALUES (null, :groupid, :subjectid);");
          
-            $sql->bindValue(":groupid", $groupId, PDO::PARAM_INT);
-            $sql->bindValue(":subjectid", $subjectId, PDO::PARAM_INT);
-            $sql->execute();
-            
-            // close connection
-            $db = null;
+                $sql->bindValue(":groupid", $groupId, PDO::PARAM_INT);
+                $sql->bindValue(":subjectid", $subjectId, PDO::PARAM_INT);
+                $sql->execute();
 
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
-        }     
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }   
     }
 
-
-    // check if group exist
+    /**
+     * Check if group exist
+     * 
+     * @param string $name group name
+     * @param int $number
+     * @param int @classNumber
+     * @param int DirectionID
+     */
     public function checkForGroup($name, $number, $classNumber, $directionID)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM `group` 
+            try {
+                $sql = $this->db->prepare("SELECT * FROM `group` 
                             WHERE name = :g_name 
                             AND `group` = :g_number
                             AND class_number = :classnumber 
                             AND direction_id = :directionid");
                                 
-            $sql->bindValue(":g_name", $name, PDO::PARAM_STR);
-            $sql->bindValue(":g_number", $number, PDO::PARAM_INT);
-            $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
-            $sql->bindValue(":directionid", $directionID, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":g_name", htmlentities($name), PDO::PARAM_STR);
+                $sql->bindValue(":g_number", $number, PDO::PARAM_INT);
+                $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
+                $sql->bindValue(":directionid", $directionID, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-
-            // return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                $results = $sql->fetchAll();
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // update group data
+    /**
+     * Update group data
+     */
     public function updateGroup($id, $name, $number, $classNumber, $directionid)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("UPDATE `group` SET 
+            try {
+                $sql = $this->db->prepare("UPDATE `group` SET 
                             name = :namegroup, 
                             `group` = :groupnumber, 
                             class_number = :classnumber, 
                             direction_id = :directionid 
                             WHERE id = :idgroup");
                                 
-            $sql->bindValue(":idgroup", $id, PDO::PARAM_INT);
-            $sql->bindValue(":namegroup", $name, PDO::PARAM_STR);
-            $sql->bindValue(":groupnumber", $number, PDO::PARAM_INT);
-            $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
-            $sql->bindValue(":directionid", $directionid, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":idgroup", $id, PDO::PARAM_INT);
+                $sql->bindValue(":namegroup", htmlentities($name), PDO::PARAM_STR);
+                $sql->bindValue(":groupnumber", $number, PDO::PARAM_INT);
+                $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
+                $sql->bindValue(":directionid", $directionid, PDO::PARAM_INT);
+                $sql->execute();
 
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // add new group
+    /**
+     * Add new group
+     * 
+     * @param string $name
+     * @param int $number
+     * @param int $classNumber
+     * @param int $directionID
+     */
     public function addNewGroup($name, $number, $classNumber, $directionID)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("INSERT INTO `$this->direction` VALUES (null, :g_name, :g_number, :classnumber, :directionid);");
+                $sql->bindValue(":g_name", $name, PDO::PARAM_STR);
+                $sql->bindValue(":g_number", $number, PDO::PARAM_INT);
+                $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
+                $sql->bindValue(":directionid", $directionID, PDO::PARAM_INT);
+                $sql->execute();
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO `$this->direction` VALUES (null, :g_name, :g_number, :classnumber, :directionid);");
-            $sql->bindValue(":g_name", $name, PDO::PARAM_STR);
-            $sql->bindValue(":g_number", $number, PDO::PARAM_INT);
-            $sql->bindValue(":classnumber", $classNumber, PDO::PARAM_INT);
-            $sql->bindValue(":directionid", $directionID, PDO::PARAM_INT);
-            $sql->execute();
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
-
-    // delete group row/rows
-    // delete by id
+    /**
+     * delete group row/rows
+     * 
+     * @param int $rows_id
+     */
     public function deleteRows($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                foreach ($rows_id as $key => $value) 
+                {
+                    $rows_id = (int)$rows_id;
+                    $sql = "DELETE FROM `$this->direction` WHERE id = $id";
+            
+                    $this->db->exec($sql);
+                }
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
 
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM `$this->direction` WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
 
-    // delete user from group
-    // delete by row id
+    /**
+     * delete user from group
+     * 
+     * @param int $rows_id
+     */
     public function deleteUserFromGroup($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                foreach ($rows_id as $key => $value) 
+                {
+                    $value = (int) $value;
+                    $sql = "DELETE FROM $this->direction4 WHERE id = $value";
+                    
+                    $this->db->exec($sql);
+                }
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction4 WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
 
-    // return values via id
-    // ex. for edit pages
+    /**
+     * Return values via id
+     * 
+     * @param int $id
+     */
     public function returnRow($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM `$this->direction` WHERE id = :id;");
+            try {
+                $sql = $this->db->prepare("SELECT * FROM `$this->direction` WHERE id = :id;");
         
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            // return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                $result = $sql->fetch();
+                
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
-    // return user group name
+    /**
+     * Return user group name 
+     * 
+     * @param int $userid
+     */ 
     public function returnGroupName($userid)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT g.name FROM `group` AS g 
+            try {
+                $sql = $this->db->prepare("SELECT g.name FROM `group` AS g 
                             INNER JOIN user_group AS ug ON g.id = ug.group_id
                             AND ug.student_id = :userid");
         
-            $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":userid", $userid, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            // return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                $result = $sql->fetch();
+                
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     } 
 
-
-    // return table name
+    /**
+     * Return table name
+     */
     public function returnTableName()
     {
         return $this->direction;

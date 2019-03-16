@@ -1,33 +1,31 @@
 <?php
 
-function get_database()
+class DatabaseConnection
 {
-    // database values
-    $mysql_host = 'localhost';
-    $database = 'electronic_diary';
-    $dbusername = 'root';
-    $dbpassword = '';
+    private $mysql_host = 'localhost';
+    private $database = 'electronic_diary';
+    private $dbusername = 'root';
+    private $dbpassword = '';
+    private $charset = "utf8";
 
-    $charset = "utf8";
+    protected $db;
 
-
-    try
+    public function __construct()
     {
-        $conn = new PDO("mysql:host=$mysql_host;dbname=$database;charset=$charset", $dbusername, $dbpassword);
-        $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        // Error reporting
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        // return 
-        return $conn;
+        try {
+            $this->db = new PDO("mysql:host=$this->mysql_host;dbname=$this->database;charset=$this->charset", $this->dbusername, $this->dbpassword);
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+            //$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        } catch (\Throwable $th) 
+        {
+            $this->db = null;
+        }
     }
-    catch(PDOException $ex)
+
+
+    public function __destruct()
     {
-        //return $ex->getMessage();
-        // return false
-        // connection error
-        return false;
+        $this->db = null;
     }
-    
 }
-
 ?>

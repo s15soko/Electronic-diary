@@ -3,27 +3,24 @@
 require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 
 
-class rankingController
+class rankingController extends DatabaseConnection
 {
     // table in database
     private $direction = 'grade';
 
 
-    // get all marks from database
-    // by term id and by school year id
+    /**
+     * get all marks
+     * 
+     * @param int $termid
+     * @param int $schoolyearid
+     */
     public function getMarksForOneTermAndSchoolYear($termid, $schoolyearid)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT g.id AS gradeid, 
+            try {
+                $sql = $this->db->prepare("SELECT g.id AS gradeid, 
                                     g.student_id,
                                     gs.grade, 
                                     gs.value, 
@@ -44,24 +41,17 @@ class rankingController
                                     AND g.term_id = :termid
                                     AND g.school_year_id = :schoolyearid");
                                 
-            $sql->bindValue(":termid", $termid, PDO::PARAM_INT);
-            $sql->bindValue(":schoolyearid", $schoolyearid, PDO::PARAM_INT);
-            $sql->execute();
+                $sql->bindValue(":termid", $termid, PDO::PARAM_INT);
+                $sql->bindValue(":schoolyearid", $schoolyearid, PDO::PARAM_INT);
+                $sql->execute();
 
-            // fetch results
-            $results = $sql->fetchAll();
+                $results = $sql->fetchAll();
 
-            // close connection
-            $db = null;
-           
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
-        }  
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
+        }
     }
 }
 ?>

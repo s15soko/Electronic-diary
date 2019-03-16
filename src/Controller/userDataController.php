@@ -2,192 +2,131 @@
 require_once(dirname(__FILE__). "/../Entity/databaseConnect.php");
 require_once(dirname(__FILE__). "/../Manager/sessionManager.php");
 
-class userDataController
+class userDataController extends DatabaseConnection
 {
-    // table in database
-    private $direction = "user";
-
-
-
-    // get all users
+    /**
+     * Get all users
+     */
     public function getAllUsers()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM user ORDER BY school_role;");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY school_role;");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
         }
     }
 
-    // get all teachers
+    /**
+     * Get all teachers
+     */
     public function getAllTeachers()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("SELECT t.id, t.name, t.surname, t.date_of_birth, t.PIN, t.login, t.school_role, t.role, t.address, t.contact, t.email FROM $this->direction AS t
+            try {
+                $sql = $this->db->prepare("SELECT t.id, t.name, t.surname, t.date_of_birth, t.PIN, t.login, t.school_role, t.role, t.address, t.contact, t.email FROM $this->direction AS t
                         WHERE t.school_role = 'TEACHER' 
                         OR t.school_role = 'DIRECTOR' ORDER BY t.school_role");
-            $sql->execute();
+                $sql->execute();
+                $results = $sql->fetchAll();
 
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-
-            //return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return $results;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
-    // set as user role
+    /**
+     * Set as user role
+     */
     public function setAsUser($rows_id)
     {
-        try
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
+            try 
             {
-                throw new PDOException("No connection with database!");       
-            }
+                foreach ($rows_id as $key => $id) 
+                {
+                    $sql = $this->db->prepare("UPDATE user 
+                            SET school_role = 'STUDENT', 
+                            role = 'USER' 
+                            WHERE id = :id");
+                            
+                    $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                    $sql->execute();
+                }
 
-            
-            // foreach sql
-            foreach ($rows_id as $key => $id) 
-            {
-                $sql = $db->prepare("UPDATE $this->direction 
-                        SET school_role = 'STUDENT', 
-                        role = 'USER' 
-                        WHERE id = :id");
-                        
-                $sql->bindValue(":id", $id, PDO::PARAM_INT);
-                $sql->execute();
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-            
-            // close connection
-            $db = null;
-
-            //return true
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-        //return $er->getMessage();
-        return false;
         }
+    
     }
 
 
-    // get user data
+    /**
+     * Get user data
+     * 
+     * @param string $param table row
+     */
     public function getUserData($param = 0)
     {
-        $thing = "*";
-        if($param !== 0)
+        if($this->db)
         {
-            // $thing = $param ex. "imie"
-            $thing = $param;
-        }
-        try 
-        {
-            // get db
-            $db = get_database(); 
-            if(!$db)
+            $thing = "*";
+            if($param !== 0)
             {
-                throw new PDOException("No connection with database!");       
+                // $thing = $param ex. "imie"
+                $thing = $param;
             }
+            try {
+                $sql = $this->db->prepare("SELECT $thing FROM user WHERE id = :id;");
+                $sql->bindValue(":id", (int)$_SESSION['id_user'], PDO::PARAM_INT);
+                $sql->execute();
+                $result = $sql->fetch();
 
-            // sql
-            $sql = $db->prepare("SELECT $thing FROM $this->direction WHERE id = :id;");
-            $sql->bindValue(":id", $_SESSION['id_user'], PDO::PARAM_INT);
-            $sql->execute();
-
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            //return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
 
-    // delete user row/rows
+    /**
+     * Delete user row/rows
+     * 
+     * @param array<int> $users_id
+     */
     public function deleteUsers($users_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // foreach sql
-            foreach ($users_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
-        
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
+            try {
+                foreach ($users_id as $key => $value) 
+                {
+                    $sql = $db->prepare("DELETE FROM user WHERE id = :id");
             
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                    $sql->bindValue(":id", $value, PDO::PARAM_INT);
+                    $sql->execute();
+                }
+                
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
-
-
 }
 
 

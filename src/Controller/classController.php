@@ -3,177 +3,134 @@
 require_once(dirname(__FILE__)."/../Entity/databaseConnect.php");
 
 
-class classController
+class classController extends DatabaseConnection
 {
     // table name in database
     private $direction = "class";
 
-
-    // get all classes from database
+    /**
+     * Get all classes from database
+     */
     public function getClasses()
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction ORDER BY `number` ASC;");
+                $sql->execute();
+
+                $results = $sql->fetchAll();
+
+                return $results;
+            } catch (\Throwable $th) 
             {
-                throw new PDOException("No connection with database!");       
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction ORDER BY `number` ASC;");
-            $sql->execute();
-
-            // fetch results
-            $results = $sql->fetchAll();
-
-            // close connection
-            $db = null;
-
-            // return results
-            return $results;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
+        
     }
 
-
-    // add new class
+    /**
+     * add new class
+     * 
+     * @param int $number
+     * @param string $name
+     */
     public function addNewClass($number, $name)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
-            }
-
-            // sql
-            $sql = $db->prepare("INSERT INTO $this->direction VALUES (null, :number, :name);");
+            try {
+                $sql = $this->db->prepare("INSERT INTO $this->direction VALUES (null, :number, :name);");
             
-            $sql->bindValue(":number", $number, PDO::PARAM_INT);
-            $sql->bindValue(":name", $name, PDO::PARAM_STR);
-            $sql->execute();
+                $sql->bindValue(":number", (int)$number, PDO::PARAM_INT);
+                $sql->bindValue(":name", htmlentities($name), PDO::PARAM_STR);
+                $sql->execute();
 
-            // close connection
-            $db = null;
-
-            // return true
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            //return $er->getMessage();
-            return false;
+                return true;
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
-    // return values via id
+    /**
+     * Return values via id
+     * 
+     * @param int $id 
+     */
     public function returnRow($id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                $sql = $this->db->prepare("SELECT * FROM $this->direction WHERE id = :id");
+                $sql->bindValue(":id", $id, PDO::PARAM_INT);
+                $sql->execute();
+
+                $result = $sql->fetch();
+
+                return $result;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("SELECT * FROM $this->direction WHERE id = :id");
-            $sql->bindValue(":id", $id, PDO::PARAM_INT);
-            $sql->execute();
-
-            // fetch result
-            $result = $sql->fetch();
-
-            // close connection
-            $db = null;
-
-            // return result
-            return $result;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
-    // delete class row/rows
+    /**
+     * delete class row/rows
+     * 
+     * @param array<int> $rows_id
+     */
     public function deleteRows($rows_id)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                // foreach sql
+                foreach ($rows_id as $key => $value) 
+                {
+                    $sql = $this->db->prepare("DELETE FROM $this->direction WHERE id = :id");
+            
+                    $sql->bindValue(":id", $value, PDO::PARAM_INT);
+                    $sql->execute();
+                }
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // foreach sql
-            foreach ($rows_id as $key => $value) 
-            {
-                $sql = $db->prepare("DELETE FROM $this->direction WHERE id = :id");
-         
-                $sql->bindValue(":id", $value, PDO::PARAM_INT);
-                $sql->execute();
-            }
-
-            // close connection
-            $db = null;
-
-            // return true
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
-    // update class
+    /**
+     * Update class data
+     * 
+     * @param int $id
+     * @param int $number
+     * @param string $name
+     */
     public function updateClass($id, $number, $name)
     {
-        try 
+        if($this->db)
         {
-            // get db
-            $db = get_database(); 
-            if(!$db)
-            {
-                throw new PDOException("No connection with database!");       
+            try {
+                // sql
+                $sql = $this->db->prepare("UPDATE $this->direction SET `number` = :numberclass, `name` = :nameclass WHERE id = :idclass");
+                $sql->bindValue(":idclass", $id, PDO::PARAM_INT);
+                $sql->bindValue(":numberclass", $number, PDO::PARAM_INT);
+                $sql->bindValue(":nameclass", htmlentities($name), PDO::PARAM_STR);
+                $sql->execute();
+
+                return true;
+            } catch (\Throwable $th) {
+                return false;
             }
-
-            // sql
-            $sql = $db->prepare("UPDATE $this->direction SET `number` = :numberclass, `name` = :nameclass WHERE id = :idclass");
-            $sql->bindValue(":idclass", $id, PDO::PARAM_INT);
-            $sql->bindValue(":numberclass", $number, PDO::PARAM_INT);
-            $sql->bindValue(":nameclass", $name, PDO::PARAM_STR);
-            $sql->execute();
-
-            // close connection
-            $db = null;
-
-            // return true
-            return true;
-        } 
-        catch(PDOException $er) 
-        {
-            // return $er->getMessage();
-            return false;
         }
     }
 
-    // return table name
+    /**
+     * Return table name
+     */
     public function returnTableName()
     {
         return $this->direction;
